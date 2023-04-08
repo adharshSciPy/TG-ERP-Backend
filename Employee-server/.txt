@@ -1,0 +1,25 @@
+{
+  "EmpCode" : "1",
+  "Name" : "Vishva",
+  "DOB" : "05/03/2000",
+  "Phone" : 99999999999,
+  "Address" : "abc",
+  "Department" : "CS",
+  "Designation" : "MERN Stack Developer",
+  
+  "BankAccNo" : "123456678889",
+  "BankAccName" : "Vishva k",
+  "BankBranch" : "KZM",
+  "BankIFSCCode" : "cnjew156236",
+
+  "PFNO" : "131251",
+  "ESI" : "95dw",
+  "UAN" : "1325658vbnv",
+
+  "From" : "10am",
+  "To" : "12pm",
+
+  "Email" : "vishva@gmail.com",
+  "Password" : "123456@V",
+  "Role" : "Mern Stack Developer"
+}
