@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 async function connect() {
     // mongodb connection
     mongoose.set('strictQuery', false)
-    await mongoose.connect('mongodb+srv://adharshscipy:adharshscipy@cluster0.dgrvtap.mongodb.net/?retryWrites=true&w=majority')
+    await mongoose.connect(process.env.MONGO_URI)
         .then(() => {
             console.log('Mongodb Connected')
         })
