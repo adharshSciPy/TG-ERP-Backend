@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 const app = express();
 const connect = require('./mongodb/config');
 const employeeRoute = require('./routes/employeeRoute');
