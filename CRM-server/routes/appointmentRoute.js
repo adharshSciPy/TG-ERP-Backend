@@ -12,16 +12,16 @@ router.get("/appointmentdetails", appointmentController.appointmentDetails);
 
 //delete
 
-router.delete(" deleteAppointment/:id", appointmentController.deleteAppointment);
+router.delete("/deleteAppointment/:id", appointmentController.deleteAppointment);
 
 //put
 
-router.put("updateAppointment/:id", appointmentController.updateAppointment);
+router.put("/updateAppointment/:id", appointmentController.updateAppointment);
 
 
 // get by id
 
-router.get("getAppointment/:id", appointmentController.getAppointment);
+router.get("/getAppointment/:id", appointmentController.getAppointment);
 
 
 module.exports = router;

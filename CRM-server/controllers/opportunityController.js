@@ -16,9 +16,10 @@ module.exports = {
       console.log("Details added");
     }
     catch (error) {
-      res.status(400).json({ message: error.message })
+      res.status(400).json({ message: error.message });
     }
   },
+
   opportunityDetails: async (req, res) => {
     try {
       const user = await Opportunity.find();
@@ -27,6 +28,7 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+
   deleteOpportunity: async (req, res) => {
     try {
       const user = await Opportunity.findByIdAndDelete(req.params.id);
@@ -36,6 +38,7 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+
   updateOpportunity: async (req, res) => {
     try {
       await Opportunity.findByIdAndUpdate(req.params.id, {
@@ -51,6 +54,7 @@ module.exports = {
       res.status(500).json("ServerError");
     }
   },
+
   getOpportunity: async (req, res) => {
     const user = req.params;
     try {

@@ -1,4 +1,6 @@
 CRM-server/node_modules
-
+CRM-server/.env
 Employee-server/node_modules
 Employee-server/.env
+Sales-server/node_modules
+Sales-server/.env
