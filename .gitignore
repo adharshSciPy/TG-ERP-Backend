@@ -4,3 +4,7 @@ Employee-server/node_modules
 Employee-server/.env
 Sales-server/node_modules
 Sales-server/.env
+RFQ-server/node_modules
+RFQ-server/.env
+PurchaseModule-server/node_modules
+PurchaseModule-server/.env

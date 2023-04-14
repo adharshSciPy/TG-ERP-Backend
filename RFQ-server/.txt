@@ -1,0 +1,59 @@
+purchaseitem
+{
+  "Type": 'cricket',
+  "ItemCategory": 'sport',
+  "Item": 'bat',
+  "Quantity": 3,
+  "Unit": 5,
+  "UnitPrize": 5000,
+  "Total": 15000
+}
+
+purchaseorder
+{
+    "REQNo": 1,
+    "RequisitionDate": "2016-05-18T16:00:00Z",
+    "Supplier": "vhfsygvys",
+    "Address": "jdgacydgayc",
+    "City": "hgvys",
+    "State": "kcgh",
+    "Zipcode": "hduig",
+    "FedID": "duivg",
+    "Phone": 25946,
+    "Email": "ugcu",
+    "OrganizationName": "cucgu",
+    "Building": "jdug",
+    "RoomNumber": 8965,
+    "NeedbyDate": "2016-05-18T16:00:00Z",
+    "Due": 254,
+    "Paid": 1451,
+    "Carrier": "jgv",
+    "FOB": "ucud",
+    "Destination": "ccu",
+    "FCA": "cyc",
+    "Orgin": "dhvcdyh",
+    "SupplierNote": "yfutf",
+    "Confirmation": "ftyg",
+}
+
+Rfq
+{
+    "RequisitionDate": "2016-05-18T16:00:00Z",
+    "PurchaseRequisition": "gcsygcd",
+    "TypeofRequisition": "kgcd",
+    "JDERequisition": "gdd",
+    "Company": "scysf",
+    "CompanyCode": "cidyg",
+    "RequisitorsName": "dugfuoih",
+    "ProjectName": "iutdiuvg",
+    "ProjectCode": "dufgdui",
+    "Phone": 655562,
+    "Department": "dgvduv",
+    "DeliveryDate": "2016-05-18T16:00:00Z",
+    "Priority": "vgfyvgs",
+    "PointofDelivery": "2016-05-18T16:00:00Z",
+    "Receivedby": "gidvuagv",
+    "Contactdetails": "vkdgvu",
+    "Product": "dgb",
+    "Specialinstruction": "scug"
+}        
