@@ -1,0 +1,10 @@
+{
+  QuoteNo: 1,
+  QuoteSubject: 'initial',
+  QuoteStage: 'fisrtstage',
+  Notes: 'firstquote',
+  ValidUntil: 2016-05-18T16:00:00.000Z,
+  Terms: 'great',
+  BillingAddress: 'palayam',
+  TaxInformation: 'taxpaid'
+}

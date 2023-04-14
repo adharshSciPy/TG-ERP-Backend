@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.use("/accountRoute",accountRoute);
 app.use("/appointmentRoute",appointmentRoute);
 app.use("/customerRoute",customerRoute);
-app.use("/ opportunityRoute", opportunityRoute);
+app.use("/opportunityRoute", opportunityRoute);
 
 
 app.listen(PORT, () => {console.log(`Server started at ${PORT}`)})

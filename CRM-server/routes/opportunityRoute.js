@@ -12,15 +12,15 @@ router.get("/opportunityDetails", opportunityController.opportunityDetails);
 
 //delete
 
-router.delete("deleteOpportunity/:id", opportunityController.deleteOpportunity);
+router.delete("/deleteOpportunity/:id", opportunityController.deleteOpportunity);
 
 
 //put
 
-router.put("updateOpportunity/:id", opportunityController.updateOpportunity);
+router.put("/updateOpportunity/:id", opportunityController.updateOpportunity);
 
 // get by id
 
-router.get("getOpportunity/:id", opportunityController.getOpportunity);
+router.get("/getOpportunity/:id", opportunityController.getOpportunity);
 
 module.exports = router;

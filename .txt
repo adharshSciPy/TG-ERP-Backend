@@ -1,0 +1,47 @@
+appointment
+{
+    "ScheduleCall":"schedule",
+    "ScheduleMeeting":"monday",
+    "Subject":"mernstack",
+    "Description":"development management",
+    "StartDate":"25-5-2023"
+}
+
+customer
+{
+    "FirstName" : "vishva",
+    "LastName" : "k",
+    "PrimaryAccount" : "officeaccount",
+    "Title" : "scipy",
+    "PhoneWork" : "official",
+    "PhoneHome" : "personal",
+    "PhoneMobile" : "mobile",
+    "PhoneOther" : "secondary",
+    "Website" : "www.scipy.com",
+    "Assigned" : "assign",
+    "Teams" : "officeteam",
+    "Partner" : "officepartner",
+    "Category" : "company",
+    "Department" : "itdepartment",
+    "BusinessRole" : "jobrole",
+    "Reports" : "file",
+    "AssistantPh" : "assistph",
+    "PrimaryCity" : "tvm",
+    "PrimaryState" : "kerala",
+    "PrimaryCountry" : "india",
+    "PrimaryPostal" : "keralapostal",
+    "SecondaryCity" : "newyork",
+    "SecondaryState" : "california",
+    "SecondaryCountry" : "america",
+    "SecondaryPostal" : "ameri",
+    "Description" : "working"
+}
+
+opportunity
+{
+    "OpportunityName" : "vishva",
+    "SalesStage" : "initial",
+    "Description" : 50,
+    "CloseDate" : "2016-05-18T16:00:00Z",
+    "Amount" : 50000
+}

@@ -13,16 +13,16 @@ router.get("/customerdetails", customerController.customerDetails);
 
 //delete
 
-router.delete("deleteCustomer/:id", customerController.deleteCustomer);
+router.delete("/deleteCustomer/:id", customerController.deleteCustomer);
 
 //put
 
-router.put("updateCustomer/:id", customerController.updateCustomer);
+router.put("/updateCustomer/:id", customerController.updateCustomer);
 
 
 // get by id
 
-router.get("getCustomer/:id", customerController.getCustomer);
+router.get("/getCustomer/:id", customerController.getCustomer);
 
 
 module.exports = router;
