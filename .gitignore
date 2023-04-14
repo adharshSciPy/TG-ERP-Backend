@@ -2,3 +2,12 @@ CRM-server/node_modules
 
 Employee-server/node_modules
 Employee-server/.env
+
+Inventory-Management-server/node_modules
+Inventory-Management-server/.env
+
+PRJ-Management-server/node_modules
+PRJ-Management-server/.env
+
+Product-server/node_modules
+Product-server/.env

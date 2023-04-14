@@ -1,0 +1,9 @@
+{
+    "SKUNo" : ,
+    "ItemName" : "",
+    "UnitOFMeasurement" : "",
+    "ItemCategory" : "",
+    "CurrentStock" : "",
+    "Price" : ,
+    "Tax" : 
+}
