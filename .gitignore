@@ -1,6 +1,8 @@
 CRM-server/node_modules
 CRM-server/.env
 
+Authentication/node_modules
+
 Employee-server/node_modules
 Employee-server/.env
 
