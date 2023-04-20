@@ -12,9 +12,13 @@ PRJ-Management-server/.env
 
 Product-server/node_modules
 Product-server/.env
+
 Sales-server/node_modules
 Sales-server/.env
+
 RFQ-server/node_modules
 RFQ-server/.env
+
 PurchaseModule-server/node_modules
 PurchaseModule-server/.env
+    
