@@ -18,7 +18,7 @@ module.exports = {
 
     try {
       if (!isValid) {
-        res.status(404).json(errors);
+        res.status(404).json(errors);  
       } else {
         await User.findOne({ email }).then(async (exist) => {
           if (exist) {
@@ -31,7 +31,7 @@ module.exports = {
               lastName,
               email,
               password: hashedpassword,
-              role:"owner",
+              role:"user",
             });
             res.status(201).json({ message: "user added with success"});
           }
