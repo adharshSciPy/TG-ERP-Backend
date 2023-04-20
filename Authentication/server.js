@@ -3,6 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./config/db");
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser');
+
+
 
 
 //load env variables
@@ -31,9 +34,15 @@ app.use(
 
 
 app.use(userRoutes);
-
+app.use(bodyParser.json());
 
 
 app.listen(PORT, function () {
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);
 });
+
+// company
+
+const companyRoute = require('./routes/companyRoute');
+app.use("/companyRoute", companyRoute);
+
