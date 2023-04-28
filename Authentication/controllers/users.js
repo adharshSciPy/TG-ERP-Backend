@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library");
+const { OAuth2Client } = require("google-auth-library");      
 const fetch = require("node-fetch");
 
 // Load User model
@@ -122,6 +122,22 @@ module.exports = {
 
     }
    },
+   InitializeCompany: async (req, res) => {
+    const {Companyid,userid} =req.body;
+    try {
+      await User.findByIdAndUpdate(req.params.id, {
+          role:"owner",
+          Company: Companyid
+      });
+      const token = jwt.sign({ _id: userid, role: "owner"}, "sooraj_DOING_GOOD", {
+        expiresIn: "8h",
+      });
+      res.status(200).json(token);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json("ServerError");
+    }
+  },
 
 
   //  ---------------------------------------- //Google Authentication //--------------------------- //

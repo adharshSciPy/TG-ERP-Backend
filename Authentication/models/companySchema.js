@@ -26,7 +26,7 @@ const companySchema = new mongoose.Schema({
     },
     DateOFIncoperation: {
         type: Date,
-        require: true
+        require: false
     },
     PhoneNo: {
         type: Number,
@@ -38,7 +38,7 @@ const companySchema = new mongoose.Schema({
     },
     Website: {
         type: String,
-        require: true
+        require: false
     },
     Address: {
         type: String,

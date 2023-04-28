@@ -1,4 +1,5 @@
 const Company = require("../models/companySchema");
+const jwt = require("jsonwebtoken");
 module.exports = {
 
     // post
@@ -18,6 +19,7 @@ module.exports = {
             Address: req.body.Address,
             CompanyDescription: req.body.CompanyDescription
         });
+       
         console.log(data);
 
         try {

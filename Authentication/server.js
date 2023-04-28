@@ -4,10 +4,8 @@ const cors = require("cors");
 const db = require("./config/db");
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
-
-
-
-
+const userRoutes = require("./routes/users");
+const companyRoute = require('./routes/companyRoute');
 //load env variables
 require("dotenv").config();
 
@@ -21,7 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../client/public"));
 app.use(cookieParser())
-const userRoutes = require("./routes/users");
+app.use(bodyParser.json());
+
 
 app.use(
   cors({
@@ -34,15 +33,9 @@ app.use(
 
 
 app.use(userRoutes);
-app.use(bodyParser.json());
+app.use("/companyRoute", companyRoute);
 
 
 app.listen(PORT, function () {
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);
 });
-
-// company
-
-const companyRoute = require('./routes/companyRoute');
-app.use("/companyRoute", companyRoute);
-
