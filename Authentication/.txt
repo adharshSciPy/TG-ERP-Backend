@@ -1,0 +1,14 @@
+{
+  "CompanyName" : "Scipu",
+  "TagLine" : "Think Different",
+  "EntityType" : "xyz",
+  "Industry" : "IT",
+  "NoOFEmployee" : "50",
+  "YourDesignation" : "abc",
+  "DateOFIncoperation" : "01-02-2023",
+  "PhoneNo" : 123456678889,
+  "Email" : "scipy@gmail.com",
+  "Website" : "www.scipy.com",
+  "Address" : "xyz",
+  "CompanyDescription" : "abcd"
+}
