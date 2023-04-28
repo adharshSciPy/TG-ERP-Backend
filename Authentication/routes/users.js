@@ -9,7 +9,7 @@ router.post("/signup", UserController.signup);
 // GET request for user login.
 router.post("/signin", UserController.signin);
 router.post('/auth', UserController.verifyToken)
-router.get(`/getuser/:id`,UserController.getUser)
+router.get(`/getuser/:id`, UserController.getUser)
 
 // POST request to handle the Google Login response.
 router.post("/google-login", UserController.googleLogin);

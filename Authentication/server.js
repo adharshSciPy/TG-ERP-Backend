@@ -28,10 +28,7 @@ app.use(
 );
 //Require application Route modules
 
-
-
 app.use(userRoutes);
-
 
 
 app.listen(PORT, function () {
