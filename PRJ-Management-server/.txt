@@ -1,0 +1,16 @@
+{
+    "PrjName" : "",
+    "Type" : "",
+    "Description" : "",
+    "Account" : "",
+    "AssignedTo" : "",
+    "Teams" : "",
+
+    "Status" : "",
+    "StartDate" : "",
+    "EndDate" : "",
+    "UseTimesheet" : "",
+    "Amount" : "",
+    "LeadSource" : "",
+    "Progress" : ""
+}

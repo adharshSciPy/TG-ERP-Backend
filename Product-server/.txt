@@ -1,0 +1,24 @@
+{
+    "Name" : "",
+    "Ribbon" : "",
+    "Description" : "",
+    "Category" : "",
+    "Tax" : ,
+    "Fulfilledby" : "",
+    "Brand" : "",
+
+
+    "Price" : ,
+    "OnSale" : "",
+    "ShowPricePerUnit" : "",
+    "CostOFGoods" : ,
+    "Profit" : ,
+    "Margin" : ,
+
+    "Type" : "",
+    "Choice" : "",
+
+    "Status" : "",
+    "SKU" : ""
+
+}
