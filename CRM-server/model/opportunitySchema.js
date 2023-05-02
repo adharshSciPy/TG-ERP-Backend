@@ -9,7 +9,7 @@ const opportunitySchema = new mongoose.Schema({
         require: true
     },
     Description: {
-        type: Number,
+        type: String,       
         require: true
     },
     CloseDate: {
