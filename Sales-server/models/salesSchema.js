@@ -2,31 +2,31 @@ const mongoose = require('mongoose')
 const salesSchema = new mongoose.Schema({
     OrderNumber: {
         type: Number,
-        require: true
+        required: true
     },
     Product: {
         type: Array,
-        require: true
+        required: true
     },
     Day: {
         type: String,
-        require: true
+        required: true
     },
     Month: {
         type: String,
-        require: true
+        required: true
     },
     Year: {
         type: String,
-        require: true
+        required: true
     },
     Status: {
         type: String,
-        require: true
+        required: true
     },
-    Totalamount: {
+    TotalAmount: {
         type: Number,
-        require: true
+        required: true
     }
 })
 const Sales = mongoose.model("sales", salesSchema);
