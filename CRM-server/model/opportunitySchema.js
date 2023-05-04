@@ -2,23 +2,23 @@ const mongoose = require('mongoose')
 const opportunitySchema = new mongoose.Schema({
     OpportunityName: {
         type: String,
-        require: true
+        required: true
     },
     SalesStage: {
         type: String,
-        require: true
+        required: true
     },
     Description: {
-        type: String,       
-        require: true
+        type: String,
+        required: true
     },
     CloseDate: {
         type: Date,
-        require: true
+        required: true
     },
     Amount: {
         type: Number,
-        require: true
+        required: true
     }
 })
 const Opportunity = mongoose.model("opportunity", opportunitySchema);

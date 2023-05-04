@@ -2,107 +2,107 @@ const mongoose = require('mongoose')
 const customerSchema = new mongoose.Schema({
     FirstName: {
         type: String,
-        require: true
+        required: true
     },
     LastName: {
         type: String,
-        require: true
+        required: true
     },
     PrimaryAccount: {
         type: String,
-        require: true
+        required: true
     },
     Title: {
         type: String,
-        require: true
+        required: true
     },
     PhoneWork: {
         type: String,
-        require: true
+        required: true
     },
     PhoneHome: {
         type: String,
-        require: true
+        required: true
     },
     PhoneMobile: {
         type: String,
-        require: true
+        required: true
     },
     PhoneOther: {
         type: String,
-        require: true
+        required: true
     },
     Website: {
         type: String,
-        require: true
+        required: true
     },
     Assigned: {
         type: String,
-        require: true
+        required: true
     },
     Teams: {
         type: String,
-        require: true
+        required: true
     },
     Partner: {
         type: String,
-        require: true
+        required: true
     },
     Category: {
         type: String,
-        require: true
+        required: true
     },
     Department: {
         type: String,
-        require: true
+        required: true
     },
     BusinessRole: {
         type: String,
-        require: true
+        required: true
     },
     Reports: {
         type: String,
-        require: true
+        required: true
     },
     AssistantPh: {
         type: String,
-        require: true
+        required: true
     },
     PrimaryCity: {
         type: String,
-        require: true
+        required: true
     },
     PrimaryState: {
         type: String,
-        require: true
+        required: true
     },
     PrimaryCountry: {
         type: String,
-        require: true
+        required: true
     },
     PrimaryPostal: {
         type: String,
-        require: true
+        required: true
     },
     SecondaryCity: {
         type: String,
-        require: true
+        required: true
     },
     SecondaryState: {
         type: String,
-        require: true
+        required: true
     },
     SecondaryCountry: {
         type: String,
-        require: true
+        required: true
     },
     SecondaryPostal: {
         type: String,
-        require: true
+        required: true
     },
     Description: {
         type: String,
-        require: true
+        required: true
     }
 })
 const Customer = mongoose.model("customer", customerSchema);
