@@ -5,31 +5,31 @@ const inventorymanagementSchema = new mongoose.Schema({
 
     SKUNo: {
         type: Number,
-        require: true
+        required: true
     },
     ItemName: {
         type: String,
-        require: true
+        required: true
     },
     UnitOFMeasurement: {
         type: String,
-        require: true
+        required: true
     },
     ItemCategory: {
         type: String,
-        require: true
+        required: true
     },
     CurrentStock: {
         type: String,
-        require: true
+        required: true
     },
     Price: {
         type: Number,
-        require: true
+        required: true
     },
     Tax: {
         type: Number,
-        require: true
+        required: true
     }
 })
 const Inventorymanagement = mongoose.model("inventorymanagement", inventorymanagementSchema);
