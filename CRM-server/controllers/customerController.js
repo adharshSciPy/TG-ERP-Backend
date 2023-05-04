@@ -13,7 +13,7 @@ module.exports = {
       Website: req.body.Website,
       Assigned: req.body.Assigned,
       Teams: req.body.Teams,
-      Partner: req.body.Partner,
+      Partner: req.body.Partner,  
       Category: req.body.Category,
       Department: req.body.Department,
       BusinessRole: req.body.BusinessRole,
