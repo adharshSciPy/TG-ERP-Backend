@@ -36,6 +36,6 @@ app.use(userRoutes);
 app.use("/companyRoute", companyRoute);
 
 
-app.listen(PORT, function () {
+app.listen(PORT,() =>{
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);
 });

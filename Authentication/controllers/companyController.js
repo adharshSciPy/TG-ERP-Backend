@@ -1,5 +1,5 @@
 const Company = require("../models/companySchema");
-const jwt = require("jsonwebtoken");
+
 module.exports = {
 
     // post
