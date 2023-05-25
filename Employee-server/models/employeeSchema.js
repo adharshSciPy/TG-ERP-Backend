@@ -2,91 +2,91 @@ const mongoose = require('mongoose')
 const employeeSchema = new mongoose.Schema({
     EmpCode: {
         type: String,
-        require: true
+        required: true
     },
     Name: {
         type: String,
-        require: true
+        required: true
     },
     DOB: {
         type: String,
-        require: true
+        required: true
     },
     Phone: {
         type: Number,
-        require: true
+        required: true
     },
     Address: {
         type: String,
-        require: true
+        required: true
     },
     Department: {
         type: String,
-        require: true
+        required: true
     },
     Designation: {
         type: String,
-        require: true
+        required: true
     },
 
     // Bank Account
     
     BankAccNo: {
         type: Number,
-        require: true
+        required: true
     },
     BankAccName: {
         type: String,
-        require: true
+        required: true
     },
     BankBranch: {
         type: String,
-        require: true
+        required: true
     },
     BankIFSCCode: {
         type: String,
-        require: true
+        required: true
     },
 
     // ------------------- //
 
     PFNo: {
         type: Number,
-        require: true
+        required: true
     },
     ESI: {
         type: String,
-        require: true
+        required: true
     },
     UAN: {
         type: String,
-        require: true
+        required: true
     },
 
     // Working Time
 
     From: {
         type: String,
-        require: true
+        required: true
     },
     To: {
         type: String,
-        require: true
+        required: true
     },
 
     // -------------------- //
 
     Email: {
         type: String,
-        require: true
+        required: true
     },
     Password: {
         type: String,
-        require: true
+        required: true
     },
     Role: {
         type: String,
-        require: true
+        required: true
     }
 })
 const Employee = mongoose.model("employee", employeeSchema);

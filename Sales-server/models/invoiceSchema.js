@@ -2,51 +2,51 @@ const mongoose = require('mongoose')
 const invoiceSchema = new mongoose.Schema({
     InvoiceNumber: {
         type: Number,
-        require: true
+        required: true
     },
     InvoiceSubject: {
         type: String,
-        require: true
+        required: true
     },
     Notes: {
         type: String,
-        require: true
+        required: true
     },
     Terms: {
         type: String,
-        require: true
+        required: true
     },
     InvoiceDate: {
         type: Date,
-        require: true
+        required: true
     },
     DueDate: {
         type: Date,
-        require: true
+        required: true
     },
     AmountDue: {
         type: Number,
-        require: true
+        required: true
     },
     QuoteNo: {
         type: Number,
-        require: true
+        required: true
     },
     OrderNo: {
         type: Number,
-        require: true
+        required: true
     },
     PurchaseOrderNo: {
         type: Number,
-        require: true
+        required: true
     },
     BillingAddress: {
         type: String,
-        require: true
+        required: true
     },
     TaxInformation: {
         type: String,
-        require: true
+        required: true
     }
 })
 const Invoice = mongoose.model("invoice", invoiceSchema);

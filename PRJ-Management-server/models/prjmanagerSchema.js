@@ -5,58 +5,58 @@ const prjmanagerSchema = new mongoose.Schema({
 
     PrjName: {
         type: String,
-        require: true
+        required: true
     },
     Type: {
         type: String,
-        require: true
+        required: true
     },
-    Description: {
+    Description : {
         type: String,
-        require: true
+        required: true
     },
     Account: {
         type: String,
-        require: true
+        required: true
     },
     AssignedTo: {
         type: String,
-        require: true
+        required: true
     },
     Teams: {
         type: String,
-        require: true
+        required: true
     },
 
     // General
 
     Status: {
         type: String,
-        require: true
+        required: true
     },
     StartDate: {
         type: String,
-        require: true
+        required: true
     },
     EndDate: {
         type: String,
-        require: true
+        required: true
     },
     UseTimesheet: {
         type: String,
-        require: true
+        required: true
     },
     Amount: {
         type: Number,
-        require: true
+        required: true
     },
     LeadSource: {
         type: String,
-        require: true
+        required: true
     },
     Progress: {
         type: String,
-        require: true
+        required: true
     }
 })
 const Prjmanager = mongoose.model("prjmanager", prjmanagerSchema);

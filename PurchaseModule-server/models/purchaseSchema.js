@@ -2,39 +2,39 @@ const mongoose = require('mongoose')
 const purchaseSchema = new mongoose.Schema({
     QuoteNo: {
         type: Number,
-        require: true
+        required: true
     },
     QuoteSubject: {
         type: String,
-        require: true
+        required: true
     },
     QuoteStage: {
         type: String,
-        require: true
+        required: true
     },
     Notes: {
         type: String,
-        require: true
+        required: true
     },
     ValidUntil: {
         type: Date,
-        require: true
+        required: true
     },
     Terms: {
         type: String,
-        require: true
+        required: true
     },
     BillingAddress: {
         type: String,
-        require: true
+        required: true
     },
     TaxInformation: {
         type: String,
-        require: true
+        required: true
     },
     TotalAmount: {
         type: Number,
-        require: true
+        required: true
     }
 })
 const Purchase = mongoose.model("purchase", purchaseSchema);

@@ -30,11 +30,8 @@ app.use(
 );
 //Require application Route modules
 
-
-
 app.use(userRoutes);
 app.use("/companyRoute", companyRoute);
-
 
 app.listen(PORT,() =>{
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);

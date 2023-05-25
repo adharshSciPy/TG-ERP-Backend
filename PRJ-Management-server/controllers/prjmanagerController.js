@@ -7,7 +7,7 @@ module.exports = {
     const data = new Prjmanager({
         PrjName: req.body.PrjName,
         Type: req.body.Type,
-        Description: req.Description,
+        Description: req.body.Description,
         Account: req.body.Account,
         AssignedTo: req.body.AssignedTo,
         Teams: req.body.Teams,
@@ -66,7 +66,7 @@ module.exports = {
       await Prjmanager.findByIdAndUpdate(req.params.id, {
         PrjName: req.body.PrjName,
         Type: req.body.Type,
-        Description: req.Description,
+        Description: req.body.Description,
         Account: req.body.Account,
         AssignedTo: req.body.AssignedTo,
         Teams: req.body.Teams,

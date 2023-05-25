@@ -7,7 +7,7 @@ module.exports = {
     const data = new Inventorymanagement({
         SKUNo: req.body.SKUNo,
         ItemName: req.body.ItemName,
-        UnitOFMeasurement: req.UnitOFMeasurement,
+        UnitOFMeasurement: req.body.UnitOFMeasurement,
         ItemCategory: req.body.ItemCategory,
         CurrentStock: req.body.CurrentStock,
         Price: req.body.Price,
@@ -57,7 +57,7 @@ module.exports = {
       await Inventorymanagement.findByIdAndUpdate(req.params.id, {
           SKUNo: req.body.SKUNo,
           ItemName: req.body.ItemName,
-          UnitOFMeasurement: req.UnitOFMeasurement,
+          UnitOFMeasurement: req.body.UnitOFMeasurement,
           ItemCategory: req.body.ItemCategory,
           CurrentStock: req.body.CurrentStock,
           Price: req.body.Price,

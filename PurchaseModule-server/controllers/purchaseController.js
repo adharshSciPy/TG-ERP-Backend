@@ -10,7 +10,7 @@ module.exports = {
             Terms: req.body.Terms,
             BillingAddress: req.body.BillingAddress,
             TaxInformation: req.body.TaxInformation,
-            Totalamount: req.body.Totalamount
+            TotalAmount: req.body.TotalAmount
         });
         console.log(data);
 
@@ -54,7 +54,7 @@ module.exports = {
                 Terms: req.body.Terms,
                 BillingAddress: req.body.BillingAddress,
                 TaxInformation: req.body.TaxInformation,
-                Totalamount: req.body.Totalamount
+                TotalAmount: req.body.TotalAmount
             });
             res.status(200).json("Successfully updated");
         } catch (error) {
