@@ -1,53 +1,63 @@
 const Customer = require('../model/customerSchema');
 module.exports = {
-  createCustomer: async (req, res) => {
+
+  createCustomerCollection: async (req, res) => {
     const data = new Customer({
-      FirstName: req.body.FirstName,
-      LastName: req.body.LastName,
-      PrimaryAccount: req.body.PrimaryAccount,
-      Title: req.body.Title,
-      PhoneWork: req.body.PhoneWork,
-      PhoneHome: req.body.PhoneHome,
-      PhoneMobile: req.body.PhoneMobile,
-      PhoneOther: req.body.PhoneOther,
-      Website: req.body.Website,
-      Assigned: req.body.Assigned,
-      Teams: req.body.Teams,
-      Partner: req.body.Partner,
-      Category: req.body.Category,
-      Department: req.body.Department,
-      BusinessRole: req.body.BusinessRole,
-      Reports: req.body.Reports,
-      AssistantPh: req.body.AssistantPh,
-      PrimaryCity: req.body.PrimaryCity,
-      PrimaryState: req.body.PrimaryState,
-      PrimaryCountry: req.body.PrimaryCountry,
-      PrimaryPostal: req.body.PrimaryPostal,
-      SecondaryCity: req.body.SecondaryCity,
-      SecondaryState: req.body.SecondaryState,
-      SecondaryCountry: req.body.SecondaryCountry,
-      SecondaryPostal: req.body.SecondaryPostal,
-      Description: req.body.Description
-
+      companyId: req.body.companyId,
     });
-    console.log(data);
-
     try {
       const dataToSave = await data.save();
-      if (!dataToSave) {
-        console.log("Details failed");
-        res.status(400).json({ message: "fail to save" })
-      }
-      else {
-        res.status(200).json(dataToSave);
-        console.log("Details added");
-      }
-
-
+      res.status(200).json(dataToSave);
+      console.log("Details added");
     }
     catch (error) {
       res.status(400).json({ message: error.message })
     }
+  },
+
+
+  createCustomer: async (req, res) => {
+    
+    const data = new Customer({
+      customers: {
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        PrimaryAccount: req.body.PrimaryAccount,
+        Title: req.body.Title,
+        PhoneWork: req.body.PhoneWork,
+        PhoneHome: req.body.PhoneHome,
+        PhoneMobile: req.body.PhoneMobile,
+        PhoneOther: req.body.PhoneOther,
+        Website: req.body.Website,
+        Assigned: req.body.Assigned,
+        Teams: req.body.Teams,
+        Partner: req.body.Partner,
+        Category: req.body.Category,
+        Department: req.body.Department,
+        BusinessRole: req.body.BusinessRole,
+        Reports: req.body.Reports,
+        AssistantPh: req.body.AssistantPh,
+        PrimaryCity: req.body.PrimaryCity,
+        PrimaryState: req.body.PrimaryState,
+        PrimaryCountry: req.body.PrimaryCountry,
+        PrimaryPostal: req.body.PrimaryPostal,
+        SecondaryCity: req.body.SecondaryCity,
+        SecondaryState: req.body.SecondaryState,
+        SecondaryCountry: req.body.SecondaryCountry,
+        SecondaryPostal: req.body.SecondaryPostal,
+        Description: req.body.Description
+      }
+    });
+    Customer.findByIdAndUpdate(req.params.id, { $push: { customers: data.customers } })
+      .then(() => {
+        res.status(200).json("Successfully Uploaded");
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError");
+      });
+
+
   },
   customerDetails: async (req, res) => {
     try {

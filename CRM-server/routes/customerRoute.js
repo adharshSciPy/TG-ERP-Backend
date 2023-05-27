@@ -4,8 +4,8 @@ const customerController = require("../controllers/customerController");
 const router = express.Router();
 
 // post
-
-router.post("/customer", customerController.createCustomer);
+router.post("/addCustomerCollection", customerController.createCustomerCollection)
+router.post("/customer/:id", customerController.createCustomer);
 //get
 
 router.get("/customerdetails", customerController.customerDetails);

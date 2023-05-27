@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 app.use("/accountRoute",accountRoute);
 app.use("/appointmentRoute",appointmentRoute);
-app.use("/customerRoute",customerRoute);
+app.use("/customer",customerRoute);
 app.use("/opportunityRoute", opportunityRoute);
 
 

@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const userRoutes = require("./routes/users");
 const companyRoute = require('./routes/companyRoute');
+const indexRoute = require('./routes/indexRoute')
 //load env variables
 require("dotenv").config();
 
@@ -32,6 +33,7 @@ app.use(
 
 app.use(userRoutes);
 app.use("/companyRoute", companyRoute);
+app.use("/index",indexRoute)
 
 app.listen(PORT,() =>{
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);
