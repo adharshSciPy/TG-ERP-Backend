@@ -5,8 +5,8 @@ const rfqController = require("../controllers/rfqController");
 const router = express.Router();
 
 // post
-
-router.post("/rfq", rfqController.rfq);
+router.post("/createRfqCollection", rfqController.createRfqCollection)
+router.post("/rfq/:id", rfqController.rfq);
 
 //get
 

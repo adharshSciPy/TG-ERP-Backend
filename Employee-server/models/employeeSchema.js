@@ -1,93 +1,81 @@
 const mongoose = require('mongoose')
-const employeeSchema = new mongoose.Schema({
+const employeeDetailsSchema = new mongoose.Schema({
     EmpCode: {
-        type: String,
-        required: true
+        type: String
     },
     Name: {
-        type: String,
-        required: true
+        type: String
     },
     DOB: {
-        type: String,
-        required: true
+        type: String
     },
     Phone: {
-        type: Number,
-        required: true
+        type: Number
     },
     Address: {
-        type: String,
-        required: true
+        type: String
     },
     Department: {
-        type: String,
-        required: true
+        type: String
     },
     Designation: {
-        type: String,
-        required: true
+        type: String
     },
 
     // Bank Account
     
     BankAccNo: {
-        type: Number,
-        required: true
+        type: Number
     },
     BankAccName: {
-        type: String,
-        required: true
+        type: String
     },
     BankBranch: {
-        type: String,
-        required: true
+        type: String
     },
     BankIFSCCode: {
-        type: String,
-        required: true
+        type: String
     },
 
     // ------------------- //
 
     PFNo: {
-        type: Number,
-        required: true
+        type: Number
     },
     ESI: {
-        type: String,
-        required: true
+        type: String
     },
     UAN: {
-        type: String,
-        required: true
+        type: String
     },
 
     // Working Time
 
     From: {
-        type: String,
-        required: true
+        type: String
     },
     To: {
-        type: String,
-        required: true
+        type: String
     },
 
     // -------------------- //
 
     Email: {
-        type: String,
-        required: true
+        type: String
     },
     Password: {
-        type: String,
-        required: true
+        type: String
     },
     Role: {
-        type: String,
-        required: true
+        type: String
     }
+});
+const employeeSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    employees:[employeeDetailsSchema]
 })
 const Employee = mongoose.model("employee", employeeSchema);
 module.exports = Employee;

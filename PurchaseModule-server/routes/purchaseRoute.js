@@ -5,8 +5,8 @@ const purchaseController = require("../controllers/purchaseController");
 const router = express.Router();
 
 // post
-
-router.post("/purchase", purchaseController.purchase);
+router.post("/createPurchaseCollection", purchaseController.createPurchaseCollection)
+router.post("/purchase/:id", purchaseController.purchase);
 
 //get
 

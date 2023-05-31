@@ -5,8 +5,8 @@ const salesController = require("../controllers/salesController");
 const router = express.Router();
 
 // post
-
-router.post("/sales", salesController.sales);
+router.post("/createSalesCollection", salesController.createSalesCollection)
+router.post("/sales/:id", salesController.sales);
 
 //get
 

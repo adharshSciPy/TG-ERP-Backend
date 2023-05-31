@@ -100,7 +100,7 @@ const customerDetailsSchema = new mongoose.Schema({
     SecondaryPostal: {
         type: String,
         
-    },
+    },   
     Description: {
         type: String,
         

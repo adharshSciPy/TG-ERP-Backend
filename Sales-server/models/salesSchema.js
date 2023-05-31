@@ -1,33 +1,33 @@
 const mongoose = require('mongoose')
-const salesSchema = new mongoose.Schema({
+const salesDetailsSchema = new mongoose.Schema({
     OrderNumber: {
-        type: Number,
-        required: true
+        type: Number
     },
     Product: {
-        type: Array,
-        required: true
+        type: Array
     },
     Day: {
-        type: String,
-        required: true
+        type: String
     },
     Month: {
-        type: String,
-        required: true
+        type: String
     },
     Year: {
-        type: String,
-        required: true
+        type: String
     },
     Status: {
-        type: String,
-        required: true
+        type: String
     },
     TotalAmount: {
-        type: Number,
-        required: true
+        type: Number
     }
+});
+const salesSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    saless:[salesDetailsSchema]
 })
 const Sales = mongoose.model("sales", salesSchema);
 module.exports = Sales;    

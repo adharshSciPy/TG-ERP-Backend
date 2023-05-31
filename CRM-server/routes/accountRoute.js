@@ -5,8 +5,8 @@ const accountController = require('../controllers/accountController');
 const router = express.Router();
 
 // post
-
-router.post("/createAccount", accountController.createAccount);
+router.post("/createAccountCollection", accountController.createAccountCollection)
+router.post("/createAccount/:id", accountController.createAccount);
 
 //get
 

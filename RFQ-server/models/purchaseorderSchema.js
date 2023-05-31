@@ -1,130 +1,107 @@
 const mongoose = require('mongoose')
-const purchaseorderSchema = new mongoose.Schema({
+const purchaseorderDetailsSchema = new mongoose.Schema({
     REQNo: {
-        type: Number,
-        require: true
+        type: Number
     },
     RequisitionDate: {
-        type: Date,
-        require: true
+        type: Date
     },
     Supplier: {
-        type: String,
-        require: true
+        type: String
     },
     Address: {
-        type: String,
-        require: true
+        type: String
     },
     City: {
-        type: String,
-        require: true
+        type: String
     },
     State: {
-        type: String,
-        require: true
+        type: String
     },
     Zipcode: {
-        type: String,
-        require: true
+        type: String
     },
     //Socialsec/
     FedID: {
-        type: String,
-        require: true
+        type: String
     },
     Phone: {
-        type: Number,
-        require: true
+        type: Number
     },
     Email: {
-        type: String,
-        require: true
+        type: String
     },
     //ship in address
     OrganizationName: {
-        type: String,
-        require: true
+        type: String
     },
     Building: {
-        type: String,
-        require: true
+        type: String
     },
     RoomNumber: {
-        type: Number,
-        require: true
+        type: Number
     },
     NeedbyDate: {
-        type: Date,
-        require: true
+        type: Date
     },
     //payment terms
     Due: {
-        type: Number,
-        require: true
+        type: Number
     },
     Paid: {
-        type: Number,
-        require: true
+        type: Number
     },
     Carrier: {
-        type: String,
-        require: true
+        type: String
     },
     FOB: {
-        type: String,
-        require: true
+        type: String
     },
     Destination: {
-        type: String,
-        require: true
+        type: String
     },
     FCA: {
-        type: String,
-        require: true
+        type: String
     },
     Orgin: {
-        type: String,
-        require: true
+        type: String
     },
     SupplierNote: {
-        type: String,
-        require: true
+        type: String
     },
     Confirmation: {
-        type: String,
-        require: true
+        type: String
     },
     //project
     Task: {
-        type: String,
-        require: true
+        type: String
     },
     Award: {
-        type: String,
-        require: true
+        type: String
     },
     ExpendureType: {
-        type: String,
-        require: true
+        type: String
     },
     OrganizationName: {
-        type: String,
-        require: true
+        type: String
     },
     Requistioner: {
-        type: String,
-        require: true
+        type: String
     },
     Phone: {
-        type: Number,
-        require: true
+        type: Number
     },
     Date: {
-        type: Date,
-        require: true
+        type: Date
     }
 
+});
+const purchaseorderSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    purchaseorders:[purchaseorderDetailsSchema]
 })
 const Purchaseorder = mongoose.model("purchaseorder", purchaseorderSchema);
 module.exports = Purchaseorder;   

@@ -4,11 +4,11 @@ const userController = require("../controllers/userController");
 const router = express.Router();
 
     // Post
-
-    router.post("/addEmployee", userController.addEmployee)
+    router.post("/createEmployeeCollection", userController.createEmployeeCollection)
+    router.post("/addEmployee/:id", userController.addEmployee)
 
     // Get
-
+    
     router.get("/employeeDetails", userController.employeeDetails)
 
     // Get by id

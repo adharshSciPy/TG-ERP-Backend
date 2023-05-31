@@ -1,86 +1,76 @@
 const mongoose = require('mongoose')
-const productSchema = new mongoose.Schema({
+const productDetailsSchema = new mongoose.Schema({
 
     // ⁡⁣⁣⁢ Basic Details⁡
 
     Name: {
-        type: String,
-        require: true
+        type: String
     },
     Ribbon: {
-        type: String,
-        require: true
+        type: String
     },
     Description: {
-        type: String,
-        require: true
+        type: String
     },
     Category: {
-        type: String,
-        require: true
+        type: String
     },
     Tax: {
-        type: Number,
-        require: true
+        type: Number
     },
     Fulfilledby: {
-        type: String,
-        require: true
+        type: String
     },
     Brand: {
-        type: String,
-        require: true
+        type: String
     },
 
     // 
  
     Price: {
-        type: Number,
-        require: true
+        type: Number
     },
     OnSale: {
-        type: Boolean,
-        require: true
+        type: Boolean
     },
     ShowPricePerUnit: {
-        type: Boolean,
-        require: true
+        type: Boolean
     },
     CostOFGoods: {
-        type: Number,
-        require: true
+        type: Number
     },
     Profit: {
-        type: Number,
-        require: true
+        type: Number
     },
     Margin: {
-        type: Number,
-        require: true
+        type: Number
     },
 
     // Product Option
 
     Type: {
-        type: String,
-        require: true
+        type: String
     },
     Choice: {
-        type: Array,
-        require: true
+        type: Array
     },
 
     // Inventory of Shipping
 
     Status: {
-        type: String,
-        require: true
+        type: String
     },
     SKU: {
-        type: String,
-        require: true
+        type: String
     }
 
+});
+const productSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    products:[productDetailsSchema]
 })
 const Product = mongoose.model("product", productSchema);
 module.exports = Product;

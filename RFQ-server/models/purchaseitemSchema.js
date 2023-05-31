@@ -1,33 +1,33 @@
 const mongoose = require('mongoose')
-const purchaseitemSchema = new mongoose.Schema({
+const purchaseitemDetailsSchema = new mongoose.Schema({
     Type: {
-        type: String,
-        require: true
+        type: String
     },
     ItemCategory: {
-        type: String,
-        require: true
+        type: String
     },
     Item: {
-        type: String,
-        require: true
+        type: String
     },
     Quantity: {
-        type: Number,
-        require: true
+        type: Number
     },
     Unit: {
-        type: Number,
-        require: true
+        type: Number
     },
     UnitPrize: {
-        type: Number,
-        require: true
+        type: Number
     },
     Total: {
-        type: Number,
-        require: true
+        type: Number
     }
+});
+const purchaseitemSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    purchaseitems:[purchaseitemDetailsSchema]
 })
 const Purchaseitem = mongoose.model("purchaseitem", purchaseitemSchema);
 module.exports = Purchaseitem;   
