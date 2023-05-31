@@ -4,8 +4,8 @@ const prjmanagerController = require("../controllers/prjmanagerController");
 const router = express.Router();
 
     // Post
-
-    router.post("/addPrjmanagerDetails", prjmanagerController.addPrjmanagerDetails)
+    router.post("/createPrjmanagerCollection", prjmanagerController.createPrjmanagerCollection)
+    router.post("/addPrjmanagerDetails/:id", prjmanagerController.addPrjmanagerDetails)
 
     // Get
 

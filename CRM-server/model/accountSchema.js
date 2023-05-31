@@ -1,29 +1,30 @@
 const mongoose = require('mongoose')
-const accountSchema = new mongoose.Schema({
+const accountDetailsSchema = new mongoose.Schema({
     CreateAccount: {
-        type: String,
-        require: true
+        type: String
     },
     AccountName: {
-        type: String,
-        require: true
+        type: String
     },
     Phone: {
-        type: Number,
-        require: true
+        type: Number
     },
     Description: {
-        type: String,
-        require: true
+        type: String
     },
     Supplier: {
-        type: Boolean,
-        require: true
+        type: Boolean
     },
     Website: {
-        type: String,
-        require: true
+        type: String
     }
+});
+const accountSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    accounts:[accountDetailsSchema]
 })
 const Account = mongoose.model("account", accountSchema);
 module.exports = Account;    

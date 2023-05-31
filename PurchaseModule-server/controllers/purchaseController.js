@@ -1,27 +1,40 @@
 const Purchase = require('../models/purchaseSchema');
 module.exports = {
-    purchase: async (req, res) => {
+    createPurchaseCollection: async (req, res) => {
         const data = new Purchase({
-            QuoteNo: req.body.QuoteNo,
-            QuoteSubject: req.body.QuoteSubject,
-            QuoteStage: req.body.QuoteStage,
-            Notes: req.body.Notes,
-            ValidUntil: req.body.ValidUntil,
-            Terms: req.body.Terms,
-            BillingAddress: req.body.BillingAddress,
-            TaxInformation: req.body.TaxInformation,
-            TotalAmount: req.body.TotalAmount
+            companyId: req.body.companyId,
         });
-        console.log(data);
-
         try {
             const dataToSave = await data.save();
             res.status(200).json(dataToSave);
             console.log("Details added");
         }
         catch (error) {
-            res.status(400).json({ message: error.message })
+            res.status(400).json({ meesage: error.message })
         }
+    },
+    purchase: async (req, res) => {
+        const data = new Purchase({
+            purchases: {
+                QuoteNo: req.body.QuoteNo,
+                QuoteSubject: req.body.QuoteSubject,
+                QuoteStage: req.body.QuoteStage,
+                Notes: req.body.Notes,
+                ValidUntil: req.body.ValidUntil,
+                Terms: req.body.Terms,
+                BillingAddress: req.body.BillingAddress,
+                TaxInformation: req.body.TaxInformation,
+                TotalAmount: req.body.TotalAmount
+            }
+        });
+        Purchase.findByIdAndUpdate(req.params.id, { $push: { purchases: data.purchases } })
+            .then(() => {
+                res.status(200).json("Successfully Uploaded")
+            })
+            .catch((err) => {
+                console.error('Failed to add address:', err);
+                res.status(500).json("ServerError")
+            });
     },
 
     purchasedetails: async (req, res) => {

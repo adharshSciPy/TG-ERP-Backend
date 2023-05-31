@@ -4,8 +4,8 @@ const productController = require("../controllers/productController");
 const router = express.Router();
 
     // Post
-
-    router.post("/addProductDetails", productController.addProductDetails)
+    router.post("/createProductCollection", productController.createProductCollection)
+    router.post("/addProductDetails/:id", productController.addProductDetails)
 
     // Get
 

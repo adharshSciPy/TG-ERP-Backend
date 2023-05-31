@@ -1,23 +1,36 @@
 const Appointment = require('../model/appointmentSchema');
 module.exports = {
+  createAppointmentCollection:async(req,res)=>{
+    const data = new Appointment({
+      companyId:req.body.companyId,
+    });
+    try{
+      const dataToSave = await data.save();
+      res.status(200).json(dataToSave);
+      console.log("Details added");
+    }
+    catch(error){
+      res.status(400).json({message:error.message})
+    }
+  },
   createAppointment: async (req, res) => {
     const data = new Appointment({
+      appointments:{
       ScheduleCall: req.body.ScheduleCall,
       ScheduleMeeting: req.body.ScheduleMeeting,
       Subject: req.body.Subject,
       Description: req.body.Description,
       StartDate: req.body.StartDate
+      }
     });
-    console.log(data);
-
-    try {
-      const dataToSave = await data.save();
-      res.status(200).json(dataToSave);
-      console.log("Details added");
-    }
-    catch (error) {
-      res.status(400).json({ message: error.message })
-    }
+    Appointment.findByIdAndUpdate(req.params.id,{$push:{appointments:data.appointments}})
+    .then(()=>{
+      res.status(200).json("Successfully Uploaded");
+    })
+    .catch((err)=>{
+      console.error('Failed to add address:',err);
+      res.status(500).json("ServerError");
+    });
   },
   appointmentDetails: async (req, res) => {
     try {

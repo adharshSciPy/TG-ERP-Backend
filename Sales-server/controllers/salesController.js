@@ -1,25 +1,38 @@
 const Sales = require('../models/salesSchema');
 module.exports = {
-    sales: async (req, res) => {
+    createSalesCollection: async (req, res) => {
         const data = new Sales({
-            OrderNumber: req.body.OrderNumber,
-            Product: req.body.Product,
-            Day: req.body.Day,
-            Month: req.body.Month,
-            Year: req.body.Year,
-            Status: req.body.Status,
-            TotalAmount: req.body.TotalAmount
+            companyId: req.body.companyId,
         });
-        console.log(data);
-
         try {
             const dataToSave = await data.save();
             res.status(200).json(dataToSave);
             console.log("Details added");
         }
         catch (error) {
-            res.status(400).json({ message: error.message })
+            res.status(400).json({ meesage: error.message })
         }
+    },
+    sales: async (req, res) => {
+        const data = new Sales({
+            saless: {
+                OrderNumber: req.body.OrderNumber,
+                Product: req.body.Product,
+                Day: req.body.Day,
+                Month: req.body.Month,
+                Year: req.body.Year,
+                Status: req.body.Status,
+                TotalAmount: req.body.TotalAmount
+            }
+        });
+        Sales.findByIdAndUpdate(req.params.id, { $push: { saless: data.saless } })
+            .then(() => {
+                res.status(200).json("Successfully Uploaded")
+            })
+            .catch((err) => {
+                console.error('Failed to add address:', err);
+                res.status(500).json("ServerError")
+            });
     },
 
     salesdetails: async (req, res) => {

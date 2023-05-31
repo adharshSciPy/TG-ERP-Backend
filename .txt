@@ -7,6 +7,20 @@ appointment
     "StartDate":"25-5-2023"
 }
 
+account
+{
+ "CreateAccount": "26365sdsx",
+    "AccountName":"calvin",
+
+    "Phone": "9625698315",
+   
+    "Description": "ryateajayrhfjmukuthuifsxvdahgubnimoglfkcfgvbhjnkmtyufghjrtyudfgh",
+    "Supplier": true,
+   
+    "Website": "www.alex.com",
+    "companyId" : "sci999"
+}
+
 customer
 {
     "FirstName" : "vishva",

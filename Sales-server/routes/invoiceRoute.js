@@ -5,8 +5,8 @@ const invoiceController = require("../controllers/invoiceController");
 const router = express.Router();
 
 // post
-
-router.post("/invoice", invoiceController.invoice);
+router.post("/createInvoiceCollection", invoiceController.createInvoiceCollection)
+router.post("/invoice/:id", invoiceController.invoice);
 
 //get
 

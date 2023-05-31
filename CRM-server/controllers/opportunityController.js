@@ -1,23 +1,36 @@
 const Opportunity = require('../model/opportunitySchema');
 module.exports = {
-  createOpportunity: async (req, res) => {
+  createOpportunityCollection: async (req, res) => {
     const data = new Opportunity({
-      OpportunityName: req.body.OpportunityName,
-      SalesStage: req.body.SalesStage,
-      Description: req.body.Description,
-      CloseDate: req.body.CloseDate,
-      Amount: req.body.Amount
+      companyId: req.body.companyId,
     });
-    console.log(data);
-
     try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
       console.log("Details added");
     }
     catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ message: error.message })
     }
+  },
+  createOpportunity: async (req, res) => {
+    const data = new Opportunity({
+      opportunitys: {
+        OpportunityName: req.body.OpportunityName,
+        SalesStage: req.body.SalesStage,
+        Description: req.body.Description,
+        CloseDate: req.body.CloseDate,
+        Amount: req.body.Amount
+      }
+    });
+    Opportunity.findByIdAndUpdate(req.params.id, { $push: { opportunitys: data.opportunitys } })
+      .then(() => {
+        res.status(200).json("Successfully Uploaded");
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError");
+      });
   },
 
   opportunityDetails: async (req, res) => {

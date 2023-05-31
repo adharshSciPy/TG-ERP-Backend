@@ -1,36 +1,36 @@
 const mongoose = require('mongoose')
-const inventorymanagementSchema = new mongoose.Schema({
+const inventorymanagementDetailsSchema = new mongoose.Schema({
 
     // ⁡⁣⁣⁢ Basic Details⁡
 
     SKUNo: {
-        type: Number,
-        required: true
+        type: Number
     },
     ItemName: {
-        type: String,
-        required: true
+        type: String
     },
     UnitOFMeasurement: {
-        type: String,
-        required: true
+        type: String
     },
     ItemCategory: {
-        type: String,
-        required: true
+        type: String
     },
     CurrentStock: {
-        type: String,
-        required: true
+        type: String
     },
     Price: {
-        type: Number,
-        required: true
+        type: Number
     },
     Tax: {
-        type: Number,
-        required: true
+        type: Number
     }
+});
+const inventorymanagementSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    inventorymanagements:[inventorymanagementDetailsSchema]
 })
 const Inventorymanagement = mongoose.model("inventorymanagement", inventorymanagementSchema);
 module.exports = Inventorymanagement;

@@ -1,10 +1,24 @@
 const Product = require("../models/productSchema");
 module.exports = {
+  createProductCollection: async (req, res) => {
+    const data = new Product({
+      companyId: req.body.companyId,
+    });
+    try {
+      const dataToSave = await data.save();
+      res.status(200).json(dataToSave);
+      console.log("Details added");
+    }
+    catch (error) {
+      res.status(400).json({ meesage: error.message })
+    }
+  },
 
   // post
 
   addProductDetails: async (req, res) => {
     const data = new Product({
+      products: {
         Name: req.body.Name,
         Ribbon: req.body.Ribbon,
         Description: req.Description,
@@ -31,19 +45,17 @@ module.exports = {
 
         Status: req.body.Status,
         SKU: req.body.SKU
+      }
     });
-    console.log(data);
-
-    try {
-      const dataToSave = await data.save();
-      res.status(200).json(dataToSave);
-      console.log("Details added");
-    }
-    catch (error) {
-      res.status(400).json({ message: error.message });
-    }
+    Product.findByIdAndUpdate(req.params.id, { $push: { products: data.products } })
+      .then(() => {
+        res.status(200).json("Successfully Uploaded")
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError")
+      });
   },
-
   //get
 
   getProductDetails: async (req, res) => {

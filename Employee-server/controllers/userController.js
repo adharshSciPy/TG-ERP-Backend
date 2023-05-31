@@ -2,51 +2,64 @@ const Employee = require("../models/employeeSchema");
 module.exports = {
 
   // post
-
-  addEmployee: async (req, res) => {
+  createEmployeeCollection: async (req, res) => {
     const data = new Employee({
-      EmpCode: req.body.EmpCode,
-      Name: req.body.Name,
-      DOB: req.body.DOB,
-      Phone: req.body.Phone,
-      Address: req.body.Address,
-      Department: req.body.Department,
-      Designation: req.body.Designation,
-
-      // Bank Acoount
-
-      BankAccNo: req.body.BankAccNo,
-      BankAccName: req.body.BankAccName,
-      BankBranch: req.body.BankBranch,
-      BankIFSCCode: req.body.BankIFSCCode,
-
-      // -------------------- //
-
-      PFNo: req.body.PFNo,
-      ESI: req.body.ESI,
-      UAN: req.body.UAN,
-
-      // Working Time
-
-      From: req.body.From,
-      To: req.body.To,
-
-      // -------------------- //
-
-      Email: req.body.Email,
-      Password: req.body.Password,
-      Role: req.body.Role
+      companyId: req.body.companyId,
     });
-    console.log(data);
-
     try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
-      console.log("Details added");
+      console.log("Details added")
     }
     catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(400).json({ message: error.message })
     }
+  },
+
+  addEmployee: async (req, res) => {
+    const data = new Employee({
+      employees: {
+        EmpCode: req.body.EmpCode,
+        Name: req.body.Name,
+        DOB: req.body.DOB,
+        Phone: req.body.Phone,
+        Address: req.body.Address,
+        Department: req.body.Department,
+        Designation: req.body.Designation,
+
+        // Bank Acoount
+
+        BankAccNo: req.body.BankAccNo,
+        BankAccName: req.body.BankAccName,
+        BankBranch: req.body.BankBranch,
+        BankIFSCCode: req.body.BankIFSCCode,
+
+        // -------------------- //
+
+        PFNo: req.body.PFNo,
+        ESI: req.body.ESI,
+        UAN: req.body.UAN,
+
+        // Working Time
+
+        From: req.body.From,
+        To: req.body.To,
+
+        // -------------------- //
+
+        Email: req.body.Email,
+        Password: req.body.Password,
+        Role: req.body.Role
+      }
+    });
+    Employee.findByIdAndUpdate(req.params.id, { $push: { employees: data.employees } })
+      .then(() => {
+        res.status(200).json("Successfully Uploaded");
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError");
+      });
   },
 
   //get

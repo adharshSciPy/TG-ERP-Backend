@@ -1,77 +1,66 @@
 const mongoose = require('mongoose')
-const rfqSchema = new mongoose.Schema({
+const rfqDetailsSchema = new mongoose.Schema({
     RequisitionDate: {
-        type: Date,
-        require: true
+        type: Date
     },
     PurchaseRequisition: {
-        type: String,
-        require: true
+        type: String
     },
     TypeofRequisition: {
-        type: String,
-        require: true
+        type: String
     },
     JDERequisition: {
-        type: String,
-        require: true
+        type: String
     },
     Company: {
-        type: String,
-        require: true
+        type: String
     },
     CompanyCode: {
-        type: String,
-        require: true
+        type: String
     },
     RequisitorsName: {
-        type: String,
-        require: true
+        type: String
     },
     ProjectName: {
-        type: String,
-        require: true
+        type: String
     },
     ProjectCode: {
-        type: String,
-        require: true
+        type: String
     },
     Phone: {
-        type: Number,
-        require: true
+        type: Number
     },
     Department: {
-        type: String,
-        require: true
+        type: String
     },
     DeliveryDate: {
-        type: Date,
-        require: true
+        type: Date
     },
     Priority: {
-        type: String,
-        require: true
+        type: String
     },
     PointofDelivery: {
-        type: Date,
-        require: true
+        type: Date
     },
     Receivedby: {
-        type: String,
-        require: true
+        type: String
     },
     Contactdetails: {
-        type: String,
-        require: true
+        type: String
     },
     Product: {
-        type: String,
-        require: true
+        type: String
     },
     Specialinstruction: {
-        type: String,
-        require: true
+        type: String
     }
+});
+const rfqSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    rfqs:[rfqDetailsSchema]
 })
 const Rfq = mongoose.model("rfq", rfqSchema);
 module.exports = Rfq;   

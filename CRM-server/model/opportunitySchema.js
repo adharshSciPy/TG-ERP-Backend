@@ -1,25 +1,27 @@
 const mongoose = require('mongoose')
-const opportunitySchema = new mongoose.Schema({
+const opportunityDetailsSchema = new mongoose.Schema({
     OpportunityName: {
-        type: String,
-        required: true
+        type: String
     },
     SalesStage: {
-        type: String,
-        required: true
+        type: String
     },
     Description: {
-        type: String,
-        required: true
+        type: String
     },
     CloseDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     Amount: {
-        type: Number,
-        required: true
+        type: Number
     }
+});
+const opportunitySchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    opportunitys:[opportunityDetailsSchema]
 })
 const Opportunity = mongoose.model("opportunity", opportunitySchema);
 module.exports = Opportunity;    

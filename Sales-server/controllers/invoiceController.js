@@ -1,31 +1,44 @@
 const Invoice = require('../models/invoiceSchema');
 module.exports = {
-    invoice: async (req, res) => {
+    createInvoiceCollection: async (req, res) => {
         const data = new Invoice({
-            InvoiceNumber: req.body.InvoiceNumber,
-            InvoiceSubject: req.body.InvoiceSubject,
-            Notes: req.body.Notes,
-            Terms: req.body.Terms,
-            InvoiceDate: req.body.InvoiceDate,
-            DueDate: req.body.DueDate,
-            AmountDue: req.body.AmountDue,
-            QuoteNo: req.body.QuoteNo,
-            OrderNo: req.body.OrderNo,
-            PurchaseOrderNo: req.body.PurchaseOrderNo,
-            BillingAddress: req.body.BillingAddress,
-            TaxInformation: req.body.TaxInformation,
-
+            companyId: req.body.companyId,
         });
-        console.log(data);
-
         try {
             const dataToSave = await data.save();
             res.status(200).json(dataToSave);
             console.log("Details added");
         }
         catch (error) {
-            res.status(400).json({ message: error.message })
+            res.status(400).json({ meesage: error.message })
         }
+    },
+    invoice: async (req, res) => {
+        const data = new Invoice({
+            invoices: {
+                InvoiceNumber: req.body.InvoiceNumber,
+                InvoiceSubject: req.body.InvoiceSubject,
+                Notes: req.body.Notes,
+                Terms: req.body.Terms,
+                InvoiceDate: req.body.InvoiceDate,
+                DueDate: req.body.DueDate,
+                AmountDue: req.body.AmountDue,
+                QuoteNo: req.body.QuoteNo,
+                OrderNo: req.body.OrderNo,
+                PurchaseOrderNo: req.body.PurchaseOrderNo,
+                BillingAddress: req.body.BillingAddress,
+                TaxInformation: req.body.TaxInformation
+            }
+
+        });
+        Invoice.findByIdAndUpdate(req.params.id, { $push: { invoices: data.invoices } })
+            .then(() => {
+                res.status(200).json("Successfully Uploaded")
+            })
+            .catch((err) => {
+                console.error('Failed to add address:', err);
+                res.status(500).json("ServerError")
+            });
     },
 
     invoicedetails: async (req, res) => {
