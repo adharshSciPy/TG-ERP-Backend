@@ -11,7 +11,7 @@ const router = express.Router();
 
     router.get("/employeeDetails", userController.employeeDetails)
 
-    // Get by id
+    // Get by id 
 
     router.get("/getEmployee/:id", userController.getEmployee)
 
