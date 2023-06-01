@@ -2,51 +2,55 @@ const mongoose = require('mongoose')
 const companySchema = new mongoose.Schema({
     CompanyName: {
         type: String,
-        require: true
+        required: true
     },
     TagLine: {
         type: String,
-        require: true
+        required: true
     },
     EntityType: {
         type: String,
-        require: true
+        required: true
     },
     Industry: {
         type: String,
-        require: true
+        required: true
     },
     NoOFEmployee: {
         type: Number,
-        require: true
+        required: true
     },
     YourDesignation: {
         type: String,
-        require: true
+        required: true
     },
     DateOFIncoperation: {
         type: Date,
-        require: false
+        required: false
     },
     PhoneNo: {
         type: Number,
-        require: true
+        required: true
     },
     Email: {
         type: String,
-        require: true
+        required: true
     },
     Website: {
         type: String,
-        require: false
+        required: false
     },
     Address: {
         type: String,
-        require: true
+        required: true
     },
     CompanyDescription: {
         type: String,
-        require: true
+        required: true
+    },
+    IndexId : {
+        type : String,
+        required : false
     }
 })
 const Company = mongoose.model("company", companySchema);

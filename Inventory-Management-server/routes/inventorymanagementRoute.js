@@ -4,8 +4,8 @@ const inventorymanagementController = require("../controllers/inventorymanagemen
 const router = express.Router();
 
     // Post
-
-    router.post("/addInventorymanagementDetails", inventorymanagementController.addInventorymanagementDetails)
+    router.post("/createInventorymanagementCollection", inventorymanagementController.createInventorymanagementCollection)
+    router.post("/addInventorymanagementDetails/:id", inventorymanagementController.addInventorymanagementDetails)
 
     // Get
 

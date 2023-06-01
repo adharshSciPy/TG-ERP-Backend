@@ -5,8 +5,8 @@ const purchaseitemController = require("../controllers/purchaseitemController");
 const router = express.Router();
 
 // post
-
-router.post("/purchaseitem", purchaseitemController.purchaseitem);
+router.post("/createPurchaseitemCollection", purchaseitemController.createPurchaseitemCollection)
+router.post("/purchaseitem/:id", purchaseitemController.purchaseitem);
 
 //get
 

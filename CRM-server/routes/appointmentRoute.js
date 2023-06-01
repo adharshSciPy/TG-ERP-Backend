@@ -3,8 +3,8 @@ const appointmentController = require('../controllers/appointmentController');
 const router = express.Router();
 
 // post
-
-router.post("/appointment", appointmentController.createAppointment);
+router.post("/createAppointmentCollection", appointmentController.createAppointmentCollection)
+router.post("/appointment/:id", appointmentController.createAppointment);
 
 //get
 

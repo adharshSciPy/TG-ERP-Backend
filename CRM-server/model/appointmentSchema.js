@@ -1,25 +1,27 @@
 const mongoose = require('mongoose')
-const appointmentSchema = new mongoose.Schema({
+const appointmentDetailsSchema = new mongoose.Schema({
     ScheduleCall: {
-        type: String,
-        require: true
+        type: String
     },
     ScheduleMeeting: {
-        type: String,
-        require: true
+        type: String
     },
     Subject: {
-        type: String,
-        require: true
+        type: String
     },
     Description: {
-        type: String,
-        require: true
+        type: String
     },
     StartDate: {
-        type: Date,
-        require: true
+        type: Date
     }
+});
+const appointmentSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    appointments:[appointmentDetailsSchema]
 })
 const Appointment = mongoose.model("appointment", appointmentSchema);
 module.exports = Appointment;    

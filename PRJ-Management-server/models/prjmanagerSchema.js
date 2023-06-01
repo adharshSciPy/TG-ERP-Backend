@@ -1,63 +1,57 @@
 const mongoose = require('mongoose')
-const prjmanagerSchema = new mongoose.Schema({
+const prjmanagerDetailsSchema = new mongoose.Schema({
 
     // ⁡⁣⁣⁢ Basic Details⁡
 
     PrjName: {
-        type: String,
-        require: true
+        type: String
     },
     Type: {
-        type: String,
-        require: true
+        type: String
     },
-    Description: {
-        type: String,
-        require: true
+    Description : {
+        type: String
     },
     Account: {
-        type: String,
-        require: true
+        type: String
     },
     AssignedTo: {
-        type: String,
-        require: true
+        type: String
     },
     Teams: {
-        type: String,
-        require: true
+        type: String
     },
 
     // General
 
     Status: {
-        type: String,
-        require: true
+        type: String
     },
     StartDate: {
-        type: String,
-        require: true
+        type: String
     },
     EndDate: {
-        type: String,
-        require: true
+        type: String
     },
     UseTimesheet: {
-        type: String,
-        require: true
+        type: String
     },
     Amount: {
-        type: Number,
-        require: true
+        type: Number
     },
     LeadSource: {
-        type: String,
-        require: true
+        type: String
     },
     Progress: {
-        type: String,
-        require: true
+        type: String
     }
+});
+const prjmanagerSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    prjmanagers:[prjmanagerDetailsSchema]
 })
 const Prjmanager = mongoose.model("prjmanager", prjmanagerSchema);
 module.exports = Prjmanager;

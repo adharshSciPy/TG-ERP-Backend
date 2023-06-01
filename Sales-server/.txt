@@ -1,0 +1,25 @@
+Invoice
+{
+ "InvoiceNumber": 25356,
+ "InvoiceSubject": "Tax,
+ "Notes": "vdajgvbzcvbjkvbbv",
+ "Terms": "account",
+ "InvoiceDate": ""2016-05-18T16:00:00Z"",
+ "DueDate": ""2016-25-18T16:00:00Z"",
+ "AmountDue": 25314,
+ "QuoteNo": 253698,
+ "OrderNo": 142536,
+ "PurchaseOrderNo": 874596,
+ "BillingAddress": "TC 14/2536 kkdbaajdgidauvad,fdifg", 
+ "TaxInformation": "bring the Tax"
+}
+Sales
+{
+    "OrderNumber": 1325634,
+    "Product": "shirt",
+    "Day": "monday",
+    "Month": "june",
+    "Year": 2023,
+    "Status": "shippped",
+    "TotalAmount": 256322,
+}

@@ -1,29 +1,42 @@
 const Inventorymanagement = require("../models/inventorymanagementSchema");
 module.exports = {
 
-  // post
-
-  addInventorymanagementDetails: async (req, res) => {
+  
+  createInventorymanagementCollection: async (req, res) => {
     const data = new Inventorymanagement({
-        SKUNo: req.body.SKUNo,
-        ItemName: req.body.ItemName,
-        UnitOFMeasurement: req.UnitOFMeasurement,
-        ItemCategory: req.body.ItemCategory,
-        CurrentStock: req.body.CurrentStock,
-        Price: req.body.Price,
-        Tax: req.body.Tax
+      companyId: req.body.companyId,
     });
-    console.log(data);
-
     try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
       console.log("Details added");
     }
-    catch (error) {
-      res.status(400).json({ message: error.message });
+    catch(error) {
+      res.status(400).json({ message: error.message })
     }
   },
+  // post
+  addInventorymanagementDetails: async (req, res) => {
+    const data = new Inventorymanagement({
+      inventorymanagements: {
+        SKUNo: req.body.SKUNo,
+        ItemName: req.body.ItemName,
+        UnitOFMeasurement: req.body.UnitOFMeasurement,
+        ItemCategory: req.body.ItemCategory,
+        CurrentStock: req.body.CurrentStock,
+        Price: req.body.Price,
+        Tax: req.body.Tax
+      }
+    });
+    Inventorymanagement.findByIdAndUpdate(req.params.id, { $push: { inventorymanagements: data.inventorymanagements } })
+      .then(() => {
+        res.status(200).json("Successfully Uploaded");
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError");
+      });
+  },   
 
   //get
 
@@ -55,13 +68,13 @@ module.exports = {
   editInventorymanagementDetails: async (req, res) => {
     try {
       await Inventorymanagement.findByIdAndUpdate(req.params.id, {
-          SKUNo: req.body.SKUNo,
-          ItemName: req.body.ItemName,
-          UnitOFMeasurement: req.UnitOFMeasurement,
-          ItemCategory: req.body.ItemCategory,
-          CurrentStock: req.body.CurrentStock,
-          Price: req.body.Price,
-          Tax: req.body.Tax
+        SKUNo: req.body.SKUNo,
+        ItemName: req.body.ItemName,
+        UnitOFMeasurement: req.body.UnitOFMeasurement,
+        ItemCategory: req.body.ItemCategory,
+        CurrentStock: req.body.CurrentStock,
+        Price: req.body.Price,
+        Tax: req.body.Tax
       });
       res.status(200).json("Successfully updated");
     } catch (error) {

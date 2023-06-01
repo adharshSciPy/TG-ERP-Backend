@@ -3,8 +3,8 @@ const opportunityController = require("../controllers/opportunityController");
 const router = express.Router();
 
 // post
-
-router.post("/createOpportunity", opportunityController.createOpportunity);
+router.post("/createOpportunityCollection", opportunityController.createOpportunityCollection)
+router.post("/createOpportunity/:id", opportunityController.createOpportunity);
 
 //get
 

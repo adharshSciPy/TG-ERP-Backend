@@ -1,25 +1,38 @@
 const Purchaseitem = require('../models/purchaseitemSchema');
 module.exports = {
-    purchaseitem: async (req, res) => {
+    createPurchaseitemCollection: async (req, res) => {
         const data = new Purchaseitem({
-            Type: req.body.Type,
-            ItemCategory: req.body.ItemCategory,
-            Item: req.body.Item,
-            Quantity: req.body.Quantity,
-            Unit: req.body.Unit,
-            UnitPrize: req.body.UnitPrize,
-            Total: req.body.Total
+            companyId: req.body.companyId,
         });
-        console.log(data);
-
         try {
             const dataToSave = await data.save();
             res.status(200).json(dataToSave);
             console.log("Details added");
         }
         catch (error) {
-            res.status(400).json({ message: error.message })
+            res.status(400).json({ meesage: error.message })
         }
+    },
+    purchaseitem: async (req, res) => {
+        const data = new Purchaseitem({
+            purchaseitems: {
+                Type: req.body.Type,
+                ItemCategory: req.body.ItemCategory,
+                Item: req.body.Item,
+                Quantity: req.body.Quantity,
+                Unit: req.body.Unit,
+                UnitPrize: req.body.UnitPrize,
+                Total: req.body.Total
+            }
+        });
+        Purchaseitem.findByIdAndUpdate(req.params.id, { $push: { purchaseitems: data.purchaseitems } })
+            .then(() => {
+                res.status(200).json("Successfully Uploaded")
+            })
+            .catch((err) => {
+                console.error('Failed to add address:', err);
+                res.status(500).json("ServerError")
+            });
     },
 
     purchaseitemdetails: async (req, res) => {

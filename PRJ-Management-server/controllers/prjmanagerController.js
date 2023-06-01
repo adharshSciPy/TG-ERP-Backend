@@ -1,13 +1,27 @@
 const Prjmanager = require("../models/prjmanagerSchema");
 module.exports = {
+  createPrjmanagerCollection: async (req, res) => {
+    const data = new Prjmanager({
+      companyId: req.body.companyId,
+    });
+    try {
+      const dataToSave = await data.save();
+      res.status(200).json(dataToSave);
+      console.log("Deatils added");
+    }
+    catch (error) {
+      res.status(400).json({ message: error.message })
+    }
+  },
 
   // post
 
   addPrjmanagerDetails: async (req, res) => {
     const data = new Prjmanager({
+      prjmanagers: {
         PrjName: req.body.PrjName,
         Type: req.body.Type,
-        Description: req.Description,
+        Description: req.body.Description,
         Account: req.body.Account,
         AssignedTo: req.body.AssignedTo,
         Teams: req.body.Teams,
@@ -21,17 +35,16 @@ module.exports = {
         Amount: req.body.Amount,
         LeadSource: req.body.LeadSource,
         Progress: req.body.Progress
+      }
     });
-    console.log(data);
-
-    try {
-      const dataToSave = await data.save();
-      res.status(200).json(dataToSave);
-      console.log("Details added");
-    }
-    catch (error) {
-      res.status(400).json({ message: error.message });
-    }
+    Prjmanager.findByIdAndUpdate(req.params.id, { $push: { prjmanagers: data.prjmanagers } })
+      .then(() => {
+        res.status(200).json("Successfully Uploaded");
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError");
+      });
   },
 
   //get
@@ -66,7 +79,7 @@ module.exports = {
       await Prjmanager.findByIdAndUpdate(req.params.id, {
         PrjName: req.body.PrjName,
         Type: req.body.Type,
-        Description: req.Description,
+        Description: req.body.Description,
         Account: req.body.Account,
         AssignedTo: req.body.AssignedTo,
         Teams: req.body.Teams,

@@ -1,41 +1,39 @@
 const mongoose = require('mongoose')
-const purchaseSchema = new mongoose.Schema({
+const purchaseDetailsSchema = new mongoose.Schema({
     QuoteNo: {
-        type: Number,
-        require: true
+        type: Number
     },
     QuoteSubject: {
-        type: String,
-        require: true
+        type: String
     },
     QuoteStage: {
-        type: String,
-        require: true
+        type: String
     },
     Notes: {
-        type: String,
-        require: true
+        type: String
     },
     ValidUntil: {
-        type: Date,
-        require: true
+        type: Date
     },
     Terms: {
-        type: String,
-        require: true
+        type: String
     },
     BillingAddress: {
-        type: String,
-        require: true
+        type: String
     },
     TaxInformation: {
-        type: String,
-        require: true
+        type: String
     },
     TotalAmount: {
-        type: Number,
-        require: true
+        type: Number
     }
+});
+const purchaseSchema = new mongoose.Schema({
+    companyId:{
+        type:String,
+        required:true
+    },
+    purchases:[purchaseDetailsSchema]
 })
 const Purchase = mongoose.model("purchase", purchaseSchema);
 module.exports = Purchase;   

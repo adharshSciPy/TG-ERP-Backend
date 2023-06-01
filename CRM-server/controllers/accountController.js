@@ -1,16 +1,10 @@
 const Account = require('../model/accountSchema');
 module.exports = {
-  createAccount: async (req, res) => {
-    const data = new Account({
-      CreateAccount: req.body.CreateAccount,
-      AccountName: req.body.AccountName,
-      Phone: req.body.Phone,
-      Description: req.body.Description,
-      Supplier: req.body.Supplier,
-      Website: req.body.Website
-    });
-    console.log(data);
 
+  createAccountCollection: async (req, res) => {
+    const data = new Account({
+      companyId: req.body.companyId,
+    });
     try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
@@ -19,6 +13,26 @@ module.exports = {
     catch (error) {
       res.status(400).json({ message: error.message })
     }
+  },
+  createAccount: async (req, res) => {
+    const data = new Account({
+      accounts: {
+        CreateAccount: req.body.CreateAccount,
+        AccountName: req.body.AccountName,
+        Phone: req.body.Phone,
+        Description: req.body.Description,
+        Supplier: req.body.Supplier,
+        Website: req.body.Website
+      }
+    });
+    Account.findByIdAndUpdate(req.params.id, { $push: { accounts: data.accounts } })
+      .then(() => {
+        res.send(200).json("Successfully Uploaded");
+      })
+      .catch((err) => {
+        console.error('Failed to add address:', err);
+        res.status(500).json("ServerError");
+      });
   },
 
   accountDetails: async (req, res) => {
@@ -56,7 +70,7 @@ module.exports = {
       res.status(500).json("ServerError");
     }
   },
-  
+
   getEmployee: async (req, res) => {
     const account = req.params;
     try {

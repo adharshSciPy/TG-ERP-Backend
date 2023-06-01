@@ -1,5 +1,5 @@
 const Company = require("../models/companySchema");
-const jwt = require("jsonwebtoken");
+
 module.exports = {
 
     // post
@@ -55,6 +55,7 @@ module.exports = {
         res.status(500).json({ message: error.message });
         }
     },
+    
 
 
     //put
@@ -73,7 +74,8 @@ module.exports = {
                 Email: req.body.Email,
                 Website: req.body.Website,
                 Address: req.body.Address,
-                CompanyDescription: req.body.CompanyDescription
+                CompanyDescription: req.body.CompanyDescription,
+                IndexId : req.body.IndexId
             });
             res.status(200).json("Successfully updated");
             } catch (error) {

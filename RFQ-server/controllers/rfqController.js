@@ -1,38 +1,50 @@
 const Rfq = require('../models/rfqSchema');
 module.exports = {
-    rfq: async (req, res) => {
+    createRfqCollection: async (req, res) => {
         const data = new Rfq({
-            RequisitionDate: req.body.RequisitionDate,
-            PurchaseRequisition: req.body.PurchaseRequisition,
-            TypeofRequisition: req.body.TypeofRequisition,
-            JDERequisition: req.body.JDERequisition,
-            Company: req.body.Company,
-            CompanyCode: req.body.CompanyCode,
-            RequisitorsName: req.body.RequisitorsName,
-            ProjectName: req.body.ProjectName,
-            ProjectCode: req.body.ProjectCode,
-            Phone: req.body.Phone,
-            Department: req.body.Department,
-            DeliveryDate: req.body.DeliveryDate,
-            Priority: req.body.Priority,
-            PointofDelivery: req.body.PointofDelivery,
-            Receivedby: req.body.Receivedby,
-            Contactdetails: req.body.Contactdetails,
-            Product: req.body.Product,
-            Specialinstruction: req.body.Specialinstruction
+            companyId: req.body.companyId,
         });
-        console.log(data);
-
         try {
             const dataToSave = await data.save();
             res.status(200).json(dataToSave);
             console.log("Details added");
         }
         catch (error) {
-            res.status(400).json({ message: error.message })
+            res.status(400).json({ meesage: error.message })
         }
     },
-
+    rfq: async (req, res) => {
+        const data = new Rfq({
+            rfqs: {
+                RequisitionDate: req.body.RequisitionDate,
+                PurchaseRequisition: req.body.PurchaseRequisition,
+                TypeofRequisition: req.body.TypeofRequisition,
+                JDERequisition: req.body.JDERequisition,
+                Company: req.body.Company,
+                CompanyCode: req.body.CompanyCode,
+                RequisitorsName: req.body.RequisitorsName,
+                ProjectName: req.body.ProjectName,
+                ProjectCode: req.body.ProjectCode,
+                Phone: req.body.Phone,
+                Department: req.body.Department,
+                DeliveryDate: req.body.DeliveryDate,
+                Priority: req.body.Priority,
+                PointofDelivery: req.body.PointofDelivery,
+                Receivedby: req.body.Receivedby,
+                Contactdetails: req.body.Contactdetails,
+                Product: req.body.Product,
+                Specialinstruction: req.body.Specialinstruction
+            }
+        });
+        Rfq.findByIdAndUpdate(req.params.id, { $push: { rfqs: data.rfqs } })
+            .then(() => {
+                res.status(200).json("Successfully Uploaded")
+            })
+            .catch((err) => {
+                console.error('Failed to add address:', err);
+                res.status(500).json("ServerError")
+            });
+    },
     rfqdetails: async (req, res) => {
         try {
             const account = await Rfq.find();
