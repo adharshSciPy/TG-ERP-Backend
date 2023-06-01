@@ -8,6 +8,18 @@ const indexSchema = new mongoose.Schema({
         type : String,
         unique : true
     },
+    AccountID: {
+        type : String,
+        unique : true
+    },
+    AppointmentID: {
+        type : String,
+        unique : true
+    },
+    OpportunityID: {
+        type : String,
+        unique : true
+    },
     EmployeeID: {
         type : String,
         unique : true
