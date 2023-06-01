@@ -5,6 +5,9 @@ module.exports = {
         const data = new Index({
           CompanyID : req.body.CompanyID,
           CrmID:req.body.CrmID,
+          AccountID:req.body.AccountID,
+          AppointmentID:req.body.AppointmentID,
+          OpportunityID:req.body.OpportunityID,
           EmployeeID :req.body.EmployeeID,
           InventoryID: req.body.Inventory,
           PRJID: req.body.PRJ,
