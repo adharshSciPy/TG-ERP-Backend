@@ -24,4 +24,7 @@ router.put("/updateAccount/:id", accountController.updateAccount);
 
 router.get("/getEmployee/:id", accountController.getEmployee);
 
+//count
+router.get("/getcount/:id",accountController.getcount);
+
 module.exports = router;

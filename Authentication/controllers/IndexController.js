@@ -18,6 +18,7 @@ module.exports = {
           RFQID: req.body.RFQID,
           InvoiceID: req.body.InvoiceID,
           SalesID: req.body.SalesID,
+          VendorID: req.body.VendorID,
         });
        
         console.log(data);

@@ -24,4 +24,7 @@ router.put("/updateInvoice/:id", invoiceController.updateInvoice);
 
 router.get("/getInvoice/:id", invoiceController.getInvoice);
 
+//count
+router.get("/getcount/:id", invoiceController.getcount);
+
 module.exports = router;

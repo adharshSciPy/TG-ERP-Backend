@@ -108,7 +108,6 @@ const customerDetailsSchema = new mongoose.Schema({
   });
 
 
-
 const customerSchema = new mongoose.Schema({
     companyId: {
         type: String,
