@@ -23,5 +23,8 @@ const router = express.Router();
 
     router.put("/editPrjmanagerDetails/:id", prjmanagerController.editPrjmanagerDetails)
 
+    //count
+    router.get("/getcount/:id", prjmanagerController.getcount);
+
 
 module.exports = router;

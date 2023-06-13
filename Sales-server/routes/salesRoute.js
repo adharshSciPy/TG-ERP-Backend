@@ -24,4 +24,8 @@ router.put("/updateSales/:id", salesController.updateSales);
 
 router.get("/getSales/:id", salesController.getSales);
 
+
+//count
+router.get("/getcount/:id", salesController.getcount);
+
 module.exports = router;

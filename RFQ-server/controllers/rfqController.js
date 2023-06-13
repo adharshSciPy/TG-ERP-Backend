@@ -102,4 +102,20 @@ module.exports = {
             console.log(error.message);
         }
     },
+
+    //count
+    getcount: async (req, res) => {
+        const id = req.params.id;
+        try {
+            const rfqs = await Rfq.find({ companyId: id });
+            if (!rfqs || rfqs.length === 0) {
+                return res.status(404).json({ message: 'No rfqs found.' });
+            }
+            const count = rfqs[0].rfqs.length;
+            res.status(200).json({ message: 'Total number of rfqs', count });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ error: 'An error occurred while fetching the count.' });
+        }
+    }
 }

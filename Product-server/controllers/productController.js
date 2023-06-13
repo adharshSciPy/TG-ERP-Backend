@@ -132,4 +132,20 @@ module.exports = {
     }
   },
 
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const products = await Product.find({ companyId: id });
+      if (!products || products.length === 0) {
+        return res.status(404).json({ message: 'No products found.' });
+      }
+      const count = products[0].products.length;
+      res.status(200).json({ message: 'Total number of products', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  }
+
 }

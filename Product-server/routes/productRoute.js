@@ -23,5 +23,8 @@ const router = express.Router();
 
     router.put("/editProductDetails/:id", productController.editProductDetails)
 
+    //count
+    router.get("/getcount/:id", productController.getcount);
+
 
 module.exports = router;

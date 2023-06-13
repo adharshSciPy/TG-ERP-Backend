@@ -113,5 +113,21 @@ module.exports = {
       console.log(error.message);
     }
   },
+  
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const prjmanagers = await Prjmanager.find({ companyId: id });
+      if (!prjmanagers || prjmanagers.length === 0) {
+        return res.status(404).json({ message: 'No prjmanagers found.' });
+      }
+      const count = prjmanagers[0].prjmanagers.length;
+      res.status(200).json({ message: 'Total number of prjmanagers', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  }
 
 }

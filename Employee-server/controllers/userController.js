@@ -145,4 +145,20 @@ module.exports = {
     }
   },
 
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const employees = await Employee.find({ companyId: id });
+      if (!employees || employees.length === 0) {
+        return res.status(404).json({ message: 'No employees found.' });
+      }
+      const count = employees[0].employees.length;
+      res.status(200).json({ message: 'Total number of employees', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  }
+
 }

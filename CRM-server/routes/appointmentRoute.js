@@ -23,5 +23,6 @@ router.put("/updateAppointment/:id", appointmentController.updateAppointment);
 
 router.get("/getAppointment/:id", appointmentController.getAppointment);
 
-
+//count
+router.get("/getcount/:id", appointmentController.getcount);
 module.exports = router;

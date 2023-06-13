@@ -18,6 +18,7 @@ module.exports = {
           RFQID: req.body.RFQID,
           InvoiceID: req.body.InvoiceID,
           SalesID: req.body.SalesID,
+          VendorID: req.body.VendorID,
         });
        
         console.log(data);
@@ -31,6 +32,15 @@ module.exports = {
         res.status(400).json({ message: error.message });
         }
     },
+    getIndexbyId: async (req, res) => {
+      const id = req.params.id;
+      try {
+      const data = await Index.findById(id);
+      res.status(200).json(data);
+      } catch (error) {
+      console.log(error.message);
+      }
+  },
 
 
 }

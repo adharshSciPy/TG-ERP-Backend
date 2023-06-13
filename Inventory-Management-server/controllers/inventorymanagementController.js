@@ -95,4 +95,21 @@ module.exports = {
     }
   },
 
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const inventorymanagements = await Inventorymanagement.find({ companyId: id });
+      if (!inventorymanagements || inventorymanagements.length === 0) {
+        return res.status(404).json({ message: 'No inventorymanagements found.' });
+      }
+      const count = inventorymanagements[0].inventorymanagements.length;
+      res.status(200).json({ message: 'Total number of inventorymanagements', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  }
+
+
 }

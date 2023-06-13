@@ -76,5 +76,21 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
     }
+  },
+
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const opportunitys = await Opportunity.find({ companyId: id });
+      if (!opportunitys || opportunitys.length === 0) {
+        return res.status(404).json({ message: 'No opportunitys found.' });
+      }
+      const count = opportunitys[0].opportunitys.length;
+      res.status(200).json({ message: 'Total number of opportunitys', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
   }
 }

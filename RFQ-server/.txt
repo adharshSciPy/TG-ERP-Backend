@@ -57,3 +57,27 @@ Rfq
     "Product": "dgb",
     "Specialinstruction": "scug"
 }        
+vendor
+{
+  "VendorID": "vd001",
+  "VendorName":"David",
+  "VendorAddress": "david home",
+  "City": "tvm",
+  "State": "kerala",
+  "Postal": "639515",
+  "Country": "india",
+  "PhoneNumber": 9655253658,
+  "Email": "david001@gmail.com",
+  "Website": "www.david.com",
+  "BusinessDescription": "what wsa that",
+  "BusinessRegistrationNumber": 1,
+  "TaxIdentificationNumber": 11,
+  "OwnershipInformation": "given that",
+  "FinancialInformation": "below did",
+  "Certifications": "developer",
+  "References": "which",
+  "ContractualTerms": "even",
+  "Product": "bat",
+  "Delivery": "today",
+  "companyId": "gk001"
+}
