@@ -81,7 +81,7 @@ module.exports = {
             res.status(201).json({
               token,
               role : user.role
-            });000
+            });
           }
         });
       }
