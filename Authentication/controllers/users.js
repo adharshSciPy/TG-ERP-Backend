@@ -62,7 +62,7 @@ module.exports = {
             errors.password = "Wrong Password";
             res.status(404).json(errors);
           } else {
-            // generating a token and storing it in a cookie
+            // generating a token and storing it in a local storage
             const token = jwt.sign({ _id: user._id , role: user.role}, "sooraj_DOING_GOOD", {
               expiresIn: "8h",
             });
@@ -71,16 +71,9 @@ module.exports = {
               httpOnly: true,
               sameSite: "lax",
             };
-
-            const data ={
-               id : user._id,
-            }
-
-            // console.log(data);
             // res.cookie("Authorization", token, options);
             res.status(201).json({
-              token,
-              role : user.role
+              token
             });
           }
         });
@@ -110,11 +103,11 @@ module.exports = {
     console.log(id,"id vanno");
     try {
       const userdata = await User.findById(id);
-       const data = {
+      const data = {
         firstName : userdata.firstName,
-        LastName : userdata.lastNameName,
+        LastName : userdata.lastName,
         email : userdata.email,
-        courseReg : userdata.courseReg
+        Company: userdata.Company
        }
       res.status(200).json(data)
 
@@ -247,4 +240,3 @@ module.exports = {
     }
   },
 };
-
