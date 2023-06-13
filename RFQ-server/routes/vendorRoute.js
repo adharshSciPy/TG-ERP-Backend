@@ -1,30 +1,30 @@
-// const express = require("express");
-// const vendorController = require("../controllers/vendorController");
+const express = require("express");
+const vendorController = require("../controllers/vendorController");
 
 
-// const router = express.Router();
+const router = express.Router();
 
-// // post
-// router.post("/createVendorCollection", vendorController.createVendorCollection);
-// router.post("/vendor/:id", vendorController.vendor);
+// post
+router.post("/createVendorCollection", vendorController.createVendorCollection);
+router.post("/vendor/:id", vendorController.vendor);
 
-// //get
+//get
 
-// router.get("/vendordetails", vendorController.vendordetails);
+router.get("/vendordetails", vendorController.vendordetails);
 
-// //delete
+//delete
 
-// router.delete("/deletevendor/:id", vendorController.deletevendor);
+router.delete("/deletevendor/:id", vendorController.deletevendor);
 
-// //put
+//put
 
-// router.put("/updatevendor/:id", vendorController.updatevendor);
+router.put("/updatevendor/:id", vendorController.updatevendor);
 
-// // get by id
+// get by id
 
-// router.get("/getvendor/:id", vendorController.getvendor);
+router.get("/getvendor/:id", vendorController.getvendor);
 
-// //count
-// router.get("/getcount/:id", vendorController.getcount);
+//count
+router.get("/getcount/:id", vendorController.getcount);
 
-// module.exports = router;
+module.exports = router;
