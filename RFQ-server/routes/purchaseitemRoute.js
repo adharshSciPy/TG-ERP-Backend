@@ -24,4 +24,7 @@ router.put("/updatePurchaseitem/:id", purchaseitemController.updatePurchaseitem)
 
 router.get("/getPurchaseitem/:id", purchaseitemController.getPurchaseitem);
 
+
+//count
+router.get("/getcount/:id", purchaseitemController.getcount);
 module.exports = router;

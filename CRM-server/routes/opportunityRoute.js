@@ -23,4 +23,7 @@ router.put("/updateOpportunity/:id", opportunityController.updateOpportunity);
 
 router.get("/getOpportunity/:id", opportunityController.getOpportunity);
 
+//count
+router.get("/getcount/:id", opportunityController.getcount);
+
 module.exports = router;

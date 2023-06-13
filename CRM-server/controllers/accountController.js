@@ -80,4 +80,20 @@ module.exports = {
       console.log(error.message);
     }
   },
+
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const accounts = await Account.find({ companyId: id });
+      if (!accounts || accounts.length === 0) {
+        return res.status(404).json({ message: 'No accounts found.' });
+      }
+      const count = accounts[0].accounts.length;
+      res.status(200).json({ message: 'Total number of accounts', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  }
 }

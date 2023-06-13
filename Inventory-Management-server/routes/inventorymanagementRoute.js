@@ -23,5 +23,9 @@ const router = express.Router();
 
     router.put("/editInventorymanagementDetails/:id", inventorymanagementController.editInventorymanagementDetails)
 
+    //count
+    router.get("/getcount/:id", inventorymanagementController.getcount);
+
+
 
 module.exports = router;

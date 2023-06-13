@@ -73,4 +73,20 @@ module.exports = {
       console.log(error.message);
     }
   },
+
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const appointments = await Appointment.find({ companyId: id });
+      if (!appointments || appointments.length === 0) {
+        return res.status(404).json({ message: 'No appointments found.' });
+      }
+      const count = appointments[0].appointments.length;
+      res.status(200).json({ message: 'Total number of appointments', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  }
 }

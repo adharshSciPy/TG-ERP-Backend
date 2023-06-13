@@ -24,4 +24,7 @@ router.put("/updaterfq/:id", rfqController.updaterfq);
 
 router.get("/getrfq/:id", rfqController.getrfq);
 
+//count
+router.get("/getcount/:id", rfqController.getcount);
+
 module.exports = router;

@@ -24,5 +24,8 @@ router.put("/updateCustomer/:id", customerController.updateCustomer);
 
 router.get("/getCustomer/:id", customerController.getCustomer);
 
+//count
+router.get("/getcount/:id",customerController.getcount);
+
 
 module.exports = router;
