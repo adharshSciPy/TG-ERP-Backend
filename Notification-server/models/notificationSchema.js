@@ -7,24 +7,21 @@ const notificationDetailsSchema = new mongoose.Schema({
         type: String
     },
     SendDatetime: {
-        type: String
-    },
-    SendDateTime: {
-        type: String
+        type: Date, default: Date.now
     },
     Read: {
         type: Boolean
     },
     Message: {
-        type: Number
+        type: String
     }
 });
 const notificationSchema = new mongoose.Schema({
-    companyId:{
-        type:String,
-        required:true
+    companyId: {
+        type: String,
+        required: true
     },
-    notifications:[notificationDetailsSchema]
+    notifications: [notificationDetailsSchema]
 })
 const Notification = mongoose.model("notification", notificationSchema);
 module.exports = Notification;   

@@ -5,7 +5,7 @@ module.exports = {
     const data = new Customer({
       companyId: req.body.companyId,
     });
-    try {   
+    try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
       console.log("Details added");
@@ -17,7 +17,7 @@ module.exports = {
 
 
   createCustomer: async (req, res) => {
-    
+
     const data = new Customer({
       customers: {
         FirstName: req.body.FirstName,
