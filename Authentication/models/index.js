@@ -63,6 +63,10 @@ const indexSchema = new mongoose.Schema({
     VendorID: {
         type: String,
         unique: true
+    },
+    NotificationID: {
+        type: String,
+        unique: true
     }
 })
 const Index = mongoose.model("index", indexSchema);
