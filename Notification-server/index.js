@@ -9,6 +9,8 @@ const notificationRoute = require('./routes/notificationRoute.js')
 dotenv.config()
 
 const app = express()
+app.use(cors());
+app.use(express.json());
 const PORT = process.env.PORT
 // mongoose connection
 connect();
@@ -23,10 +25,10 @@ const server = app.listen(PORT, () => {
 
 // connecting server instance with socket 
 const io = socket(server, {
-    cors: {
-        origin: ['http://localhost:3000', 'http://localhost:5001'],
-        credentials: true
-    }
+    // cors: {
+    //     origin: ['http://localhost:3000', 'http://localhost:5001'],
+    //     credentials: true
+    // }
 })
 
 // Create a map to store online users and their corresponding sockets

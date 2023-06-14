@@ -1,6 +1,24 @@
 const Notification = require('../models/notificationSchema');
 module.exports = {
 
+
+    // to post the collection
+    addNotificationCollection: async (req, res) => {
+        const { companyId } = req.body
+        console.log(companyId)
+        const data = new Notification({
+            companyId: companyId,
+        });
+        try {
+            const dataToSave = await data.save();
+            res.status(200).json(dataToSave);
+            console.log("Details added");
+        }
+        catch (error) {
+            res.status(400).json({ message: error.message })
+        }
+    },
+
     // post notifications
     postNotification: async (req, res) => {
         const id = req.params.id
