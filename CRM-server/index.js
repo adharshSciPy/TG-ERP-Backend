@@ -23,10 +23,10 @@ connect();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/accountRoute",accountRoute);
-app.use("/appointmentRoute",appointmentRoute);
-app.use("/customer",customerRoute);
-app.use("/opportunityRoute", opportunityRoute);
+app.use("/crm/account",accountRoute);
+app.use("/crm/appointmentRoute",appointmentRoute);
+app.use("/crm/customer",customerRoute);
+app.use("/crm/opportunity", opportunityRoute);
 
 
-app.listen(PORT, () => {console.log(`Server started at ${PORT}`)})
+app.listen(PORT, () => {console.log(`Server V1 started at ${PORT}`)})

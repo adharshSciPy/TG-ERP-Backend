@@ -1,8 +1,8 @@
-# Use an official Node.js runtime as the base image
-FROM node:18-alpine
+# Base image
+FROM node:18
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
@@ -10,11 +10,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code to the working directory
+# Copy the rest of the application source code
 COPY . .
 
-# Expose the port on which the server will listen
+# Expose the port that the server will be listening on
 EXPOSE 5000
 
-# Start the server when the container starts
+# Start the Node.js server
 CMD [ "node", "server.js" ]
