@@ -23,4 +23,7 @@ RFQ-server/.env
 
 PurchaseModule-server/node_modules
 PurchaseModule-server/.env
+
+Notification-server/node_modules
+Notification-server/.env
     

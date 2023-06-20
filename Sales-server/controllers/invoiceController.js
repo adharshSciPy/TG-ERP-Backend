@@ -92,4 +92,20 @@ module.exports = {
             console.log(error.message);
         }
     },
+
+    //count
+    getcount: async (req, res) => {
+        const id = req.params.id;
+        try {
+            const invoices = await Invoice.find({ companyId: id });
+            if (!invoices || invoices.length === 0) {
+                return res.status(404).json({ message: 'No invoices found.' });
+            }
+            const count = invoices[0].invoices.length;
+            res.status(200).json({ message: 'Total number of invoices', count });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ error: 'An error occurred while fetching the count.' });
+        }
+    }
 }

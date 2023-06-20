@@ -23,5 +23,8 @@ const router = express.Router();
 
     router.put("/editEmployee/:id", userController.editEmployee)
 
+    //count
+    router.get("/getcount/:id", userController.getcount);
+
 
 module.exports = router;

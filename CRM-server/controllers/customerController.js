@@ -5,7 +5,7 @@ module.exports = {
     const data = new Customer({
       companyId: req.body.companyId,
     });
-    try {   
+    try {
       const dataToSave = await data.save();
       res.status(200).json(dataToSave);
       console.log("Details added");
@@ -17,7 +17,7 @@ module.exports = {
 
 
   createCustomer: async (req, res) => {
-    
+
     const data = new Customer({
       customers: {
         FirstName: req.body.FirstName,
@@ -120,5 +120,22 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
     }
+  },
+
+  //count
+  getcount: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const customers = await Customer.find({ companyId: id });
+      if (!customers || customers.length === 0) {
+        return res.status(404).json({ message: 'No customers found.' });
+      }
+      const count = customers[0].customers.length;
+      res.status(200).json({ message: 'Total number of customers', count });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
   }
+  
 }
