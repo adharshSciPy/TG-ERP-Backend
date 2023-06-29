@@ -17,7 +17,7 @@ connect(); // mongoose connection
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/inventorymanagementRoute", inventorymanagementRoute);
+app.use("/inventory/inventorymanagementRoute", inventorymanagementRoute);
 
 
 app.listen(PORT, () => {console.log(`Server is porting ${PORT}`)})

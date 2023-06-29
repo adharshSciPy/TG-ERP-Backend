@@ -8,6 +8,8 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/rewrite-target: /
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:627527647876:certificate/52e236d2-1a41-48fd-a706-ce1c9670dc47
 spec:
   ingressClassName: alb
   rules:
@@ -33,5 +35,18 @@ spec:
           service:
             name: hrm-server
             port:
-              number: 5002       
-
+              number: 5002  
+      - path: /inventory
+        pathType: Prefix
+        backend:
+          service:
+            name: inventory-server
+            port:
+              number: 5003            
+      - path: /project
+        pathType: Prefix
+        backend:
+          service:
+            name: project
+            port:
+              number: 5004

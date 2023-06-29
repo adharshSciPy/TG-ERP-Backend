@@ -17,7 +17,7 @@ connect(); // mongoose connection
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/productRoute", productRoute);
+app.use("/product/productRoute", productRoute);
 
 
 app.listen(PORT, () => {console.log(`Server is porting ${PORT}`)})

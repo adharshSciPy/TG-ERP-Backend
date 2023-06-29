@@ -17,7 +17,7 @@ connect(); // mongoose connection
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/prjmanagerRoute", prjmanagerRoute);
+app.use("/project/prjmanagerRoute", prjmanagerRoute);
 
 
 app.listen(PORT, () => {console.log(`Server is porting ${PORT}`)})

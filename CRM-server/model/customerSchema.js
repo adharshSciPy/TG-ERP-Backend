@@ -9,14 +9,14 @@ const customerDetailsSchema = new mongoose.Schema({
         type: String,
         
     },
-    PrimaryAccount: {
-        type: String,
+    // PrimaryAccount: {
+    //     type: String,
         
-    },
-    Title: {
-        type: String,
+    // },
+    // Title: {
+    //     type: String,
         
-    },
+    // },
     PhoneWork: {
         type: String,
         
@@ -29,46 +29,46 @@ const customerDetailsSchema = new mongoose.Schema({
         type: String,
         
     },
-    PhoneOther: {
-        type: String,
+    // PhoneOther: {
+    //     type: String,
         
-    },
+    // },
     Website: {
         type: String,
         
     },
-    Assigned: {
-        type: String,
+    // Assigned: {
+    //     type: String,
         
-    },
-    Teams: {
-        type: String,
+    // },
+    // Teams: {
+    //     type: String,
         
-    },
-    Partner: {
-        type: String,
+    // },
+    // Partner: {
+    //     type: String,
         
-    },
+    // },
     Category: {
         type: String,
         
     },
-    Department: {
-        type: String,
+    // Department: {
+    //     type: String,
         
-    },
+    // },
     BusinessRole: {
         type: String,
         
     },
-    Reports: {
-        type: String,
+    // Reports: {
+    //     type: String,
         
-    },
-    AssistantPh: {
-        type: String,
+    // },
+    // AssistantPh: {
+    //     type: String,
         
-    },
+    // },
     PrimaryCity: {
         type: String,
         
@@ -102,8 +102,22 @@ const customerDetailsSchema = new mongoose.Schema({
         
     },   
     Description: {
-        type: String,
-        
+        type: String,        
+    },
+    Email :{
+        type: String
+    },
+    Address :{
+        type: String
+    },
+    BussinessName :{
+        type : String
+    },
+    BussinessContact :{
+        type : String
+    },
+    Image : {
+        type:String
     }
   });
 

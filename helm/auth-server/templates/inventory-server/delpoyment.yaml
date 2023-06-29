@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-server
+spec:
+  selector:
+    matchLabels:
+      app: inventory-server
+  template:
+    metadata:
+      labels:
+        app: inventory-server
+    spec:   
+      containers:
+      - name: inventory-server
+        image: sooraj2022/inventory-server:alpha
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5003
+
+

@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const connect = require('./mongodb/config.js');
 
+
+
 const accountRoute = require('./routes/accountRoute.js');
 
 const appointmentRoute = require('./routes/appointmentRoute.js');
@@ -17,11 +19,20 @@ dotenv.config();
 
 const PORT = process.env.PORT;
 
+
+
 // mongoose connection
 connect();
 
-app.use(cors());
+
+app.use(
+    cors({
+      origin: ["http://localhost:3000"],
+      methods: "GET,POST,PUT,DELETE,OPTIONS",
+    })
+  );
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/crm/account",accountRoute);
 app.use("/crm/appointmentRoute",appointmentRoute);
