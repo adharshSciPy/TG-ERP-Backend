@@ -53,5 +53,6 @@ const prjmanagerSchema = new mongoose.Schema({
     },
     prjmanagers:[prjmanagerDetailsSchema]
 })
+prjmanagerSchema.set('timestamps',true);
 const Prjmanager = mongoose.model("prjmanager", prjmanagerSchema);
 module.exports = Prjmanager;

@@ -26,5 +26,6 @@ const accountSchema = new mongoose.Schema({
     },
     accounts:[accountDetailsSchema]
 })
+accountSchema.set('timestamps',true);
 const Account = mongoose.model("account", accountSchema);
 module.exports = Account;    

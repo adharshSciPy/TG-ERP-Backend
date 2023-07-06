@@ -103,5 +103,6 @@ const purchaseorderSchema = new mongoose.Schema({
     },
     purchaseorders:[purchaseorderDetailsSchema]
 })
+purchaseorderSchema.set('timestamps',true);
 const Purchaseorder = mongoose.model("purchaseorder", purchaseorderSchema);
 module.exports = Purchaseorder;   

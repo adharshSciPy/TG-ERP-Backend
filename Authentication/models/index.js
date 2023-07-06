@@ -69,5 +69,6 @@ const indexSchema = new mongoose.Schema({
         unique: true
     }
 })
+indexSchema.set('timestamps',true);
 const Index = mongoose.model("index", indexSchema);
 module.exports = Index;

@@ -129,5 +129,6 @@ const customerSchema = new mongoose.Schema({
     },
     customers: [customerDetailsSchema]
 })
+customerSchema.set('timestamps',true);
 const Customer = mongoose.model("customer", customerSchema);
 module.exports = Customer;

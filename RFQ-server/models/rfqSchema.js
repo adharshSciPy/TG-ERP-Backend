@@ -62,5 +62,6 @@ const rfqSchema = new mongoose.Schema({
     },
     rfqs:[rfqDetailsSchema]
 })
+rfqSchema.set('timestamps',true);
 const Rfq = mongoose.model("rfq", rfqSchema);
 module.exports = Rfq;   

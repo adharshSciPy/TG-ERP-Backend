@@ -32,5 +32,6 @@ const opportunitySchema = new mongoose.Schema({
     },
     opportunitys:[opportunityDetailsSchema]
 })
+opportunitySchema.set('timestamps',true);
 const Opportunity = mongoose.model("opportunity", opportunitySchema);
 module.exports = Opportunity;    

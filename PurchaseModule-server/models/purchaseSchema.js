@@ -35,5 +35,6 @@ const purchaseSchema = new mongoose.Schema({
     },
     purchases:[purchaseDetailsSchema]
 })
+purchaseSchema.set('timestamps',true);
 const Purchase = mongoose.model("purchase", purchaseSchema);
 module.exports = Purchase;   

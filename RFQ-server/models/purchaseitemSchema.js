@@ -29,5 +29,6 @@ const purchaseitemSchema = new mongoose.Schema({
     },
     purchaseitems:[purchaseitemDetailsSchema]
 })
+purchaseitemSchema.set('timestamps',true);
 const Purchaseitem = mongoose.model("purchaseitem", purchaseitemSchema);
 module.exports = Purchaseitem;   

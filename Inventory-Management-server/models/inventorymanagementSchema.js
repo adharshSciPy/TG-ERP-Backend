@@ -32,5 +32,6 @@ const inventorymanagementSchema = new mongoose.Schema({
     },
     inventorymanagements:[inventorymanagementDetailsSchema]
 })
+inventorymanagementSchema.set('timestamps',true);
 const Inventorymanagement = mongoose.model("inventorymanagement", inventorymanagementSchema);
 module.exports = Inventorymanagement;

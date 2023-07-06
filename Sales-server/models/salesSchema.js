@@ -29,5 +29,6 @@ const salesSchema = new mongoose.Schema({
     },
     saless:[salesDetailsSchema]
 })
+salesSchema.set('timestamps',true);
 const Sales = mongoose.model("sales", salesSchema);
 module.exports = Sales;    
