@@ -14,13 +14,17 @@ module.exports = {
     }
   },
   createOpportunity: async (req, res) => {
+    console.log(req.body);
     const data = new Opportunity({
       opportunitys: {
         OpportunityName: req.body.OpportunityName,
-        SalesStage: req.body.SalesStage,
+        SalesStage: "Initialized",
         Description: req.body.Description,
         CloseDate: req.body.CloseDate,
-        Amount: req.body.Amount
+        Amount: req.body.Amount,
+        Reason: req.body.Reason,
+        CustomerName: req.body.CustomerName,
+        CustomerId:req.body.CustomerId
       }
     });
     Opportunity.findByIdAndUpdate(req.params.id, { $push: { opportunitys: data.opportunitys } })
@@ -43,14 +47,40 @@ module.exports = {
   },
 
   deleteOpportunity: async (req, res) => {
-    try {
-      const user = await Opportunity.findByIdAndDelete(req.params.id);
-      if (!user) throw Error("No user found");
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  },
+    const { companyID, opportunityID } = req.params;
+    
+    Opportunity.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else{
+        console.log(object);
+      }
+
+      const nestedIndex = object.opportunitys.findIndex(nestedObj => nestedObj.id === opportunityID);
+      if (nestedIndex === -1) {
+        return res.status(404).send('Nested object not found');
+      }
+      else{
+        console.log(nestedIndex);
+      }
+
+      object.opportunitys.splice(nestedIndex, 1);
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+  
+        res.send('Object removed successfully');
+      });
+    
+    })},
 
   updateOpportunity: async (req, res) => {
     try {

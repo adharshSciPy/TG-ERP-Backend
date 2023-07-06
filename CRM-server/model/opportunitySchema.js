@@ -1,5 +1,11 @@
 const mongoose = require('mongoose')
 const opportunityDetailsSchema = new mongoose.Schema({
+    CustomerName : {
+        type: String
+    },
+    CustomerId : {
+        type: String
+    },
     OpportunityName: {
         type: String
     },
@@ -14,6 +20,9 @@ const opportunityDetailsSchema = new mongoose.Schema({
     },
     Amount: {
         type: Number
+    },
+    Reason:{
+        type: String
     }
 });
 const opportunitySchema = new mongoose.Schema({

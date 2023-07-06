@@ -14,7 +14,7 @@ router.post("/customer/:id", upload.single('image'), customerController.createCu
 //get 
 router.get("/customerdetails", customerController.customerDetails);
 //delete
-router.delete("/deleteCustomer/:id", customerController.deleteCustomer);
+router.delete("/deleteCustomer/:companyID/:customerID", customerController.deleteCustomer);
 //put
 router.put("/updateCustomer/:id", customerController.updateCustomer);
 // get by id

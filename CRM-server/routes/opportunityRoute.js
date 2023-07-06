@@ -12,7 +12,7 @@ router.get("/opportunityDetails", opportunityController.opportunityDetails);
 
 //delete
 
-router.delete("/deleteOpportunity/:id", opportunityController.deleteOpportunity);
+router.delete("/deleteOpportunity/:companyID/:opportunityID", opportunityController.deleteOpportunity);
 
 
 //put
