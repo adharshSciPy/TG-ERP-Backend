@@ -20,15 +20,20 @@ const purchaseitemDetailsSchema = new mongoose.Schema({
     },
     Total: {
         type: Number
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const purchaseitemSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     purchaseitems:[purchaseitemDetailsSchema]
-})
-purchaseitemSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Purchaseitem = mongoose.model("purchaseitem", purchaseitemSchema);
 module.exports = Purchaseitem;   

@@ -14,15 +14,21 @@ const notificationDetailsSchema = new mongoose.Schema({
     },
     Message: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
+
 const notificationSchema = new mongoose.Schema({
     companyId: {
         type: String,
         required: true
     },
     notifications: [notificationDetailsSchema]
-})
-notificationSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Notification = mongoose.model("notification", notificationSchema);
 module.exports = Notification;   

@@ -67,8 +67,12 @@ const indexSchema = new mongoose.Schema({
     NotificationID: {
         type: String,
         unique: true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-})
-indexSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Index = mongoose.model("index", indexSchema);
 module.exports = Index;

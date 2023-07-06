@@ -62,16 +62,21 @@ const productDetailsSchema = new mongoose.Schema({
     },
     SKU: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
 
-});
+},
+{ timestamps: true });
 const productSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     products:[productDetailsSchema]
-})
-productSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Product = mongoose.model("product", productSchema);
 module.exports = Product;

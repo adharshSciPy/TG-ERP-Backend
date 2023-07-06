@@ -23,15 +23,20 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
     },
     Tax: {
         type: Number
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const inventorymanagementSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     inventorymanagements:[inventorymanagementDetailsSchema]
-})
-inventorymanagementSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Inventorymanagement = mongoose.model("inventorymanagement", inventorymanagementSchema);
 module.exports = Inventorymanagement;
