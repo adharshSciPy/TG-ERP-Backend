@@ -14,7 +14,7 @@ const router = express.Router();
     // Get by id
 
     router.get("/getidInventorymanagementDetails/:id", inventorymanagementController.getidInventorymanagementDetails)
-
+    router.get("/getInventorymanagementDetailsById/:id/:inventorymanagementID",inventorymanagementController.getidInventorymanagementDetailss)
     // Delete
 
     // router.delete("/deleteInventorymanagementDetails/:id", inventorymanagementController.deleteInventorymanagementDetails)

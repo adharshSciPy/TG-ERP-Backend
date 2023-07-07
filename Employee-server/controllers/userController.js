@@ -192,6 +192,18 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }
+  },
+  getEmployeebyId: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.customerId;
+    try {
+      const data = await Employee.findById(collection);
+
+      const Employeedetails = data.employees.find(x => x._id ==id)
+      res.status(200).json(Employeedetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 
 }
