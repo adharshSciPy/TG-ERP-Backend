@@ -70,15 +70,52 @@ module.exports = {
 
   //delete
 
+  // deleteProductDetails: async (req, res) => {
+  //   try {
+  //     const product = await Product.findByIdAndDelete(req.params.id);
+  //     if (!product) throw Error("No user found");
+  //     res.status(200).json({ success: true });
+  //   } catch (error) {
+  //     res.status(500).json({ message: error.message });
+  //   }
+  // },
+
   deleteProductDetails: async (req, res) => {
-    try {
-      const product = await Product.findByIdAndDelete(req.params.id);
-      if (!product) throw Error("No user found");
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  },
+    const { companyID, productID } = req.params;
+
+    Product.findById(companyID, (err, object) => {
+        if (err) {
+            console.error('Error finding object:', err);
+            return res.status(500).send('Internal Server Error');
+        }
+
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
+        else {
+            console.log(object);
+        }
+
+        const nestedIndex = object.products.findIndex(nestedObj => nestedObj.id === productID);
+        if (nestedIndex === -1) {
+            return res.status(404).send('Nested object not found');
+        }
+        else {
+            console.log(nestedIndex);
+        }
+
+        object.products.splice(nestedIndex, 1);
+        object.save((err) => {
+            if (err) {
+                console.error('Error saving object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            res.send('Object removed successfully');
+        });
+
+    })
+},
 
 
   //put

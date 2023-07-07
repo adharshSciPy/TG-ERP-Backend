@@ -52,14 +52,48 @@ module.exports = {
 
   //delete
 
-  deleteInventorymanagementDetails: async (req, res) => {
-    try {
-      const inventorymanagement = await Inventorymanagement.findByIdAndDelete(req.params.id);
-      if (!inventorymanagement) throw Error("No user found");
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
+  // deleteInventorymanagementDetails: async (req, res) => {
+  //   try {
+  //     const inventorymanagement = await Inventorymanagement.findByIdAndDelete(req.params.id);
+  //     if (!inventorymanagement) throw Error("No user found");
+  //     res.status(200).json({ success: true });
+  //   } catch (error) {
+  //     res.status(500).json({ message: error.message });
+  //   }
+  // },
+
+  deleteInventorymanagementDetails: async(req,res) => {
+    const { companyID, inventorymanagementID } = req.params;
+    Inventorymanagement.findById(companyID, (err,object) => {
+      if (err) {
+        console.error('Error finding object:',err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log(object);
+      }
+      
+      const nestedIndex = object.inventorymanagements.findIndex(nestedObj => nestedObj.id === inventorymanagementID);
+      if(nestedIndex === -1) {
+        return res.status(404).send('Nested object not found');
+      }
+      else{
+        console.log(nestedIndex);
+      }
+
+      object.inventorymanagements.splice(nestedIndex, 1);
+      object.save((err) => {
+        if(err) {
+          console.error('Error saving object:',err);
+          return res.status(500).send('Internal Server Error');
+        }
+        res.send('Object removed successfully');
+      });
+    })
   },
 
 

@@ -17,7 +17,9 @@ const router = express.Router();
 
     // Delete
 
-    router.delete("/deleteInventorymanagementDetails/:id", inventorymanagementController.deleteInventorymanagementDetails)
+    // router.delete("/deleteInventorymanagementDetails/:id", inventorymanagementController.deleteInventorymanagementDetails)
+     
+    router.delete("/deleteInventorymanagementDetails/:companyID/:inventorymanagementID", inventorymanagementController.deleteInventorymanagementDetails)
 
     // Put
 

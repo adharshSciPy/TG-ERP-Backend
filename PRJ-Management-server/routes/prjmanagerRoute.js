@@ -17,7 +17,9 @@ const router = express.Router();
 
     // Delete
 
-    router.delete("/deletePrjmanagerDetails/:id", prjmanagerController.deletePrjmanagerDetails)
+    // router.delete("/deletePrjmanagerDetails/:id", prjmanagerController.deletePrjmanagerDetails)
+
+    router.delete("/deletePrjmanagerDetails/:companyID/:prjmanagerID", prjmanagerController.deletePrjmanagerDetails)
 
     // Put
 
