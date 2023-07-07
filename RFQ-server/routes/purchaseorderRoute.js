@@ -14,7 +14,9 @@ router.get("/purchaseorderdetails", purchaseorderController.purchaseorderdetails
 
 //delete
 
-router.delete("/deletePurchaseorder/:id", purchaseorderController.deletePurchaseorder);
+// router.delete("/deletePurchaseorder/:id", purchaseorderController.deletePurchaseorder);
+
+router.delete("/deletePurchaseorder/:companyID/:salesID", purchaseorderController.deletePurchaseorder)
 
 //put
 
