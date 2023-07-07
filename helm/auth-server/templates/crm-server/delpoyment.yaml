@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-server
+spec:
+  selector:
+    matchLabels:
+      app: crm-server
+  template:
+    metadata:
+      labels:
+        app: crm-server
+    spec:   
+      containers:
+      - name: crm-server
+        image: sooraj2022/crm-server:new
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5001
+
+

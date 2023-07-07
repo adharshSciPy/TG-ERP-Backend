@@ -51,7 +51,12 @@ const companySchema = new mongoose.Schema({
     IndexId : {
         type : String,
         required : false
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-})
+},
+{ timestamps: true });
 const Company = mongoose.model("company", companySchema);
 module.exports = Company;

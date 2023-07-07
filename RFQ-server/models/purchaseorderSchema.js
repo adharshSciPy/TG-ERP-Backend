@@ -93,15 +93,21 @@ const purchaseorderDetailsSchema = new mongoose.Schema({
     },
     Date: {
         type: Date
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
 
-});
+},
+{ timestamps: true });
 const purchaseorderSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     purchaseorders:[purchaseorderDetailsSchema]
-})
+},
+{ timestamps: true });
 const Purchaseorder = mongoose.model("purchaseorder", purchaseorderSchema);
 module.exports = Purchaseorder;   

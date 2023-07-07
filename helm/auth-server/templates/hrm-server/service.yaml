@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hrm-server
+spec:
+  selector:
+    app: hrm-server
+  ports:
+  - port: 5002
+    protocol: TCP
+    targetPort: 5002

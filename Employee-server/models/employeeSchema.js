@@ -68,14 +68,20 @@ const employeeDetailsSchema = new mongoose.Schema({
     },
     Role: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const employeeSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     employees:[employeeDetailsSchema]
-})
+},
+{ timestamps: true });
 const Employee = mongoose.model("employee", employeeSchema);
 module.exports = Employee;

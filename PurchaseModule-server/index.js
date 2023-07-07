@@ -16,7 +16,7 @@ connect();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use("/purchaseRoute",purchaseRoute);
+app.use("/purchase/purchaseRoute",purchaseRoute);
 
 
 app.listen(PORT, () => {console.log(`Server started at ${PORT}`)})

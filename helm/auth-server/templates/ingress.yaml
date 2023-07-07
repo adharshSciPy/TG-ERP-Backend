@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: auth-server
+  labels:
+    name: auth-server
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/rewrite-target: /
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:627527647876:certificate/52e236d2-1a41-48fd-a706-ce1c9670dc47
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-server
+            port:
+              number: 5000
+      - path: /crm
+        pathType: Prefix
+        backend:
+          service:
+            name: crm-server
+            port:
+              number: 5001
+      - path: /hrm
+        pathType: Prefix
+        backend:
+          service:
+            name: hrm-server
+            port:
+              number: 5002  
+      - path: /inventory
+        pathType: Prefix
+        backend:
+          service:
+            name: inventory-server
+            port:
+              number: 5003            
+      - path: /project
+        pathType: Prefix
+        backend:
+          service:
+            name: project
+            port:
+              number: 5004

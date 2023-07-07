@@ -16,6 +16,6 @@ connect(); // MONGOOSE CONNECTION
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/employeeRoute", employeeRoute);
+app.use("/hrm/employee", employeeRoute);
 
 app.listen(PORT, () => {console.log(`Server is porting ${PORT}`)})

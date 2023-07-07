@@ -44,14 +44,20 @@ const prjmanagerDetailsSchema = new mongoose.Schema({
     },
     Progress: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const prjmanagerSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     prjmanagers:[prjmanagerDetailsSchema]
-})
+},
+{ timestamps: true });
 const Prjmanager = mongoose.model("prjmanager", prjmanagerSchema);
 module.exports = Prjmanager;
