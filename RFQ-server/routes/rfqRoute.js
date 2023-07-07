@@ -14,7 +14,9 @@ router.get("/rfqdetails", rfqController.rfqdetails);
 
 //delete
 
-router.delete("/deleterfq/:id", rfqController.deleterfq);
+// router.delete("/deleterfq/:id", rfqController.deleterfq);
+
+router.delete("/deleterfq/:companyID/:salesID", rfqController.deleterfq)
 
 //put
 
