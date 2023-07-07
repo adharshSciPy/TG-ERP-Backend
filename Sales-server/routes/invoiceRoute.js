@@ -25,7 +25,7 @@ router.put("/updateInvoice/:id", invoiceController.updateInvoice);
 // get by id
 
 router.get("/getInvoice/:id", invoiceController.getInvoice);
-
+router.get("/getInvoiceById/:id/:InvoiceID",invoiceController.getInvoiceById)
 //count
 router.get("/getcount/:id", invoiceController.getcount);
 

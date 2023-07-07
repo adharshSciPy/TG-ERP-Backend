@@ -161,6 +161,18 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }
+  },
+  getPrjmanagerDetailsById: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.PrjmanagerID;
+    try {
+      const data = await Prjmanager.findById(collection);
+
+      const PrjmanagerDetails = data.prjmanagers.find(x => x._id ==id)
+      res.status(200).json(PrjmanagerDetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 
 }

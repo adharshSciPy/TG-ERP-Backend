@@ -25,7 +25,7 @@ router.put("/updatePurchaseorder/:id", purchaseorderController.updatePurchaseord
 // get by id
 
 router.get("/getPurchaseorder/:id", purchaseorderController.getPurchaseorder);
-
+router.get("/getPurchaseorderById/:id/:PurchaseorderID",purchaseorderController.getPurchaseorderById)
 //count
 router.get("/getcount/:id", purchaseorderController.getcount);
 

@@ -154,5 +154,17 @@ module.exports = {
             console.log(error.message);
             res.status(500).json({ error: 'An error occurred while fetching the count.' });
         }
-    }
+    },
+    getrfqById: async (req, res) => {
+        const collection = req.params.id;
+        const id = req.params.rfqID;
+        try {
+          const data = await Rfq.findById(collection);
+    
+          const Rfqdetails = data.rfqs.find(x => x._id ==id)
+          res.status(200).json(Rfqdetails);
+        } catch (error) {
+          console.log(error.message);
+        }
+      },
 }

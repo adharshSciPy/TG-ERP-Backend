@@ -158,5 +158,17 @@ module.exports = {
             console.log(error.message);
             res.status(500).json({ error: 'An error occurred while fetching the count.' });
         }
-    }
+    },
+    getvendorById: async (req, res) => {
+        const collection = req.params.id;
+        const id = req.params.VendorID;
+        try {
+          const data = await Vendor.findById(collection);
+    
+          const Vendorsdetails = data.vendors.find(x => x._id ==id)
+          res.status(200).json(Vendorsdetails);
+        } catch (error) {
+          console.log(error.message);
+        }
+      },
 }

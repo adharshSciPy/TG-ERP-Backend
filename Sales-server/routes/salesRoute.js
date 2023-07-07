@@ -25,7 +25,7 @@ router.put("/updateSales/:id", salesController.updateSales);
 // get by id
 
 router.get("/getSales/:id", salesController.getSales);
-
+router.get("/getSalesById/:id/:SalesID",salesController.getSalesById)
 
 //count
 router.get("/getcount/:id", salesController.getcount);

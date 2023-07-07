@@ -10,11 +10,12 @@ const router = express.Router();
     // Get
 
     router.get("/getPrjmanagerDetails", prjmanagerController.getPrjmanagerDetails)
-
+    
     // Get by id
 
     router.get("/getidPrjmanagerDetails/:id", prjmanagerController.getidPrjmanagerDetails)
-
+    router.get("/getidPrjmanagerDetailsById/:id/:PrjmanagerID",prjmanagerController.getPrjmanagerDetailsById)
+    
     // Delete
 
     // router.delete("/deletePrjmanagerDetails/:id", prjmanagerController.deletePrjmanagerDetails)

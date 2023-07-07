@@ -14,7 +14,7 @@ const router = express.Router();
     // Get by id
 
     router.get("/getidProductDetails/:id", productController.getidProductDetails)
-
+    router.get("/getProductDetailsById/:id/:ProductID",productController.getidProductDetailsById)
     // Delete
 
     // router.delete("/deleteProductDetails/:id", productController.deleteProductDetails)

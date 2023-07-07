@@ -25,7 +25,7 @@ router.put("/updaterfq/:id", rfqController.updaterfq);
 // get by id
 
 router.get("/getrfq/:id", rfqController.getrfq);
-
+router.get("/getrfqById/:id/:rfqID",rfqController.getrfqById)
 //count
 router.get("/getcount/:id", rfqController.getcount);
 

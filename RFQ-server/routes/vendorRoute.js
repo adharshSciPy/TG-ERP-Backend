@@ -25,7 +25,7 @@ router.put("/updatevendor/:id", vendorController.updatevendor);
 // get by id
 
 router.get("/getvendor/:id", vendorController.getvendor);
-
+router.get("/getvendorById/:id/:VendorID",vendorController.getvendorById)
 //count
 router.get("/getcount/:id", vendorController.getcount);
 
