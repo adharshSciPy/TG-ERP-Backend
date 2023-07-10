@@ -195,7 +195,7 @@ module.exports = {
   },
   getEmployeebyId: async (req, res) => {
     const collection = req.params.id;
-    const id = req.params.customerId;
+    const id = req.params.employeeID;
     try {
       const data = await Employee.findById(collection);
 

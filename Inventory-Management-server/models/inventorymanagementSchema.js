@@ -24,6 +24,12 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
     Tax: {
         type: Number
     },
+    HSNCode: {
+        type: String
+    },
+    BuyOrSell: {
+        type: String
+    },
     createdAt:{
         type:Date,
         default:Date.now,

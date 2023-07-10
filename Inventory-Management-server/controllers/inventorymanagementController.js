@@ -25,7 +25,9 @@ module.exports = {
         ItemCategory: req.body.ItemCategory,
         CurrentStock: req.body.CurrentStock,
         Price: req.body.Price,
-        Tax: req.body.Tax
+        Tax: req.body.Tax,
+        HSNCode: req.body.HSNCode,
+        BuyOrSell: req.body.BuyOrSell,
       }
     });
     Inventorymanagement.findByIdAndUpdate(req.params.id, { $push: { inventorymanagements: data.inventorymanagements } })
@@ -108,7 +110,9 @@ module.exports = {
         ItemCategory: req.body.ItemCategory,
         CurrentStock: req.body.CurrentStock,
         Price: req.body.Price,
-        Tax: req.body.Tax
+        Tax: req.body.Tax,
+        HSNCode: req.body.HSNCode,
+        BuyOrSell: req.body.BuyOrSell,
       });
       res.status(200).json("Successfully updated");
     } catch (error) {
