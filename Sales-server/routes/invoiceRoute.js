@@ -20,7 +20,9 @@ router.delete("/deleteInvoice/:companyID/:invoiceID", invoiceController.deleteIn
 
 //put
 
-router.put("/updateInvoice/:id", invoiceController.updateInvoice);
+// router.put("/updateInvoice/:id", invoiceController.updateInvoice);
+
+router.put("/updateInvoice/:companyID/:invoiceID", invoiceController.updateInvoice);
 
 // get by id
 

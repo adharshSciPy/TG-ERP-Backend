@@ -23,8 +23,10 @@ const router = express.Router();
 
     // Put
 
-    router.put("/editInventorymanagementDetails/:id", inventorymanagementController.editInventorymanagementDetails)
+    // router.put("/editInventorymanagementDetails/:id", inventorymanagementController.editInventorymanagementDetails)
 
+    router.put("/editInventorymanagementDetails/:companyID/:inventorymanagementID", inventorymanagementController.editInventorymanagementDetails)
+    
     //count
     router.get("/getcount/:id", inventorymanagementController.getcount);
 

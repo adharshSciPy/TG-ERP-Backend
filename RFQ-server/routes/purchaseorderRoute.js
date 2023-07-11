@@ -20,7 +20,9 @@ router.delete("/deletePurchaseorder/:companyID/:salesID", purchaseorderControlle
 
 //put
 
-router.put("/updatePurchaseorder/:id", purchaseorderController.updatePurchaseorder);
+// router.put("/updatePurchaseorder/:id", purchaseorderController.updatePurchaseorder);
+
+router.put("/updatePurchaseorder/:companyID/:salesID", purchaseorderController.updatePurchaseorder);
 
 // get by id
 

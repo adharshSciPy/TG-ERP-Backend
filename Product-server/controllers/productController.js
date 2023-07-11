@@ -121,42 +121,45 @@ module.exports = {
   //put
 
   editProductDetails: async (req, res) => {
-    try {
-      await Product.findByIdAndUpdate(req.params.id, {
-        Name: req.body.Name,
-        Ribbon: req.body.Ribbon,
-        Description: req.Description,
-        Category: req.body.Category,
-        Tax: req.body.Tax,
-        Fulfilledby: req.body.Fulfilledby,
-        Brand: req.body.Brand,
+    const { companyID, productID } = req.params;
+    const updatedproductData = req.body; // Assuming the updated data is sent in the request body
 
-        //
+    Product.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
 
-        Price: req.body.Price,
-        OnSale: req.body.OnSale,
-        ShowPricePerUnit: req.body.ShowPricePerUnit,
-        CostOFGoods: req.body.CostOFGoods,
-        Profit: req.body.Profit,
-        Margin: req.body.Margin,
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
 
-        // Product Option 
+      const nestedProduct = object.products.find(nestedObj => nestedObj.id === productID);
+      console.log(nestedProduct)
 
-        Type: req.body.Type,
-        Choice: req.body.Choice,
+      if (!nestedProduct) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedProduct, "here");
+      }
 
-        // Inventory of Shipping
+      // Update the product's data with the provided updatedCustomerData
+      Object.assign(nestedProduct, updatedproductData);
 
-        Status: req.body.Status,
-        SKU: req.body.SKU
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        res.send('Object updated successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    });
   },
-
   // get by id
 
   getidProductDetails: async (req, res) => {

@@ -68,20 +68,20 @@ module.exports = {
 
     deletevendor: async (req, res) => {
         const { companyID, salesID } = req.params;
-    
+
         Vendor.findById(companyID, (err, object) => {
             if (err) {
                 console.error('Error finding object:', err);
                 return res.status(500).send('Internal Server Error');
             }
-    
+
             if (!object) {
                 return res.status(404).send('Object not found');
             }
             else {
                 console.log(object);
             }
-    
+
             const nestedIndex = object.vendors.findIndex(nestedObj => nestedObj.id === salesID);
             if (nestedIndex === -1) {
                 return res.status(404).send('Nested object not found');
@@ -89,49 +89,59 @@ module.exports = {
             else {
                 console.log(nestedIndex);
             }
-    
+
             object.vendors.splice(nestedIndex, 1);
             object.save((err) => {
                 if (err) {
                     console.error('Error saving object:', err);
                     return res.status(500).send('Internal Server Error');
                 }
-    
+
                 res.send('Object removed successfully');
             });
-    
+
         })
     },
 
     updatevendor: async (req, res) => {
-        try {
-            await Vendor.findByIdAndUpdate(req.params.id, {
-                VendorID: req.body.VendorID,
-                VendorName: req.body.VendorName,
-                VendorAddress: req.body.VendorAddress,
-                City: req.body.City,
-                State: req.body.State,
-                Postal: req.body.Postal,
-                Country: req.body.Country,
-                PhoneNumber: req.body.PhoneNumber,
-                Email: req.body.Email,
-                Website: req.body.Website,
-                BusinessDescription: req.body.BusinessDescription,
-                BusinessRegistrationNumber: req.body.BusinessRegistrationNumber,
-                TaxIdentificationNumber: req.body.TaxIdentificationNumber,
-                OwnershipInformation: req.body.OwnershipInformation,
-                FinancialInformation: req.body.FinancialInformation,
-                Certifications: req.body.Certifications,
-                References: req.body.References,
-                ContractualTerms: req.body.ContractualTerms,
-                Product: req.body.Product,
-                Delivery: req.body.Delivery
+        const { companyID, salesID } = req.params;
+        const updatedvendorData = req.body; // Assuming the updated data is sent in the request body
+
+        Vendor.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log("ok");
+            }
+
+            const nestedVendor = object.vendors.find(nestedObj => nestedObj.id === salesID);
+            console.log(nestedVendor)
+
+            if (!nestedVendor) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedVendor, "here");
+            }
+
+            // Update the vendor's data with the provided updatedCustomerData
+            Object.assign(nestedVendor, updatedvendorData);
+
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object updated successfully');
             });
-            res.status(200).json("Successfully updated");
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).json("ServerError");
-        }
+        });
     },
 
     getvendor: async (req, res) => {
@@ -163,12 +173,12 @@ module.exports = {
         const collection = req.params.id;
         const id = req.params.VendorID;
         try {
-          const data = await Vendor.findById(collection);
-    
-          const Vendorsdetails = data.vendors.find(x => x._id ==id)
-          res.status(200).json(Vendorsdetails);
+            const data = await Vendor.findById(collection);
+
+            const Vendorsdetails = data.vendors.find(x => x._id == id)
+            res.status(200).json(Vendorsdetails);
         } catch (error) {
-          console.log(error.message);
+            console.log(error.message);
         }
-      },
+    },
 }

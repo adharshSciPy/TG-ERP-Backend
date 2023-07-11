@@ -56,20 +56,20 @@ module.exports = {
 
     deleteSales: async (req, res) => {
         const { companyID, salesID } = req.params;
-    
+
         Sales.findById(companyID, (err, object) => {
             if (err) {
                 console.error('Error finding object:', err);
                 return res.status(500).send('Internal Server Error');
             }
-    
+
             if (!object) {
                 return res.status(404).send('Object not found');
             }
             else {
                 console.log(object);
             }
-    
+
             const nestedIndex = object.saless.findIndex(nestedObj => nestedObj.id === salesID);
             if (nestedIndex === -1) {
                 return res.status(404).send('Nested object not found');
@@ -77,36 +77,59 @@ module.exports = {
             else {
                 console.log(nestedIndex);
             }
-    
+
             object.saless.splice(nestedIndex, 1);
             object.save((err) => {
                 if (err) {
                     console.error('Error saving object:', err);
                     return res.status(500).send('Internal Server Error');
                 }
-    
+
                 res.send('Object removed successfully');
             });
-    
+
         })
     },
 
     updateSales: async (req, res) => {
-        try {
-            await Sales.findByIdAndUpdate(req.params.id, {
-                OrderNumber: req.body.OrderNumber,
-                Product: req.body.Product,
-                Day: req.body.Day,
-                Month: req.body.Month,
-                Year: req.body.Year,
-                Status: req.body.Status,
-                TotalAmount: req.body.TotalAmount
+        const { companyID, salesID } = req.params;
+        const updatedsalesData = req.body; // Assuming the updated data is sent in the request body
+
+        Sales.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log("ok");
+            }
+
+            const nestedSales = object.saless.find(nestedObj => nestedObj.id === salesID);
+            console.log(nestedSales)
+
+            if (!nestedSales) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedSales, "here");
+            }
+
+            // Update the sales's data with the provided updatedCustomerData
+            Object.assign(nestedSales, updatedsalesData);
+
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object updated successfully');
             });
-            res.status(200).json("Successfully updated");
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).json("ServerError");
-        }
+        });
     },
 
     getSales: async (req, res) => {
@@ -138,12 +161,12 @@ module.exports = {
         const collection = req.params.id;
         const id = req.params.SalesID;
         try {
-          const data = await Sales.findById(collection);
-    
-          const Salesdetails = data.saless.find(x => x._id ==id)
-          res.status(200).json(Salesdetails);
+            const data = await Sales.findById(collection);
+
+            const Salesdetails = data.saless.find(x => x._id == id)
+            res.status(200).json(Salesdetails);
         } catch (error) {
-          console.log(error.message);
+            console.log(error.message);
         }
-      },
+    },
 }

@@ -108,32 +108,46 @@ module.exports = {
   //put
 
   editPrjmanagerDetails: async (req, res) => {
-    try {
-      await Prjmanager.findByIdAndUpdate(req.params.id, {
-        PrjName: req.body.PrjName,
-        Type: req.body.Type,
-        Description: req.body.Description,
-        Account: req.body.Account,
-        AssignedTo: req.body.AssignedTo,
-        Teams: req.body.Teams,
+    const { companyID, prjmanagerID } = req.params;
+    const updatedprjmanagerData = req.body; // Assuming the updated data is sent in the request body
 
-        // General
+    Prjmanager.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
 
-        Status: req.body.Status,
-        StartDate: req.body.StartDate,
-        EndDate: req.body.EndDate,
-        UseTimesheet: req.body.UseTimesheet,
-        Amount: req.body.Amount,
-        LeadSource: req.body.LeadSource,
-        Progress: req.body.Progress
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
 
+      const nestedPrjmanager = object.prjmanagers.find(nestedObj => nestedObj.id === prjmanagerID);
+      console.log(nestedPrjmanager)
+
+      if (!nestedPrjmanager) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedPrjmanager, "here");
+      }
+
+      // Update the prjmanager's data with the provided updatedCustomerData
+      Object.assign(nestedPrjmanager, updatedprjmanagerData);
+
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        res.send('Object updated successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    });
   },
+
 
   // get by id
 
@@ -168,7 +182,7 @@ module.exports = {
     try {
       const data = await Prjmanager.findById(collection);
 
-      const PrjmanagerDetails = data.prjmanagers.find(x => x._id ==id)
+      const PrjmanagerDetails = data.prjmanagers.find(x => x._id == id)
       res.status(200).json(PrjmanagerDetails);
     } catch (error) {
       console.log(error.message);

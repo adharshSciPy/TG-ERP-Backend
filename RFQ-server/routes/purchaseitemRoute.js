@@ -20,7 +20,9 @@ router.delete("/deletePurchaseitem/:companyID/:salesID", purchaseitemController.
 
 //put
 
-router.put("/updatePurchaseitem/:id", purchaseitemController.updatePurchaseitem);
+// router.put("/updatePurchaseitem/:id", purchaseitemController.updatePurchaseitem);
+
+router.put("/updatePurchaseitem/:companyID/:salesID", purchaseitemController.updatePurchaseitem);
 
 // get by id
 

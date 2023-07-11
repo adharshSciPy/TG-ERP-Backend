@@ -1,7 +1,7 @@
 const Inventorymanagement = require("../models/inventorymanagementSchema");
 module.exports = {
 
-  
+
   createInventorymanagementCollection: async (req, res) => {
     const data = new Inventorymanagement({
       companyId: req.body.companyId,
@@ -11,7 +11,7 @@ module.exports = {
       res.status(200).json(dataToSave);
       console.log("Details added");
     }
-    catch(error) {
+    catch (error) {
       res.status(400).json({ message: error.message })
     }
   },
@@ -38,7 +38,7 @@ module.exports = {
         console.error('Failed to add address:', err);
         res.status(500).json("ServerError");
       });
-  },   
+  },
 
   //get
 
@@ -64,11 +64,11 @@ module.exports = {
   //   }
   // },
 
-  deleteInventorymanagementDetails: async(req,res) => {
+  deleteInventorymanagementDetails: async (req, res) => {
     const { companyID, inventorymanagementID } = req.params;
-    Inventorymanagement.findById(companyID, (err,object) => {
+    Inventorymanagement.findById(companyID, (err, object) => {
       if (err) {
-        console.error('Error finding object:',err);
+        console.error('Error finding object:', err);
         return res.status(500).send('Internal Server Error');
       }
 
@@ -78,19 +78,19 @@ module.exports = {
       else {
         console.log(object);
       }
-      
+
       const nestedIndex = object.inventorymanagements.findIndex(nestedObj => nestedObj.id === inventorymanagementID);
-      if(nestedIndex === -1) {
+      if (nestedIndex === -1) {
         return res.status(404).send('Nested object not found');
       }
-      else{
+      else {
         console.log(nestedIndex);
       }
 
       object.inventorymanagements.splice(nestedIndex, 1);
       object.save((err) => {
-        if(err) {
-          console.error('Error saving object:',err);
+        if (err) {
+          console.error('Error saving object:', err);
           return res.status(500).send('Internal Server Error');
         }
         res.send('Object removed successfully');
@@ -102,23 +102,44 @@ module.exports = {
   //put
 
   editInventorymanagementDetails: async (req, res) => {
-    try {
-      await Inventorymanagement.findByIdAndUpdate(req.params.id, {
-        SKUNo: req.body.SKUNo,
-        ItemName: req.body.ItemName,
-        UnitOFMeasurement: req.body.UnitOFMeasurement,
-        ItemCategory: req.body.ItemCategory,
-        CurrentStock: req.body.CurrentStock,
-        Price: req.body.Price,
-        Tax: req.body.Tax,
-        HSNCode: req.body.HSNCode,
-        BuyOrSell: req.body.BuyOrSell,
+    const { companyID, inventorymanagementID } = req.params;
+    const updatedinventorymanagementData = req.body; // Assuming the updated data is sent in the request body
+
+    Inventorymanagement.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
+
+      const nestedInventory = object.inventorymanagements.find(nestedObj => nestedObj.id === inventorymanagementID);
+      console.log(nestedInventory)
+
+      if (!nestedInventory) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedInventory, "here");
+      }
+
+      // Update the inventory's data with the provided updatedCustomerData
+      Object.assign(nestedInventory,updatedinventorymanagementData);
+
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        res.send('Object updated successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    });
   },
 
   // get by id
@@ -147,14 +168,14 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }, 
+  },
   getidInventorymanagementDetailss: async (req, res) => {
     const collection = req.params.id;
     const id = req.params.inventorymanagementID;
     try {
       const data = await Inventorymanagement.findById(collection);
 
-      const InventorymanagementDetails = data.inventorymanagements.find(x => x._id ==id)
+      const InventorymanagementDetails = data.inventorymanagements.find(x => x._id == id)
       res.status(200).json(InventorymanagementDetails);
     } catch (error) {
       console.log(error.message);

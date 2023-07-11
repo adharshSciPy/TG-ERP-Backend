@@ -20,7 +20,9 @@ router.delete("/deleteSales/:companyID/:salesID", salesController.deleteSales)
 
 //put
 
-router.put("/updateSales/:id", salesController.updateSales);
+// router.put("/updateSales/:id", salesController.updateSales);
+
+router.put("/updateSales/:companyID/:salesID", salesController.updateSales);
 
 // get by id
 

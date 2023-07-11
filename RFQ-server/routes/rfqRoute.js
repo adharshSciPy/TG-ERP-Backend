@@ -20,7 +20,9 @@ router.delete("/deleterfq/:companyID/:salesID", rfqController.deleterfq)
 
 //put
 
-router.put("/updaterfq/:id", rfqController.updaterfq);
+// router.put("/updaterfq/:id", rfqController.updaterfq);
+
+router.put("/updaterfq/:companyID/:salesID", rfqController.updaterfq);
 
 // get by id
 

@@ -24,7 +24,9 @@ const router = express.Router();
 
     // Put
 
-    router.put("/editPrjmanagerDetails/:id", prjmanagerController.editPrjmanagerDetails)
+    // router.put("/editPrjmanagerDetails/:id", prjmanagerController.editPrjmanagerDetails)
+
+    router.put("/editPrjmanagerDetails/:companyID/:prjmanagerID", prjmanagerController.editPrjmanagerDetails)
 
     //count
     router.get("/getcount/:id", prjmanagerController.getcount);

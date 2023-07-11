@@ -23,7 +23,10 @@ const router = express.Router();
 
     // Put
 
-    router.put("/editProductDetails/:id", productController.editProductDetails)
+    // router.put("/editProductDetails/:id", productController.editProductDetails)
+
+    router.put("/editProductDetails/:companyID/:productID", productController.editProductDetails)
+
 
     //count
     router.get("/getcount/:id", productController.getcount);

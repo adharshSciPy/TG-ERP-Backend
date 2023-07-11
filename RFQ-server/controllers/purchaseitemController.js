@@ -56,20 +56,20 @@ module.exports = {
 
     deletePurchaseitem: async (req, res) => {
         const { companyID, salesID } = req.params;
-    
+
         Purchaseitem.findById(companyID, (err, object) => {
             if (err) {
                 console.error('Error finding object:', err);
                 return res.status(500).send('Internal Server Error');
             }
-    
+
             if (!object) {
                 return res.status(404).send('Object not found');
             }
             else {
                 console.log(object);
             }
-    
+
             const nestedIndex = object.purchaseitems.findIndex(nestedObj => nestedObj.id === salesID);
             if (nestedIndex === -1) {
                 return res.status(404).send('Nested object not found');
@@ -77,36 +77,59 @@ module.exports = {
             else {
                 console.log(nestedIndex);
             }
-    
+
             object.purchaseitems.splice(nestedIndex, 1);
             object.save((err) => {
                 if (err) {
                     console.error('Error saving object:', err);
                     return res.status(500).send('Internal Server Error');
                 }
-    
+
                 res.send('Object removed successfully');
             });
-    
+
         })
     },
 
     updatePurchaseitem: async (req, res) => {
-        try {
-            await Purchaseitem.findByIdAndUpdate(req.params.id, {
-                Type: req.body.Type,
-                ItemCategory: req.body.ItemCategory,
-                Item: req.body.Item,
-                Quantity: req.body.Quantity,
-                Unit: req.body.Unit,
-                UnitPrize: req.body.UnitPrize,
-                Total: req.body.Total
+        const { companyID, salesID } = req.params;
+        const updatedpurchaseitemData = req.body; // Assuming the updated data is sent in the request body
+
+        Purchaseitem.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log("ok");
+            }
+
+            const nestedPurchaseitem = object.purchaseitems.find(nestedObj => nestedObj.id === salesID);
+            console.log(nestedPurchaseitem)
+
+            if (!nestedPurchaseitem) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedPurchaseitem, "here");
+            }
+
+            // Update the purchaseitem's data with the provided updatedCustomerData
+            Object.assign(nestedPurchaseitem, updatedpurchaseitemData);
+
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object updated successfully');
             });
-            res.status(200).json("Successfully updated");
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).json("ServerError");
-        }
+        });
     },
 
     getPurchaseitem: async (req, res) => {
@@ -138,12 +161,12 @@ module.exports = {
         const collection = req.params.id;
         const id = req.params.PurchaseitemID;
         try {
-          const data = await Purchaseitem.findById(collection);
-    
-          const Purchaseitemdetails = data.purchaseitems.find(x => x._id ==id)
-          res.status(200).json(Purchaseitemdetails);
+            const data = await Purchaseitem.findById(collection);
+
+            const Purchaseitemdetails = data.purchaseitems.find(x => x._id == id)
+            res.status(200).json(Purchaseitemdetails);
         } catch (error) {
-          console.log(error.message);
+            console.log(error.message);
         }
-      },
+    },
 }
