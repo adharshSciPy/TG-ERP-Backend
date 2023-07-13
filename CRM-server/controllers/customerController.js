@@ -143,42 +143,80 @@ module.exports = {
 
 
 },
-  updateCustomer: async (req, res) => {
-    try {
-      await Customer.findByIdAndUpdate(req.params.id, {
-        FirstName: req.body.FirstName,
-        LastName: req.body.LastName,
-        PrimaryAccount: req.body.PrimaryAccount,
-        Title: req.body.Title,
-        PhoneWork: req.body.PhoneWork,
-        PhoneHome: req.body.PhoneHome,
-        PhoneMobile: req.body.PhoneMobile,
-        PhoneOther: req.body.PhoneOther,
-        Website: req.body.Website,
-        Assigned: req.body.Assigned,
-        Teams: req.body.Teams,
-        Partner: req.body.Partner,
-        Category: req.body.Category,
-        Department: req.body.Department,
-        BusinessRole: req.body.BusinessRole,
-        Reports: req.body.Reports,
-        AssistantPh: req.body.AssistantPh,
-        PrimaryCity: req.body.PrimaryCity,
-        PrimaryState: req.body.PrimaryState,
-        PrimaryCountry: req.body.PrimaryCountry,
-        PrimaryPostal: req.body.PrimaryPostal,
-        SecondaryCity: req.body.SecondaryCity,
-        SecondaryState: req.body.SecondaryState,
-        SecondaryCountry: req.body.SecondaryCountry,
-        SecondaryPostal: req.body.SecondaryPostal,
-        Description: req.body.Description
-      });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
+updateCustomer: async (req, res) => {
+  const { companyID, customerID } = req.params;
+  const updatedCustomerData = req.body; // Assuming the updated data is sent in the request body
+   console.log(updatedCustomerData);
+  Customer.findById(companyID, (err, object) => {
+    if (err) {
+      console.error('Error finding object:', err);
+      return res.status(500).send('Internal Server Error');
     }
-  },
+
+    if (!object) {
+      return res.status(404).send('Object not found');
+    }
+    else {
+      console.log(object);
+    }
+
+    const nestedCustomer = object.customers.find(nestedObj => nestedObj.id === customerID);
+    if (!nestedCustomer) {
+      return res.status(404).send('Nested object not found');
+    }
+    else {
+      console.log(nestedCustomer);
+    }
+
+    // Update the customer's data with the provided updatedCustomerData
+    Object.assign(nestedCustomer, updatedCustomerData);
+
+    object.save((err) => {
+      if (err) {
+        console.error('Error saving object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      res.send('Object updated successfully');
+    });
+  });
+},
+  // updateCustomer: async (req, res) => {
+  //   try {
+  //     await Customer.findByIdAndUpdate(req.params.id, {
+  //       FirstName: req.body.FirstName,
+  //       LastName: req.body.LastName,
+  //       PrimaryAccount: req.body.PrimaryAccount,
+  //       Title: req.body.Title,
+  //       PhoneWork: req.body.PhoneWork,
+  //       PhoneHome: req.body.PhoneHome,
+  //       PhoneMobile: req.body.PhoneMobile,
+  //       PhoneOther: req.body.PhoneOther,
+  //       Website: req.body.Website,
+  //       Assigned: req.body.Assigned,
+  //       Teams: req.body.Teams,
+  //       Partner: req.body.Partner,
+  //       Category: req.body.Category,
+  //       Department: req.body.Department,
+  //       BusinessRole: req.body.BusinessRole,
+  //       Reports: req.body.Reports,
+  //       AssistantPh: req.body.AssistantPh,
+  //       PrimaryCity: req.body.PrimaryCity,
+  //       PrimaryState: req.body.PrimaryState,
+  //       PrimaryCountry: req.body.PrimaryCountry,
+  //       PrimaryPostal: req.body.PrimaryPostal,
+  //       SecondaryCity: req.body.SecondaryCity,
+  //       SecondaryState: req.body.SecondaryState,
+  //       SecondaryCountry: req.body.SecondaryCountry,
+  //       SecondaryPostal: req.body.SecondaryPostal,
+  //       Description: req.body.Description
+  //     });
+  //     res.status(200).json("Successfully updated");
+  //   } catch (error) {
+  //     console.error(error.message);
+  //     res.status(500).json("ServerError");
+  //   }
+  // },
     getCustomer: async (req, res) => {
       const user = req.params;
       try {
@@ -236,6 +274,19 @@ module.exports = {
             console.log(error);
             res.status(500).json({ error: 'Failed to retrieve image from S3' });
           }
-        }
+        },
+
+        getCustomerbyId: async (req, res) => {
+          const collection = req.params.id;
+          const id = req.params.customerId;
+          try {
+            const data = await Customer.findById(collection);
+
+            const customerdetails = data.customers.find(x => x._id ==id)
+            res.status(200).json(customerdetails);
+          } catch (error) {
+            console.log(error.message);
+          }
+        },
 
 }
