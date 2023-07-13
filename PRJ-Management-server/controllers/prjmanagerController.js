@@ -61,46 +61,93 @@ module.exports = {
 
   //delete
 
+  // deletePrjmanagerDetails: async (req, res) => {
+  //   try {
+  //     const prjmanager = await Prjmanager.findByIdAndDelete(req.params.id);
+  //     if (!prjmanager) throw Error("No user found");
+  //     res.status(200).json({ success: true });
+  //   } catch (error) {
+  //     res.status(500).json({ message: error.message });
+  //   }
+  // },
+
   deletePrjmanagerDetails: async (req, res) => {
-    try {
-      const prjmanager = await Prjmanager.findByIdAndDelete(req.params.id);
-      if (!prjmanager) throw Error("No user found");
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
+    const { companyID, prjmanagerID } = req.params;
+    Prjmanager.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log(object);
+      }
+
+      const nestedIndex = object.prjmanagers.findIndex(nestedObj => nestedObj.id === prjmanagerID);
+      if (nestedIndex === -1) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedIndex);
+      }
+
+      object.prjmanagers.splice(nestedIndex, 1);
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+        res.send('Object removed successfully');
+      });
+    })
+
   },
-
-
   //put
 
   editPrjmanagerDetails: async (req, res) => {
-    try {
-      await Prjmanager.findByIdAndUpdate(req.params.id, {
-        PrjName: req.body.PrjName,
-        Type: req.body.Type,
-        Description: req.body.Description,
-        Account: req.body.Account,
-        AssignedTo: req.body.AssignedTo,
-        Teams: req.body.Teams,
+    const { companyID, prjmanagerID } = req.params;
+    const updatedprjmanagerData = req.body; // Assuming the updated data is sent in the request body
 
-        // General
+    Prjmanager.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
 
-        Status: req.body.Status,
-        StartDate: req.body.StartDate,
-        EndDate: req.body.EndDate,
-        UseTimesheet: req.body.UseTimesheet,
-        Amount: req.body.Amount,
-        LeadSource: req.body.LeadSource,
-        Progress: req.body.Progress
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
 
+      const nestedPrjmanager = object.prjmanagers.find(nestedObj => nestedObj.id === prjmanagerID);
+      console.log(nestedPrjmanager)
+
+      if (!nestedPrjmanager) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedPrjmanager, "here");
+      }
+
+      // Update the prjmanager's data with the provided updatedCustomerData
+      Object.assign(nestedPrjmanager, updatedprjmanagerData);
+
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        res.send('Object updated successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    });
   },
+
 
   // get by id
 
@@ -113,7 +160,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-  
+
   //count
   getcount: async (req, res) => {
     const id = req.params.id;
@@ -128,6 +175,18 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }
+  },
+  getPrjmanagerDetailsById: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.PrjmanagerID;
+    try {
+      const data = await Prjmanager.findById(collection);
+
+      const PrjmanagerDetails = data.prjmanagers.find(x => x._id == id)
+      res.status(200).json(PrjmanagerDetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 
 }

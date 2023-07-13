@@ -50,38 +50,94 @@ module.exports = {
         }
     },
 
+    // deleteInvoice: async (req, res) => {
+    //     try {
+    //         const invoice = await Invoice.findByIdAndDelete(req.params.id);
+    //         if (!invoice) throw Error("No user found");
+    //         res.status(200).json({ success: true });
+    //     } catch (error) {
+    //         res.status(500).json({ message: error.message });
+    //     }
+    // },
+
     deleteInvoice: async (req, res) => {
-        try {
-            const invoice = await Invoice.findByIdAndDelete(req.params.id);
-            if (!invoice) throw Error("No user found");
-            res.status(200).json({ success: true });
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
+        const { companyID, invoiceID } = req.params;
+
+        Invoice.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log(object);
+            }
+
+            const nestedIndex = object.invoices.findIndex(nestedObj => nestedObj.id === invoiceID);
+            if (nestedIndex === -1) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedIndex);
+            }
+
+            object.invoices.splice(nestedIndex, 1);
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object removed successfully');
+            });
+
+        })
     },
 
     updateInvoice: async (req, res) => {
-        try {
-            await Invoice.findByIdAndUpdate(req.params.id, {
-                InvoiceNumber: req.body.InvoiceNumber,
-                InvoiceSubject: req.body.InvoiceSubject,
-                Notes: req.body.Notes,
-                Terms: req.body.Terms,
-                InvoiceDate: req.body.InvoiceDate,
-                DueDate: req.body.DueDate,
-                AmountDue: req.body.AmountDue,
-                QuoteNo: req.body.QuoteNo,
-                OrderNo: req.body.OrderNo,
-                PurchaseOrderNo: req.body.PurchaseOrderNo,
-                BillingAddress: req.body.BillingAddress,
-                TaxInformation: req.body.TaxInformation,
+        const { companyID, invoiceID } = req.params;
+        const updatedinvoiceData = req.body; // Assuming the updated data is sent in the request body
+
+        Invoice.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log("ok");
+            }
+
+            const nestedInvoice = object.invoices.find(nestedObj => nestedObj.id === invoiceID);
+            console.log(nestedInvoice)
+
+            if (!nestedInvoice) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedInvoice, "here");
+            }
+
+            // Update the invoice's data with the provided updatedCustomerData
+            Object.assign(nestedInvoice, updatedinvoiceData);
+
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object updated successfully');
             });
-            res.status(200).json("Successfully updated");
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).json("ServerError");
-        }
+        });
     },
+
 
     getInvoice: async (req, res) => {
         const invoice = req.params;
@@ -107,5 +163,17 @@ module.exports = {
             console.log(error.message);
             res.status(500).json({ error: 'An error occurred while fetching the count.' });
         }
-    }
+    },
+    getInvoiceById: async (req, res) => {
+        const collection = req.params.id;
+        const id = req.params.InvoiceID;
+        try {
+            const data = await Invoice.findById(collection);
+
+            const Invoicedetails = data.invoices.find(x => x._id == id)
+            res.status(200).json(Invoicedetails);
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
 }

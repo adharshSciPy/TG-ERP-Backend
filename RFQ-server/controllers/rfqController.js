@@ -54,44 +54,94 @@ module.exports = {
         }
     },
 
+    // deleterfq: async (req, res) => {
+    //     try {
+    //         const sales = await Rfq.findByIdAndDelete(req.params.id);
+    //         if (!sales) throw Error("No user found");
+    //         res.status(200).json({ success: true });
+    //     } catch (error) {
+    //         res.status(500).json({ message: error.message });
+    //     }
+    // },
+
     deleterfq: async (req, res) => {
-        try {
-            const sales = await Rfq.findByIdAndDelete(req.params.id);
-            if (!sales) throw Error("No user found");
-            res.status(200).json({ success: true });
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
+        const { companyID, salesID } = req.params;
+
+        Rfq.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log(object);
+            }
+
+            const nestedIndex = object.rfqs.findIndex(nestedObj => nestedObj.id === salesID);
+            if (nestedIndex === -1) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedIndex);
+            }
+
+            object.rfqs.splice(nestedIndex, 1);
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object removed successfully');
+            });
+
+        })
     },
 
     updaterfq: async (req, res) => {
-        try {
-            await Rfq.findByIdAndUpdate(req.params.id, {
-                RequisitionDate: req.body.RequisitionDate,
-                PurchaseRequisition: req.body.PurchaseRequisition,
-                TypeofRequisition: req.body.TypeofRequisition,
-                JDERequisition: req.body.JDERequisition,
-                Company: req.body.Company,
-                CompanyCode: req.body.CompanyCode,
-                RequisitorsName: req.body.RequisitorsName,
-                ProjectName: req.body.ProjectName,
-                ProjectCode: req.body.ProjectCode,
-                Phone: req.body.Phone,
-                Department: req.body.Department,
-                DeliveryDate: req.body.DeliveryDate,
-                Priority: req.body.Priority,
-                PointofDelivery: req.body.PointofDelivery,
-                Receivedby: req.body.Receivedby,
-                Contactdetails: req.body.Contactdetails,
-                Product: req.body.Product,
-                Specialinstruction: req.body.Specialinstruction
+        const { companyID, salesID } = req.params;
+        const updatedrfqData = req.body; // Assuming the updated data is sent in the request body
+
+        Rfq.findById(companyID, (err, object) => {
+            if (err) {
+                console.error('Error finding object:', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+            if (!object) {
+                return res.status(404).send('Object not found');
+            }
+            else {
+                console.log("ok");
+            }
+
+            const nestedRfq = object.rfqs.find(nestedObj => nestedObj.id === salesID);
+            console.log(nestedRfq)
+
+            if (!nestedRfq) {
+                return res.status(404).send('Nested object not found');
+            }
+            else {
+                console.log(nestedRfq, "here");
+            }
+
+            // Update the rfq's data with the provided updatedCustomerData
+            Object.assign(nestedRfq, updatedrfqData);
+
+            object.save((err) => {
+                if (err) {
+                    console.error('Error saving object:', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+
+                res.send('Object updated successfully');
             });
-            res.status(200).json("Successfully updated");
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).json("ServerError");
-        }
+        });
     },
+
 
     getrfq: async (req, res) => {
         const purchase = req.params;
@@ -117,5 +167,17 @@ module.exports = {
             console.log(error.message);
             res.status(500).json({ error: 'An error occurred while fetching the count.' });
         }
-    }
+    },
+    getrfqById: async (req, res) => {
+        const collection = req.params.id;
+        const id = req.params.rfqID;
+        try {
+            const data = await Rfq.findById(collection);
+
+            const Rfqdetails = data.rfqs.find(x => x._id == id)
+            res.status(200).json(Rfqdetails);
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
 }

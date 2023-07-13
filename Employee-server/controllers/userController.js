@@ -76,62 +76,92 @@ module.exports = {
 
   //delete
 
-  deleteEmployee: async (req, res) => {
-    try {
-      const employee = await Employee.findByIdAndDelete(req.params.id);
-      if (!employee) throw Error("No user found");
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  },
+  // deleteEmployee: async (req, res) => {
+  //   try {
+  //     const employee = await Employee.findByIdAndDelete(req.params.id);
+  //     if (!employee) throw Error("No user found");
+  //     res.status(200).json({ success: true });
+  //   } catch (error) {
+  //     res.status(500).json({ message: error.message });
+  //   }
+  // },
 
+  deleteEmployee: async (req, res) => {
+    const { companyID, employeeID } = req.params;
+    Employee.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+
+      else {
+        console.log(object);
+      }
+
+      const nestedIndex = object.employees.findIndex(nestedObj => nestedObj.id === employeeID);
+      if (nestedIndex === -1) {
+        return res.status(404).send('Nested object not found')
+      }
+      else {
+        console.log(nestedIndex);
+      }
+      object.employees.splice(nestedIndex, 1);
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+        res.send('Object removed successfully');
+      });
+    })
+  },
 
   //put
 
   editEmployee: async (req, res) => {
-    try {
-      await Employee.findByIdAndUpdate(req.params.id, {
-        EmpCode: req.body.EmpCode,
-        Name: req.body.Name,
-        DOB: req.body.DOB,
-        Phone: req.body.Phone,
-        Address: req.body.Address,
-        Department: req.body.Department,
-        Designation: req.body.Designation,
+    const { companyID, employeeID } = req.params;
+    const updatedEmployeeData = req.body; // Assuming the updated data is sent in the request body
 
-        // Bank Acoount
+    Employee.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
 
-        BankAccNo: req.body.BankAccNo,
-        BankAccName: req.body.BankAccName,
-        BankBranch: req.body.BankBranch,
-        BankIFSCCode: req.body.BankIFSCCode,
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
 
-        // -------------------- //
+      const nestedEmployee = object.employees.find(nestedObj => nestedObj.id === employeeID);
+      console.log(nestedEmployee)
 
-        PFNo: req.body.PFNo,
-        ESI: req.body.ESI,
-        UAN: req.body.UAN,
+      if (!nestedEmployee) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedEmployee,"here");
+      }
 
-        // Working Time
+      // Update the employee's data with the provided updatedCustomerData
+      Object.assign(nestedEmployee,updatedEmployeeData);
 
-        From: req.body.From,
-        To: req.body.To,
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
 
-        //-------------------- //
-
-        Email: req.body.Email,
-        Password: req.body.Password,
-        Role: req.body.Role
-
+        res.send('Object updated successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    });
   },
-
 
   // get by id
 
@@ -159,6 +189,18 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }
+  },
+  getEmployeebyId: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.employeeID;
+    try {
+      const data = await Employee.findById(collection);
+
+      const Employeedetails = data.employees.find(x => x._id == id)
+      res.status(200).json(Employeedetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 
 }

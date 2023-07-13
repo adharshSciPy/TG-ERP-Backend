@@ -35,15 +35,20 @@ const invoiceDetailsSchema = new mongoose.Schema({
     },
     TaxInformation: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const invoiceSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     invoices:[invoiceDetailsSchema]
-})
-invoiceSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Invoice = mongoose.model("invoice", invoiceSchema);
 module.exports = Invoice;    

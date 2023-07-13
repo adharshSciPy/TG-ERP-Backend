@@ -118,17 +118,20 @@ const customerDetailsSchema = new mongoose.Schema({
     },
     Image : {
         type:String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-  });
-
-
+},
+{ timestamps: true });
 const customerSchema = new mongoose.Schema({
     companyId: {
         type: String,
         required: true
     },
     customers: [customerDetailsSchema]
-})
-customerSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Customer = mongoose.model("customer", customerSchema);
 module.exports = Customer;

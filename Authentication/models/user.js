@@ -28,11 +28,13 @@ const UserSchema = new Schema(
       type: String,
       required : false,
       default: null
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
 
   },
-  { timestamps: true }
-);
-UserSchema.set('timestamps',true);
+  { timestamps: true });
 
 module.exports = mongoose.model("user", UserSchema);

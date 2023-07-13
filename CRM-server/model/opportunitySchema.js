@@ -23,15 +23,20 @@ const opportunityDetailsSchema = new mongoose.Schema({
     },
     Reason:{
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const opportunitySchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     opportunitys:[opportunityDetailsSchema]
-})
-opportunitySchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Opportunity = mongoose.model("opportunity", opportunitySchema);
 module.exports = Opportunity;    

@@ -53,15 +53,20 @@ const rfqDetailsSchema = new mongoose.Schema({
     },
     Specialinstruction: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const rfqSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     rfqs:[rfqDetailsSchema]
-})
-rfqSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Rfq = mongoose.model("rfq", rfqSchema);
 module.exports = Rfq;   

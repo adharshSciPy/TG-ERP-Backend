@@ -14,15 +14,20 @@ const appointmentDetailsSchema = new mongoose.Schema({
     },
     StartDate: {
         type: Date
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const appointmentSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     appointments:[appointmentDetailsSchema]
-})
-appointmentSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Appointment = mongoose.model("appointment", appointmentSchema);
 module.exports = Appointment;    

@@ -17,15 +17,22 @@ const accountDetailsSchema = new mongoose.Schema({
     },
     Website: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+  { timestamps: true });
+
+
 const accountSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     accounts:[accountDetailsSchema]
-})
-accountSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Account = mongoose.model("account", accountSchema);
 module.exports = Account;    

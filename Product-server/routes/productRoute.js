@@ -14,14 +14,19 @@ const router = express.Router();
     // Get by id
 
     router.get("/getidProductDetails/:id", productController.getidProductDetails)
-
+    router.get("/getProductDetailsById/:id/:ProductID",productController.getidProductDetailsById)
     // Delete
 
-    router.delete("/deleteProductDetails/:id", productController.deleteProductDetails)
+    // router.delete("/deleteProductDetails/:id", productController.deleteProductDetails)
+
+    router.delete("/deleteProductDetails/:companyID/:productID", productController.deleteProductDetails)
 
     // Put
 
-    router.put("/editProductDetails/:id", productController.editProductDetails)
+    // router.put("/editProductDetails/:id", productController.editProductDetails)
+
+    router.put("/editProductDetails/:companyID/:productID", productController.editProductDetails)
+
 
     //count
     router.get("/getcount/:id", productController.getcount);

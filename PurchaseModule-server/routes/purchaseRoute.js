@@ -14,15 +14,19 @@ router.get("/purchasedetails", purchaseController.purchasedetails);
 
 //delete
 
-router.delete("/deletePurchase/:id", purchaseController.deletePurchase);
+// router.delete("/deletePurchase/:id", purchaseController.deletePurchase);
+
+router.delete("/deletePurchase/:companyID/:salesID", purchaseController.deletePurchase)
 
 //put
 
-router.put("/updatePurchase/:id", purchaseController.updatePurchase);
+// router.put("/updatePurchase/:id", purchaseController.updatePurchase);
+
+router.put("/updatePurchase/:companyID/:salesID", purchaseController.updatePurchase);
 
 // get by id
 
-router.get("/getPurchase/:id", purchaseController.getPurchase);
+router.get("/getPurchaseById/:id/:PurchaseID",purchaseController.getPurchaseById)
 
 //count
 router.get("/getcount/:id", purchaseController.getcount);

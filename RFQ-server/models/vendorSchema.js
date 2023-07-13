@@ -59,15 +59,20 @@ const vendorDetailsSchema = new mongoose.Schema({
     },
     Delivery: {
         type: String
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
     }
-});
+},
+{ timestamps: true });
 const vendorSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
     vendors:[vendorDetailsSchema]
-})
-vendorSchema.set('timestamps',true);
+},
+{ timestamps: true });
 const Vendor = mongoose.model("vendor", vendorSchema);
 module.exports = Vendor;   

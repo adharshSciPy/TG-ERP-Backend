@@ -14,15 +14,19 @@ const router = express.Router();
     // Get by id
 
     router.get("/getidInventorymanagementDetails/:id", inventorymanagementController.getidInventorymanagementDetails)
-
+    router.get("/getInventorymanagementDetailsById/:id/:inventorymanagementID",inventorymanagementController.getidInventorymanagementDetailss)
     // Delete
 
-    router.delete("/deleteInventorymanagementDetails/:id", inventorymanagementController.deleteInventorymanagementDetails)
+    // router.delete("/deleteInventorymanagementDetails/:id", inventorymanagementController.deleteInventorymanagementDetails)
+     
+    router.delete("/deleteInventorymanagementDetails/:companyID/:inventorymanagementID", inventorymanagementController.deleteInventorymanagementDetails)
 
     // Put
 
-    router.put("/editInventorymanagementDetails/:id", inventorymanagementController.editInventorymanagementDetails)
+    // router.put("/editInventorymanagementDetails/:id", inventorymanagementController.editInventorymanagementDetails)
 
+    router.put("/editInventorymanagementDetails/:companyID/:inventorymanagementID", inventorymanagementController.editInventorymanagementDetails)
+    
     //count
     router.get("/getcount/:id", inventorymanagementController.getcount);
 

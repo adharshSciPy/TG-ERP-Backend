@@ -14,14 +14,19 @@ const router = express.Router();
     // Get by id 
 
     router.get("/getEmployee/:id", userController.getEmployee)
+    router.get("/getEmployeeById/:id/:employeeID",userController.getEmployee)
 
     // Delete
 
-    router.delete("/deleteEmployee/:id", userController.deleteEmployee)
+    // router.delete("/deleteEmployee/:id", userController.deleteEmployee)
+    
+    router.delete("/deleteEmployee/:companyID/:employeeID",userController.deleteEmployee)
 
     // Put
 
-    router.put("/editEmployee/:id", userController.editEmployee)
+    // router.put("/editEmployee/:id", userController.editEmployee)
+
+    router.put("/editEmployee/:companyID/:employeeID",userController.editEmployee)
 
     //count
     router.get("/getcount/:id", userController.getcount);
