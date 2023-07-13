@@ -71,7 +71,7 @@ module.exports = {
     }
   },
 
-  getEmployee: async (req, res) => {
+  getAccount: async (req, res) => {
     const account = req.params;
     try {
       const data = await Account.findById(account.id);
@@ -95,5 +95,17 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }
+  },
+  getAccountById: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.AccountID;
+    try {
+      const data = await Account.findById(collection);
+
+      const Accountdetails = data.accounts.find(x => x._id == id)
+      res.status(200).json(Accountdetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 }

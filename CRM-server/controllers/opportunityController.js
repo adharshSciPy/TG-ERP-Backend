@@ -122,5 +122,17 @@ module.exports = {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
     }
-  }
+  },
+  getOpportunityById: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.OpportunityID;
+    try {
+      const data = await Opportunity.findById(collection);
+
+      const Opportunitydetails = data.opportunitys.find(x => x._id == id)
+      res.status(200).json(Opportunitydetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 }
