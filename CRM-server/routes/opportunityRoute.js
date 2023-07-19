@@ -22,6 +22,7 @@ router.put("/updateOpportunity/:id", opportunityController.updateOpportunity);
 // get by id
 
 router.get("/getOpportunity/:id", opportunityController.getOpportunity);
+router.get("/getOpportunityById/:id/:OpportunityID", opportunityController.getOpportunityById);
 
 //count
 router.get("/getcount/:id", opportunityController.getcount);
