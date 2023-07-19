@@ -151,6 +151,9 @@ module.exports = {
             res.status(500).json({ error: 'An error occurred while fetching the count.' });
         }
     },
+
+    //getbyid
+
     getPurchaseById: async (req, res) => {
         const collection = req.params.id;
         const id = req.params.PurchaseID;
@@ -163,4 +166,14 @@ module.exports = {
             console.log(error.message);
         }
     },
+
+    getPurchase: async (req, res) => {
+        const purchase = req.params;
+        try {
+          const data = await Purchase.findById(purchase.id);
+          res.status(200).json(data);
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
 }

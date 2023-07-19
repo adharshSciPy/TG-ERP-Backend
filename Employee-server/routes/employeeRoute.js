@@ -14,7 +14,7 @@ const router = express.Router();
     // Get by id 
 
     router.get("/getEmployee/:id", userController.getEmployee)
-    router.get("/getEmployeeById/:id/:employeeID",userController.getEmployee)
+    router.get("/getEmployeeById/:id/:employeeID",userController.getEmployeebyId)
 
     // Delete
 
