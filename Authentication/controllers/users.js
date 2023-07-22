@@ -105,7 +105,7 @@ module.exports = {
       const userdata = await User.findById(id);
       const data = {
         firstName : userdata.firstName,
-        LastName : userdata.lastName,
+        lastName : userdata.lastName,
         email : userdata.email,
         Company: userdata.Company
        }

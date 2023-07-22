@@ -25,5 +25,6 @@ router.get("/getOpportunity/:id", opportunityController.getOpportunity);
 
 //count
 router.get("/getcount/:id", opportunityController.getcount);
+router.put("/followup/:companyID/:opportunityID", opportunityController.createFollowUp)
 
 module.exports = router;

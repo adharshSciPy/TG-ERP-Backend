@@ -1,4 +1,26 @@
 const mongoose = require('mongoose')
+const leadSchema = new mongoose.Schema({
+    Title :{
+        type:String,
+        required:true
+    },
+    Message:{
+        type: String,
+        required:true
+    },
+    Status:{
+        type:String,
+        required:true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
+    },
+    CreatedBy:{
+        type:String
+    }
+    
+})
 const opportunityDetailsSchema = new mongoose.Schema({
     CustomerName : {
         type: String
@@ -9,27 +31,30 @@ const opportunityDetailsSchema = new mongoose.Schema({
     OpportunityName: {
         type: String
     },
-    SalesStage: {
-        type: String
-    },
     Description: {
         type: String
     },
-    CloseDate: {
-        type: Date
+    // Amount: {
+    //     type: Number
+    // },
+    AssignedTo :{
+        type:String
     },
-    Amount: {
-        type: Number
-    },
-    Reason:{
-        type: String
+    LeadSource :{
+        type : String
     },
     createdAt:{
         type:Date,
         default:Date.now,
-    }
+    },
+    CreatedBy:{
+        type:String
+    },
+    
+    FollowUp:[leadSchema]
 },
 { timestamps: true });
+
 const opportunitySchema = new mongoose.Schema({
     companyId:{
         type:String,

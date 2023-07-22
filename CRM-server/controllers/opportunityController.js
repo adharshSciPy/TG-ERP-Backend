@@ -18,13 +18,13 @@ module.exports = {
     const data = new Opportunity({
       opportunitys: {
         OpportunityName: req.body.OpportunityName,
-        SalesStage: "Initialized",
         Description: req.body.Description,
-        CloseDate: req.body.CloseDate,
-        Amount: req.body.Amount,
-        Reason: req.body.Reason,
+        LeadSource: req.body.LeadSource,
         CustomerName: req.body.CustomerName,
-        CustomerId:req.body.CustomerId
+        CustomerId:req.body.CustomerId,
+        AssignedTo : req.body.AssignedTo,
+        FollowUp:req.body.FollowUp,
+        CreatedBy:req.body.CreatedBy
       }
     });
     Opportunity.findByIdAndUpdate(req.params.id, { $push: { opportunitys: data.opportunitys } })
@@ -86,10 +86,13 @@ module.exports = {
     try {
       await Opportunity.findByIdAndUpdate(req.params.id, {
         OpportunityName: req.body.OpportunityName,
-        SalesStage: req.body.SalesStage,
         Description: req.body.Description,
-        CloseDate: req.body.CloseDate,
-        Amount: req.body.Amount
+        LeadSource: req.body.LeadSource,
+        CustomerName: req.body.CustomerName,
+        CustomerId:req.body.CustomerId,
+        AssignedTo : req.body.AssignedTo,
+        FollowUp:req.body.FollowUp,
+        CreatedBy:req.body.CreatedBy
       });
       res.status(200).json("Successfully updated");
     } catch (error) {
@@ -121,6 +124,43 @@ module.exports = {
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ error: 'An error occurred while fetching the count.' });
+    }
+  },
+  createFollowUp: async (req, res) => {
+    const { companyID, opportunityID } = req.params;
+    const {Title, Message, Status, CreatedBy} = req.body
+    const  followUp ={
+      Title:Title,
+      Message:Message,
+      Status:Status,
+      CreatedBy:CreatedBy
+    }
+
+    try{
+      const company = await Opportunity.findById(companyID)
+
+      if(!company){
+        return res.status(404).json({ error: 'Company not found' });
+      }
+      else{
+        console.log("followUP get Company Success");
+      }
+
+      const opportunitybyID = await company.opportunitys.id(opportunityID)
+
+      if(!opportunitybyID){
+        return res.status(404).json({ error: 'opportunity not found' });
+      }
+      else{
+        console.log("followUP get opportunity Success");
+        opportunitybyID.FollowUp.push(followUp)
+        await company.save()
+        return res.status(200).json(opportunitybyID);
+      }
+
+    }
+    catch(err){
+      console.log(err);
     }
   }
 }
