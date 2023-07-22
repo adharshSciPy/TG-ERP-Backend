@@ -22,7 +22,8 @@ router.put("/updateAccount/:id", accountController.updateAccount);
 
 // get by id
 
-router.get("/getEmployee/:id", accountController.getEmployee);
+router.get("/getAccount/:id", accountController.getAccount);
+router.get("/getAccountById/:id/:AccountID", accountController.getAccountById);
 
 //count
 router.get("/getcount/:id",accountController.getcount);

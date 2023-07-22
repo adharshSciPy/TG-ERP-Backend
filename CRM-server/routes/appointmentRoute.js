@@ -22,7 +22,7 @@ router.put("/updateAppointment/:id", appointmentController.updateAppointment);
 // get by id
 
 router.get("/getAppointment/:id", appointmentController.getAppointment);
-
+router.get("/getAppointmentById/:id/:AppointmentID", appointmentController.getAppointmentById);
 //count
 router.get("/getcount/:id", appointmentController.getcount);
 module.exports = router;
