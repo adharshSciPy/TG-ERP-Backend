@@ -12,8 +12,7 @@ module.exports = {
   //  ---------------------------------------- //signup method to add a new user//--------------------------- //
 
   signup: async (req, res) => {
-    const { firstName,lastName, email, password } = req.body;
-    
+    const { firstName,lastName, email, password,role } = req.body;
     const { errors, isValid } = SignupValidation(req.body);
 
     try {
@@ -31,9 +30,10 @@ module.exports = {
               lastName,
               email,
               password: hashedpassword,
-              role:"user",
+              role: role,
             });
-            res.status(201).json({ message: "user added with success"});
+            
+            res.status(201).json({ message: "user added with success",id:result._id,firstName:result.firstName,lastName:result.lastName,email: result.email});
           }
         });
       }

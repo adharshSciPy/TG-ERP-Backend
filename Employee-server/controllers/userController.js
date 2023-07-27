@@ -19,11 +19,26 @@ module.exports = {
   addEmployee: async (req, res) => {
     const data = new Employee({
       employees: {
+        UserId : req.body.UserId,
+        firstName:  req.body.firstName,
+        lastName: req.body. lastName,
+        Email:req.body.Email,
         EmpCode: req.body.EmpCode,
         Name: req.body.Name,
         DOB: req.body.DOB,
         Phone: req.body.Phone,
-        Address: req.body.Address,
+        PAddress:  req.body.PAddress,
+        PCity:req.body.PCity,
+        PState:req.body.PState,
+        PCountry:  req.body.PCountry,
+        PPostalCode: req.body.PPostalCode,
+        TAddress:  req.body.TAddress,
+        TCity:req.body.TCity,
+        TState:req.body.TState,
+        TCountry:  req.body.TCountry,
+        TPostalCode: req.body.TPostalCode,
+
+
         Department: req.body.Department,
         Designation: req.body.Designation,
 
@@ -46,10 +61,6 @@ module.exports = {
         To: req.body.To,
 
         // -------------------- //
-
-        Email: req.body.Email,
-        Password: req.body.Password,
-        Role: req.body.Role
       }
     });
     Employee.findByIdAndUpdate(req.params.id, { $push: { employees: data.employees } })

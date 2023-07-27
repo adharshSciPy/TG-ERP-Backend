@@ -1,87 +1,124 @@
-const mongoose = require('mongoose')
-const employeeDetailsSchema = new mongoose.Schema({
-    EmpCode: {
-        type: String
+const mongoose = require("mongoose");
+const employeeDetailsSchema = new mongoose.Schema(
+  {
+    UserId: {
+      type: String,
     },
-    Name: {
-        type: String
+    EmpCode: {
+      type: String,
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
     },
     DOB: {
-        type: String
+      type: String,
     },
     Phone: {
-        type: Number
+      type: Number,
     },
-    Address: {
-        type: String
+    Email: {
+      type: String,
     },
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    PAddress: {
+      type: String,
+    },
+    PCity: {
+      type: String,
+    },
+    PState: {
+      type: String,
+    },
+    PCountry: {
+      type: String,
+    },
+    PPostalCode: {
+      type: String,
+    },
+
+    TAddress: {
+      type: String,
+    },
+    TCity: {
+      type: String,
+    },
+    TState: {
+      type: String,
+    },
+    TCountry: {
+      type: String,
+    },
+    TPostalCode: {
+      type: String,
+    },
+
+    //////////////////////////////////////////////////////////////////////////////////
+
     Department: {
-        type: String
+      type: String,
     },
     Designation: {
-        type: String
+      type: String,
     },
 
-    // Bank Account
-    
+    //////////////////////////////////////////////////////////////////////////////////
+
     BankAccNo: {
-        type: Number
+      type: Number,
     },
     BankAccName: {
-        type: String
+      type: String,
     },
     BankBranch: {
-        type: String
+      type: String,
     },
     BankIFSCCode: {
-        type: String
+      type: String,
     },
 
-    // ------------------- //
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     PFNo: {
-        type: Number
+      type: Number,
     },
     ESI: {
-        type: String
+      type: String,
     },
     UAN: {
-        type: String
+      type: String,
     },
 
     // Working Time
 
     From: {
-        type: String
+      type: String,
     },
     To: {
-        type: String
+      type: String,
     },
 
     // -------------------- //
 
-    Email: {
-        type: String
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
-    Password: {
-        type: String
+  },
+  { timestamps: true }
+);
+const employeeSchema = new mongoose.Schema(
+  {
+    companyId: {
+      type: String,
+      required: true,
     },
-    Role: {
-        type: String
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now,
-    }
-},
-{ timestamps: true });
-const employeeSchema = new mongoose.Schema({
-    companyId:{
-        type:String,
-        required:true
-    },
-    employees:[employeeDetailsSchema]
-},
-{ timestamps: true });
+    employees: [employeeDetailsSchema],
+  },
+  { timestamps: true }
+);
 const Employee = mongoose.model("employee", employeeSchema);
 module.exports = Employee;
