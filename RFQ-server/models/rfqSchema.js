@@ -1,72 +1,116 @@
-const mongoose = require('mongoose')
-const rfqDetailsSchema = new mongoose.Schema({
-    RequisitionDate: {
-        type: Date
-    },
-    PurchaseRequisition: {
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const rfqItemSchema = new Schema({
+    SerialNo: {
         type: String
     },
-    TypeofRequisition: {
+    ItemNumber: {
         type: String
     },
-    JDERequisition: {
+    Description: {
         type: String
     },
-    Company: {
+    Qty: {
         type: String
     },
-    CompanyCode: {
+    Unit: {
         type: String
     },
-    RequisitorsName: {
+    CapExOrOpEx: {
         type: String
     },
-    ProjectName: {
-        type: String
-    },
-    ProjectCode: {
-        type: String
-    },
-    Phone: {
-        type: Number
-    },
-    Department: {
-        type: String
-    },
-    DeliveryDate: {
-        type: Date
-    },
-    Priority: {
-        type: String
-    },
-    PointofDelivery: {
-        type: Date
-    },
-    Receivedby: {
-        type: String
-    },
-    Contactdetails: {
-        type: String
-    },
-    Product: {
-        type: String
-    },
-    Specialinstruction: {
-        type: String
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now,
-    }
+
 },
-{ timestamps: true });
+    { timestamps: true });
+
+
+const rfqDetailsSchema = new mongoose.Schema(
+    {
+        Day: {
+            type: String
+        },
+        Month: {
+            type: String
+        },
+        Year: {
+            type: String
+        },
+        PurchaseRequisition: {
+            type: String
+        },
+        TypeofRequisition: {
+            type: String
+        },
+        JDERequisition: {
+            type: String
+        },
+        Company: {
+            type: String
+        },
+        CompanyCode: {
+            type: String
+        },
+        RequestorsName: {
+            type: String
+        },
+        ProjectName: {
+            type: String
+        },
+        ProjectCode: {
+            type: String
+        },
+        Phone: {
+            type: Number
+        },
+        Department: {
+            type: String
+        },
+        DeliveryDate: {
+            type: Date
+        },
+        Priority: {
+            type: String
+        },
+        PointofDelivery: {
+            type: String
+        },
+        Receivedby: {
+            type: String
+        },
+        Position: {
+            type: String
+        },
+        TelephoneNo: {
+            type: Number
+        },
+        Email: {
+            type: String
+        },
+        SpecialInstructions: {
+            type: String
+        },
+        Attachments: {
+            type: String
+        },
+        Authorization: {
+            type: String
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        },
+
+        rfqsItem: [rfqItemSchema]
+    },
+    { timestamps: true });
+
 const rfqSchema = new mongoose.Schema({
-    companyId:{
-        type:String,
-        required:true
+    companyId: {
+        type: String,
+        required: true
     },
-    rfqs:[rfqDetailsSchema]
+    rfqs: [rfqDetailsSchema]
 },
-{ timestamps: true });
+    { timestamps: true }); 
 const Rfq = mongoose.model("rfq", rfqSchema);
-module.exports = Rfq;   
+module.exports=Rfq;

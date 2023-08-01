@@ -16,41 +16,36 @@ module.exports = {
     purchaseorder: async (req, res) => {
         const data = new Purchaseorder({
             purchaseorders: {
-                REQNo: req.body.REQNo,
-                RequisitionDate: req.body.RequisitionDate,
-                Supplier: req.body.Supplier,
-                Address: req.body.Address,
-                City: req.body.City,
-                State: req.body.State,
-                Zipcode: req.body.Zipcode,
-                FedID: req.body.FedID,
-                Phone: req.body.Phone,
-                Email: req.body.Email,
-                OrganizationName: req.body.OrganizationName,
-                Building: req.body.Building,
-                RoomNumber: req.body.RoomNumber,
-                NeedbyDate: req.body.NeedbyDate,
-                Due: req.body.Due,
+                VendorName: req.body.VendorName,
+                VendorStreetAdress: req.body.VendorStreetAdress,
+                VendorCity: req.body.VendorCity,
+                VendorState: req.body.VendorState,
+                VendorPinCode: req.body.VendorPinCode,
+                VendorCountry: req.body.VendorCountry,
+                VendorContact: req.body.VendorContact,
+                DeliverToName: req.body.DeliverToName,
+                DeliverStreetAdress: req.body.DeliverStreetAdress,
+                DeliverState: req.body.DeliverState,
+                DeliverPinCode: req.body.DeliverPinCode,
+                DeliverCountry: req.body.DeliverCountry,
+                DeliverContact: req.body.DeliverContact,
+                PurchaseOrder: req.body.PurchaseOrder,
+                Date: req.body.Date,
+                CreditTerms: req.body.CreditTerms,
+                Comments: req.body.Comments,
+                TermsAndConditions: req.body.TermsAndConditions,
+                SubTotal: req.body.SubTotal,
+                Tax: req.body.Tax,
+                Freight: req.body.Freight,
                 Paid: req.body.Paid,
-                Carrier: req.body.Carrier,
-                FOB: req.body.FOB,
-                Destination: req.body.Destination,
-                FCA: req.body.FCA,
-                Orgin: req.body.Orgin,
-                SupplierNote: req.body.SupplierNote,
-                Confirmation: req.body.Confirmation,
-                Task: req.body.Task,
-                Award: req.body.Award,
-                ExpendureType: req.body.ExpendureType,
-                OrganizationName: req.body.OrganizationName,
-                Requistioner: req.body.Requistioner,
-                Phone: req.body.Phone,
-                Date: req.body.Date
+                Balance: req.body.Balance,
+                PurchaseOrderItems: req.body.PurchaseOrderItems
             }
         });
         Purchaseorder.findByIdAndUpdate(req.params.id, { $push: { purchaseorders: data.purchaseorders } })
             .then(() => {
                 res.status(200).json("Successfully Uploaded")
+                console.log(data.purchaseorders)
             })
             .catch((err) => {
                 console.error('Failed to add address:', err);
@@ -169,7 +164,8 @@ module.exports = {
     getcount: async (req, res) => {
         const id = req.params.id;
         try {
-            const purchaseorders = await Purchaseorder.find({ companyId: id });
+            const purchaseorders = await Purchaseorder.find({ _id: id });
+            
             if (!purchaseorders || purchaseorders.length === 0) {
                 return res.status(404).json({ message: 'No purchaseorders found.' });
             }

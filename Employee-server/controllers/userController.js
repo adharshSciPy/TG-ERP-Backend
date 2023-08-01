@@ -197,6 +197,7 @@ module.exports = {
       const data = await Employee.findById(collection);
 
       const Employeedetails = data.employees.find(x => x._id == id)
+      console.log(Employeedetails)
       res.status(200).json(Employeedetails);
     } catch (error) {
       console.log(error.message);

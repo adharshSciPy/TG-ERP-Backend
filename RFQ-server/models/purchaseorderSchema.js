@@ -1,113 +1,111 @@
 const mongoose = require('mongoose')
-const purchaseorderDetailsSchema = new mongoose.Schema({
-    REQNo: {
-        type: Number
-    },
-    RequisitionDate: {
-        type: Date
-    },
-    Supplier: {
+const Schema = mongoose.Schema;
+const PurchaseOrderitemSchema = new mongoose.Schema({
+    OrderCode: {
         type: String
     },
-    Address: {
+    Item: {
         type: String
     },
-    City: {
+    Qty: {
         type: String
     },
-    State: {
+    Units: {
         type: String
     },
-    Zipcode: {
+    UnitPrice: {
         type: String
     },
-    //Socialsec/
-    FedID: {
+    TotalPrice: {
         type: String
-    },
-    Phone: {
-        type: Number
-    },
-    Email: {
-        type: String
-    },
-    //ship in address
-    OrganizationName: {
-        type: String
-    },
-    Building: {
-        type: String
-    },
-    RoomNumber: {
-        type: Number
-    },
-    NeedbyDate: {
-        type: Date
-    },
-    //payment terms
-    Due: {
-        type: Number
-    },
-    Paid: {
-        type: Number
-    },
-    Carrier: {
-        type: String
-    },
-    FOB: {
-        type: String
-    },
-    Destination: {
-        type: String
-    },
-    FCA: {
-        type: String
-    },
-    Orgin: {
-        type: String
-    },
-    SupplierNote: {
-        type: String
-    },
-    Confirmation: {
-        type: String
-    },
-    //project
-    Task: {
-        type: String
-    },
-    Award: {
-        type: String
-    },
-    ExpendureType: {
-        type: String
-    },
-    OrganizationName: {
-        type: String
-    },
-    Requistioner: {
-        type: String
-    },
-    Phone: {
-        type: Number
-    },
-    Date: {
-        type: Date
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now,
     }
 
 },
-{ timestamps: true });
-const purchaseorderSchema = new mongoose.Schema({
-    companyId:{
-        type:String,
-        required:true
+    { timestamps: true });
+const PurchaseOrderSchema = new mongoose.Schema(
+    {
+        VendorName: {
+            type: String
+        },
+        VendorStreetAdress: {
+            type: String
+        },
+        VendorCity: {
+            type: String
+        },
+        VendorState: {
+            type: String
+        },
+        VendorPinCode: {
+            type: String
+        },
+        VendorCountry: {
+            type: String
+        },
+        VendorContact: {
+            type: Number
+        },
+        DeliverToName: {
+            type: String
+        },
+        DeliverStreetAdress: {
+            type: String
+        },
+        DeliverCity: {
+            type: String
+        },
+        DeliverState: {
+            type: String
+        },
+        DeliverPinCode: {
+            type: String
+        },
+        DeliverCountry: {
+            type: String
+        },
+        DeliverContact: {
+            type: Number
+        },
+        PurchaseOrder: {
+            type: String
+        },
+        Date: {
+            type: Date
+        },
+        CreditTerms: {
+            type: String
+        },
+        Comments: {
+            type: String
+        },
+        TermsAndConditions: {
+            type: String
+        },
+        SubTotal: {
+            type: String
+        },
+        Tax: {
+            type: String
+        },
+        Freight: {
+            type: String
+        },
+        Paid: {
+            type: Number
+        },
+        Balance: {
+            type: String
+        },
+        PurchaseOrderItems: [PurchaseOrderitemSchema]
     },
-    purchaseorders:[purchaseorderDetailsSchema]
+    { timestamps: true });
+const purchaseSchema = new mongoose.Schema({
+    companyId: {
+        type: String,
+        required: true
+    },
+    purchaseorders: [PurchaseOrderSchema]
 },
-{ timestamps: true });
-const Purchaseorder = mongoose.model("purchaseorder", purchaseorderSchema);
-module.exports = Purchaseorder;   
+    { timestamps: true });
+const Purchaseorder = mongoose.model("purchasesOrder", purchaseSchema);
+module.exports = Purchaseorder;

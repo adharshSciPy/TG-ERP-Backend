@@ -1,7 +1,7 @@
-const Rfq = require('../models/rfqSchema');
+const purchaseRequisition = require('../models/purchaseRequisitionSchema');
 module.exports = {
-    createRfqCollection: async (req, res) => {
-        const data = new Rfq({
+    createpurchaseRequisitionCollection: async (req, res) => {
+        const data = new purchaseRequisition({
             companyId: req.body.companyId,
         });
         try {
@@ -13,48 +13,56 @@ module.exports = {
             res.status(400).json({ meesage: error.message })
         }
     },
-    rfq: async (req, res) => {
-        const data = new Rfq({
-            rfqs: {
-                Day: req.body.Day,
-                Month: req.body.Month,
-                Year: req.body.Year,
-                PurchaseRequisition: req.body.PurchaseRequisition,
-                TypeofRequisition: req.body.TypeofRequisition,
-                JDERequisition: req.body.JDERequisition,
-                Company: req.body.Company,
-                CompanyCode: req.body.CompanyCode,
-                RequestorsName: req.body.RequestorsName,
-                ProjectName: req.body.ProjectName,
-                ProjectCode: req.body.ProjectCode,
+    purchaseRequisition: async (req, res) => {
+        const data = new purchaseRequisition({
+            purchaseRequisition: {
+                RequisitionNo: req.body.RequisitionNo,
+                RequisitionDate: req.body.RequisitionDate,
+                Supplier: req.body.Supplier,
+                Address: req.body.Address,
+                City: req.body.City,
+                State: req.body.State,
+                PinCode: req.body.PinCode,
+                FedId: req.body.FedId,
                 Phone: req.body.Phone,
-                Department: req.body.Department,
-                DeliveryDate: req.body.DeliveryDate,
-                Priority: req.body.Priority,
-                PointofDelivery: req.body.PointofDelivery,
-                Receivedby: req.body.Receivedby,
-                Position: req.body.Position,
-                TelephoneNo: req.body.TelephoneNo,
-                Email: req.body.Email,
-                Specialinstruction: req.body.Specialinstruction,
-                Attachments: req.body.Attachments,
-                Authorization: req.body.Authorization,
-                rfqsItem: req.body.rfqsItem,
-            }
-        });
-        Rfq.findByIdAndUpdate(req.params.id, { $push: { rfqs: data.rfqs } })
+                Fax: req.body.Fax,
+                OrganizationName: req.body.OrganizationName,
+                Building: req.body.Building,
+                RoomNumber: req.body.RoomNumber,
+                AttentionDate: req.body.AttentionDate,
+                PaymentTerms: req.body.PaymentTerms,
+                FreightDue: req.body.FreightDue,
+                FreightPaid: req.body.FreightPaid,
+                Carrier: req.body.Carrier,
+                FOB: req.body.FOB,
+                Destination: req.body.Destination,
+                FCA: req.body.FCA,
+                Origin: req.body.Origin,
+                SupplierNotes: req.body.SupplierNotes,
+                Confirming: req.body.Confirming,
+                Project:req.body.Project,
+                Task:req.body.Task,
+                Award:req.body.Award,
+                ExpenditureType:req.body.ExpenditureType,
+                OrganisationName:req.body.OrganisationName,
+                Requisitioner:req.body.Requisitioner,
+                Telephone:req.body.Telephone,
+                purchaseReqItem:req.body.purchaseReqItem
+            }
+        });
+        purchaseRequisition.findByIdAndUpdate(req.params.id, { $push: { purchaseRequisition: data.purchaseRequisition } })
             .then(() => {
                 res.status(200).json("Successfully Uploaded")
-                console.log(data.rfqs)
+                console.log(data.requisitions)
             })
             .catch((err) => {
                 console.error('Failed to add address:', err);
                 res.status(500).json("ServerError")
             });
     },
-    rfqdetails: async (req, res) => {
+    purchaseRequisitiondetails: async (req, res) => {
         try {
-            const account = await Rfq.find();
+            const account = await purchaseRequisition.find();
             res.json(account);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -71,10 +79,10 @@ module.exports = {
     //     }
     // },
 
-    deleterfq: async (req, res) => {
+    deletepurchaseRequisition: async (req, res) => {
         const { companyID, salesID } = req.params;
 
-        Rfq.findById(companyID, (err, object) => {
+        purchaseRequisition.findById(companyID, (err, object) => {
             if (err) {
                 console.error('Error finding object:', err);
                 return res.status(500).send('Internal Server Error');
@@ -87,7 +95,7 @@ module.exports = {
                 console.log(object);
             }
 
-            const nestedIndex = object.rfqs.findIndex(nestedObj => nestedObj.id === salesID);
+            const nestedIndex = object.purchaseRequisition.findIndex(nestedObj => nestedObj.id === salesID);
             if (nestedIndex === -1) {
                 return res.status(404).send('Nested object not found');
             }
@@ -95,7 +103,7 @@ module.exports = {
                 console.log(nestedIndex);
             }
 
-            object.rfqs.splice(nestedIndex, 1);
+            object.purchaseRequisition.splice(nestedIndex, 1);
             object.save((err) => {
                 if (err) {
                     console.error('Error saving object:', err);
@@ -108,11 +116,11 @@ module.exports = {
         })
     },
 
-    updaterfq: async (req, res) => {
+    updatepurchaseRequisition: async (req, res) => {
         const { companyID, salesID } = req.params;
-        const updatedrfqData = req.body; // Assuming the updated data is sent in the request body
+        const updatedrequisitionData = req.body; // Assuming the updated data is sent in the request body
 
-        Rfq.findById(companyID, (err, object) => {
+        purchaseRequisition.findById(companyID, (err, object) => {
             if (err) {
                 console.error('Error finding object:', err);
                 return res.status(500).send('Internal Server Error');
@@ -125,18 +133,18 @@ module.exports = {
                 console.log("ok");
             }
 
-            const nestedRfq = object.rfqs.find(nestedObj => nestedObj.id === salesID);
-            console.log(nestedRfq)
+            const nestedRequisition = object.purchaseRequisition.find(nestedObj => nestedObj.id === salesID);
+            console.log(nestedRequisition)
 
-            if (!nestedRfq) {
+            if (!nestedRequisition) {
                 return res.status(404).send('Nested object not found');
             }
             else {
-                console.log(nestedRfq, "here");
+                console.log(nestedRequisition, "here");
             }
 
             // Update the rfq's data with the provided updatedCustomerData
-            Object.assign(nestedRfq, updatedrfqData);
+            Object.assign(nestedRequisition, updatedrequisitionData);
 
             object.save((err) => {
                 if (err) {
@@ -150,10 +158,10 @@ module.exports = {
     },
 
 
-    getrfq: async (req, res) => {
+    getpurchaseRequisition: async (req, res) => {
         const purchase = req.params;
         try {
-            const data = await Rfq.findById(purchase.id);
+            const data = await purchaseRequisition.findById(purchase.id);
             res.status(200).json(data);
         } catch (error) {
             console.log(error.message);
@@ -164,25 +172,25 @@ module.exports = {
     getcount: async (req, res) => {
         const id = req.params.id;
         try {
-            const rfqs = await Rfq.find({ _id: id });
-            if (!rfqs || rfqs.length === 0) {
+            const requisitions = await purchaseRequisition.find({ _id: id });
+            if (!requisitions || requisitions.length === 0) {
                 return res.status(404).json({ message: 'No rfqs found.' });
             }
-            const count = rfqs[0].rfqs.length;
+            const count = requisitions[0].purchaseRequisition.length;
             res.status(200).json({ message: 'Total number of rfqs', count });
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ error: 'An error occurred while fetching the count.' });
         }
     },
-    getrfqById: async (req, res) => {
+    getpurchaseRequisitionById: async (req, res) => {
         const collection = req.params.id;
-        const id = req.params.rfqID;
+        const id = req.params.RequisitionID;
         try {
-            const data = await Rfq.findById(collection);
+            const data = await purchaseRequisition.findById(collection);
 
-            const Rfqdetails = data.rfqs.find(x => x._id == id)
-            res.status(200).json(Rfqdetails);
+            const Requisitiondetails = data.purchaseRequisition.find(x => x._id == id)
+            res.status(200).json(Requisitiondetails);
         } catch (error) {
             console.log(error.message);
         }

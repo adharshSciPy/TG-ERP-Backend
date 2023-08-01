@@ -9,6 +9,7 @@ const purchaseitemRoute = require('./routes/purchaseitemRoute.js');
 const purchaseorderRoute = require('./routes/purchaseorderRoute.js');
 const rfqRoute = require('./routes/rfqRoute.js');
 const vendorRoute = require('./routes/vendorRoute.js');
+const purchaseRequisitionRoute = require('./routes/purchaseRequisitionRoute.js');
 
 dotenv.config();
 
@@ -23,5 +24,6 @@ app.use("/purchaseitemRoute", purchaseitemRoute);
 app.use("/purchaseorderRoute", purchaseorderRoute);
 app.use("/rfqRoute", rfqRoute);
 app.use("/vendorRoute", vendorRoute);
+app.use("/purchaseRequisitionRoute", purchaseRequisitionRoute);
 
 app.listen(PORT, () => { console.log(`Server started at ${PORT}`) })
