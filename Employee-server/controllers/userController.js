@@ -17,13 +17,30 @@ module.exports = {
   },
 
   addEmployee: async (req, res) => {
+    const CountData = await Employee.findById(req.params.id);
+    const count = CountData.employees.length + 1
     const data = new Employee({
       employees: {
-        EmpCode: req.body.EmpCode,
+        UserId : req.body.UserId,
+        firstName:  req.body.firstName,
+        lastName: req.body. lastName,
+        Email:req.body.Email,
+        EmpCode: "ID00"+count,
         Name: req.body.Name,
         DOB: req.body.DOB,
         Phone: req.body.Phone,
-        Address: req.body.Address,
+        PAddress:  req.body.PAddress,
+        PCity:req.body.PCity,
+        PState:req.body.PState,
+        PCountry:  req.body.PCountry,
+        PPostalCode: req.body.PPostalCode,
+        TAddress:  req.body.TAddress,
+        TCity:req.body.TCity,
+        TState:req.body.TState,
+        TCountry:  req.body.TCountry,
+        TPostalCode: req.body.TPostalCode,
+
+
         Department: req.body.Department,
         Designation: req.body.Designation,
 
@@ -46,10 +63,6 @@ module.exports = {
         To: req.body.To,
 
         // -------------------- //
-
-        Email: req.body.Email,
-        Password: req.body.Password,
-        Role: req.body.Role
       }
     });
     Employee.findByIdAndUpdate(req.params.id, { $push: { employees: data.employees } })
@@ -198,6 +211,19 @@ module.exports = {
 
       const Employeedetails = data.employees.find(x => x._id == id)
       console.log(Employeedetails)
+      res.status(200).json(Employeedetails);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  getEmployeebyUserId: async (req, res) => {
+    const collection = req.params.id;
+    const id = req.params.userID;
+    try {
+      const data = await Employee.findById(collection);
+
+      const Employeedetails = data.employees.find(x => x.UserId == id)
       res.status(200).json(Employeedetails);
     } catch (error) {
       console.log(error.message);

@@ -15,6 +15,7 @@ const router = express.Router();
 
     router.get("/getEmployee/:id", userController.getEmployee)
     router.get("/getEmployeeById/:id/:employeeID",userController.getEmployeebyId)
+    router.get("/getEmployeeByUserId/:id/:userID",userController.getEmployeebyUserId)
 
     // Delete
 
