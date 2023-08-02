@@ -19,17 +19,32 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
         type: String
     },
     Price: {
-        type: Number
-    },
-    Tax: {
-        type: Number
-    },
-    HSNCode: {
         type: String
     },
-    BuyOrSell: {
+    Dimension: {
         type: String
     },
+    Height: {
+        type: String
+    },
+    Manufacturer: {
+        type: String
+    },
+    Brand: {
+        type: String
+    },
+    ExpiryDate: {
+        type: String
+    },
+    // Tax: {
+    //     type: Number
+    // },
+    // HSNCode: {
+    //     type: String
+    // },
+    // BuyOrSell: {
+    //     type: String
+    // },
     createdAt:{
         type:Date,
         default:Date.now,
