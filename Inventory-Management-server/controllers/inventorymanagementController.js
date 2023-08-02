@@ -25,9 +25,14 @@ module.exports = {
         ItemCategory: req.body.ItemCategory,
         CurrentStock: req.body.CurrentStock,
         Price: req.body.Price,
-        Tax: req.body.Tax,
-        HSNCode: req.body.HSNCode,
-        BuyOrSell: req.body.BuyOrSell,
+        Dimension: req.body.Dimension,
+        Height: req.body.Height,
+        Manufacturer: req.body.Manufacturer,
+        Brand: req.body.Brand,
+        ExpiryDate: req.body.ExpiryDate,
+        // Tax: req.body.Tax,
+        // HSNCode: req.body.HSNCode,
+        // BuyOrSell: req.body.BuyOrSell,
       }
     });
     Inventorymanagement.findByIdAndUpdate(req.params.id, { $push: { inventorymanagements: data.inventorymanagements } })
@@ -158,7 +163,7 @@ module.exports = {
   getcount: async (req, res) => {
     const id = req.params.id;
     try {
-      const inventorymanagements = await Inventorymanagement.find({ companyId: id });
+      const inventorymanagements = await Inventorymanagement.find({ _id: id });
       if (!inventorymanagements || inventorymanagements.length === 0) {
         return res.status(404).json({ message: 'No inventorymanagements found.' });
       }
