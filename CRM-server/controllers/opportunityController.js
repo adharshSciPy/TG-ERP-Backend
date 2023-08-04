@@ -83,22 +83,44 @@ module.exports = {
     })},
 
   updateOpportunity: async (req, res) => {
-    try {
-      await Opportunity.findByIdAndUpdate(req.params.id, {
-        OpportunityName: req.body.OpportunityName,
-        Description: req.body.Description,
-        LeadSource: req.body.LeadSource,
-        CustomerName: req.body.CustomerName,
-        CustomerId:req.body.CustomerId,
-        AssignedTo : req.body.AssignedTo,
-        FollowUp:req.body.FollowUp,
-        CreatedBy:req.body.CreatedBy
+    const { companyID, opportunityID } = req.params;
+    const updatedOpportunityData = req.body; // Assuming the updated data is sent in the request body
+
+    Opportunity.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
+
+      const nestedOpportunity = object.opportunitys.find(nestedObj => nestedObj.id === opportunityID);
+      console.log(nestedOpportunity)
+
+      if (!nestedOpportunity) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedOpportunity,"here");
+      }
+
+      // Update the employee's data with the provided updatedCustomerData
+      Object.assign(nestedOpportunity,updatedOpportunityData);
+
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        res.send('Object updated successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    });
   },
 
   getOpportunity: async (req, res) => {

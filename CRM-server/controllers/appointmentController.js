@@ -41,28 +41,78 @@ module.exports = {
     }
   },
   deleteAppointment: async (req, res) => {
-    try {
-      const user = await Appointment.findByIdAndDelete(req.params.id);
-      if (!user) throw Error("No user found");
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  },
-  updateAppointment: async (req, res) => {
-    try {
-      await Appointment.findByIdAndUpdate(req.params.id, {
-        ScheduleCall: req.body.ScheduleCall,
-        ScheduleMeeting: req.body.ScheduleMeeting,
-        Subject: req.body.Subject,
-        Description: req.body.Description,
-        StartDate: req.body.StartDate
+    const { companyID, appointmentID } = req.params;
+    Appointment.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+
+      else {
+        console.log(object);
+      }
+
+      const nestedIndex = object.appointments.findIndex(nestedObj => nestedObj.id === appointmentID);
+      if (nestedIndex === -1) {
+        return res.status(404).send('Nested object not found')
+      }
+      else {
+        console.log(nestedIndex);
+      }
+      object.appointments.splice(nestedIndex, 1);
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+        res.send('Object removed successfully');
       });
-      res.status(200).json("Successfully updated");
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json("ServerError");
-    }
+    })
+  },
+
+  updateAppointment: async (req, res) => {
+    const { companyID, appointmentID } = req.params;
+    const updatedAppointmentData = req.body; // Assuming the updated data is sent in the request body
+
+    Appointment.findById(companyID, (err, object) => {
+      if (err) {
+        console.error('Error finding object:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!object) {
+        return res.status(404).send('Object not found');
+      }
+      else {
+        console.log("ok");
+      }
+
+      const nestedAppointment = object.appointments.find(nestedObj => nestedObj.id === appointmentID);
+      console.log(nestedAppointment)
+
+      if (!nestedAppointment) {
+        return res.status(404).send('Nested object not found');
+      }
+      else {
+        console.log(nestedAppointment,"here");
+      }
+
+      // Update the employee's data with the provided updatedCustomerData
+      Object.assign(nestedAppointment,updatedAppointmentData);
+
+      object.save((err) => {
+        if (err) {
+          console.error('Error saving object:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        res.send('Object updated successfully');
+      });
+    });
   },
   getAppointment: async (req, res) => {
     const user = req.params;
