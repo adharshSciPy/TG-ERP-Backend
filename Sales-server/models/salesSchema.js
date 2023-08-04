@@ -1,25 +1,17 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const salesDetailsSchema = new mongoose.Schema({
-    OrderNumber: {
+    ProductName: {
+        type: String
+    },
+    Price: {
         type: Number
     },
-    Product: {
-        type: Array
-    },
-    Day: {
-        type: String
-    },
-    Month: {
-        type: String
-    },
-    Year: {
-        type: String
-    },
-    Status: {
-        type: String
-    },
-    TotalAmount: {
+    Quantity: {
         type: Number
+    },
+    ProductId: {
+        type: String
     },
     createdAt:{
         type:Date,
@@ -27,12 +19,37 @@ const salesDetailsSchema = new mongoose.Schema({
     }
 },
 { timestamps: true });
+const SalesSchema = new mongoose.Schema(
+    {
+        CustomerName: {
+            type:String
+        },
+        CustomerId: {
+            type:String
+        },
+        SalesPerson:{
+            type:String
+        },
+        EmpId:{
+            type:String
+        },
+        SalesDate:{
+            type:String
+        },
+        OrderNumber:{
+            type:Number
+        },
+        SalesItems:[salesDetailsSchema]
+
+    },
+
+{ timestamps: true });
 const salesSchema = new mongoose.Schema({
     companyId:{
         type:String,
         required:true
     },
-    saless:[salesDetailsSchema]
+    saless:[SalesSchema]
 },
 { timestamps: true });
 const Sales = mongoose.model("sales", salesSchema);

@@ -17,7 +17,7 @@ router.delete("/deleteOpportunity/:companyID/:opportunityID", opportunityControl
 
 //put
 
-router.put("/updateOpportunity/:id", opportunityController.updateOpportunity);
+router.put("/updateOpportunity/:companyID/:opportunityID", opportunityController.updateOpportunity);
 
 // get by id
 

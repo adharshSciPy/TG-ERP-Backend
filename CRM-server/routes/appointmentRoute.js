@@ -12,11 +12,11 @@ router.get("/appointmentdetails", appointmentController.appointmentDetails);
 
 //delete
 
-router.delete("/deleteAppointment/:id", appointmentController.deleteAppointment);
+router.delete("/deleteAppointment/:companyID/:appointmentID", appointmentController.deleteAppointment);
 
 //put
 
-router.put("/updateAppointment/:id", appointmentController.updateAppointment);
+router.put("/updateAppointment/:companyID/:appointmentID", appointmentController.updateAppointment);
 
 
 // get by id

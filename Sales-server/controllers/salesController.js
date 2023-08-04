@@ -14,15 +14,16 @@ module.exports = {
         }
     },
     sales: async (req, res) => {
+        console.log(req.body.SalesDate)
         const data = new Sales({
             saless: {
+                CustomerName: req.body.CustomerName,
+                CustomerId: req.body.CustomerId,
+                SalesPerson: req.body.SalesPerson,
+                EmpId: req.body.EmpId,
+                SalesDate: req.body.SalesDate,
                 OrderNumber: req.body.OrderNumber,
-                Product: req.body.Product,
-                Day: req.body.Day,
-                Month: req.body.Month,
-                Year: req.body.Year,
-                Status: req.body.Status,
-                TotalAmount: req.body.TotalAmount
+                SalesItems: req.body.SalesItems
             }
         });
         Sales.findByIdAndUpdate(req.params.id, { $push: { saless: data.saless } })
