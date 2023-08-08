@@ -18,6 +18,7 @@ module.exports = {
             categories: {
                 CategoryName:req.body.CategoryName,
                 Description: req.body.Description,
+                Active:req.body.Active,
                 Product:req.body.Product,
             }
         });

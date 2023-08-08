@@ -24,6 +24,9 @@ const ProductDetailsSchema = new mongoose.Schema({
     Unit: {
         type: String,
     },
+    Active:{
+        type:Boolean
+    }
 },
     { timestamps: true });
 const CategoryDetailsSchema = new mongoose.Schema({
@@ -32,6 +35,9 @@ const CategoryDetailsSchema = new mongoose.Schema({
     },
     Description: {
         type: String,
+    },
+    Active:{
+        type:Boolean
     },
     Product: [ProductDetailsSchema]
 },
