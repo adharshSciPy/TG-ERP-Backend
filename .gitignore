@@ -27,3 +27,5 @@ PurchaseModule-server/.env
 Notification-server/node_modules
 Notification-server/.env
     
+POS-server/node_modules
+POS-server/.env    
