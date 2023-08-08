@@ -12,10 +12,6 @@ const salesDetailsSchema = new mongoose.Schema({
     },
     ProductId: {
         type: String
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now,
     }
 },
 { timestamps: true });
@@ -39,7 +35,11 @@ const SalesSchema = new mongoose.Schema(
         OrderNumber:{
             type:Number
         },
-        SalesItems:[salesDetailsSchema]
+        SalesItems:[salesDetailsSchema],
+        createdAt:{
+            type:Date,
+            default:Date.now,
+        }
 
     },
 

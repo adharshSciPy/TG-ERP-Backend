@@ -31,5 +31,6 @@ router.get("/getSalesById/:id/:SalesID",salesController.getSalesById)
 
 //count
 router.get("/getcount/:id", salesController.getcount);
+router.get("/getIndex/:id",salesController.getIndex)
 
 module.exports = router;
