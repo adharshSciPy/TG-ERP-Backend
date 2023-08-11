@@ -18,6 +18,9 @@ module.exports = {
       saless: {
         CustomerName: req.body.CustomerName,
         CustomerId: req.body.CustomerId,
+        Address: req.body.Address,
+        Email: req.body.Email,
+        Phone: req.body.Phone,
         SalesPerson: req.body.SalesPerson,
         EmpId: req.body.EmpId,
         SalesDate: req.body.SalesDate,
@@ -175,10 +178,10 @@ module.exports = {
     try {
         const Rdata = await Sales.findById(sales.id);
         const data = Rdata.saless.sort((a, b) => b.createdAt - a.createdAt);
-        res.status(200).json(data);
+        res.status(200).json(data[0].OrderNumber);
       } catch (error) {
         console.error(error.message);
         res.status(500).json({ error: 'Internal Server Error' });
-      }
+      }117
   },
 };

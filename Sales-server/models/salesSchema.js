@@ -1,16 +1,19 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const salesDetailsSchema = new mongoose.Schema({
-    ProductName: {
+    ItemNo: {
         type: String
     },
-    Price: {
+    ItemName: {
         type: Number
     },
     Quantity: {
         type: Number
     },
-    ProductId: {
+    Price: {
+        type: String
+    },
+    TotalPrice: {
         type: String
     }
 },
@@ -21,6 +24,18 @@ const SalesSchema = new mongoose.Schema(
             type:String
         },
         CustomerId: {
+            type:String
+        },
+        Address:{
+            type:String
+        },
+        Email:{
+            type:String
+        },
+        Phone:{
+            type:String
+        },
+        SalesPerson:{
             type:String
         },
         SalesPerson:{
