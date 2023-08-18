@@ -71,83 +71,61 @@ module.exports = {
     //     }
     // },
 
-    deleterfq: async (req, res) => {
-        const { companyID, salesID } = req.params;
+deleterfq: async (req, res) => {
+    const { companyID, salesID } = req.params;
 
-        Rfq.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+    try {
+        const object = await Rfq.findById(companyID);
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log(object);
-            }
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            const nestedIndex = object.rfqs.findIndex(nestedObj => nestedObj.id === salesID);
-            if (nestedIndex === -1) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedIndex);
-            }
+        const nestedIndex = object.rfqs.findIndex(nestedObj => nestedObj.id === salesID);
 
-            object.rfqs.splice(nestedIndex, 1);
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        if (nestedIndex === -1) {
+            return res.status(404).send('Nested object not found');
+        }
 
-                res.send('Object removed successfully');
-            });
+        object.rfqs.splice(nestedIndex, 1);
+        await object.save();
 
-        })
-    },
+        res.send('Object removed successfully');
+    } catch (error) {
+        console.error('Error deleting object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
 
-    updaterfq: async (req, res) => {
-        const { companyID, salesID } = req.params;
-        const updatedrfqData = req.body; // Assuming the updated data is sent in the request body
+updaterfq: async (req, res) => {
+    const { companyID, salesID } = req.params;
+    const updatedrfqData = req.body;
 
-        Rfq.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+    try {
+        const object = await Rfq.findById(companyID);
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log("ok");
-            }
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            const nestedRfq = object.rfqs.find(nestedObj => nestedObj.id === salesID);
-            console.log(nestedRfq)
+        const nestedRfq = object.rfqs.find(nestedObj => nestedObj.id === salesID);
 
-            if (!nestedRfq) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedRfq, "here");
-            }
+        if (!nestedRfq) {
+            return res.status(404).send('Nested object not found');
+        }
 
-            // Update the rfq's data with the provided updatedCustomerData
-            Object.assign(nestedRfq, updatedrfqData);
+        // Update the rfq's data with the provided updatedrfqData
+        Object.assign(nestedRfq, updatedrfqData);
 
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        await object.save();
 
-                res.send('Object updated successfully');
-            });
-        });
-    },
+        res.send('Object updated successfully');
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
+
 
 
     getrfq: async (req, res) => {

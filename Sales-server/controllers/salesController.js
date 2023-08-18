@@ -25,6 +25,13 @@ module.exports = {
         EmpId: req.body.EmpId,
         SalesDate: req.body.SalesDate,
         OrderNumber: req.body.OrderNumber,
+        SubTotalr: req.body.SubTotal,
+        DiscountPercentage: req.body.DiscountPercentage,
+        DiscountValue: req.body.DiscountValue,
+        GST: req.body.GST,
+        SGST: req.body.SGST,
+        GrandTotal: req.body.GrandTotal,
+        Roundoff: req.body.Roundoff,
         SalesItems: req.body.SalesItems,
       },
     });
@@ -57,64 +64,64 @@ module.exports = {
   //     }
   // },
 
-  deleteSales: async (req, res) => {
+deleteSales: async (req, res) => {
     const { companyID, salesID } = req.params;
-  
-    try {
-      const object = await Sales.findById(companyID).exec();
-  
-      if (!object) {
-        return res.status(404).send("Object not found");
-      }
-  
-      const nestedIndex = object.saless.findIndex(
-        (nestedObj) => nestedObj.id === salesID
-      );
-  
-      if (nestedIndex === -1) {
-        return res.status(404).send("Nested object not found");
-      }
-  
-      object.saless.splice(nestedIndex, 1);
-      await object.save();
-  
-      res.send("Object removed successfully");
-    } catch (error) {
-      console.error("Error:", error.message);
-      res.status(500).send("Internal Server Error");
-    }
-  },
-  
 
-  updateSales: async (req, res) => {
+    try {
+        const company = await Sales.findById(companyID);
+
+        if (!company) {
+            return res.status(404).send("Company not found");
+        }
+
+        const nestedIndex = company.saless.findIndex(
+            (nestedObj) => nestedObj.id === salesID
+        );
+
+        if (nestedIndex === -1) {
+            return res.status(404).send("Sales not found");
+        }
+
+        company.saless.splice(nestedIndex, 1);
+        await company.save();
+
+        res.send("Sales removed successfully");
+    } catch (error) {
+        console.error("Error removing sales:", error.message);
+        res.status(500).send("Internal Server Error");
+    }
+},
+
+updateSales: async (req, res) => {
     const { companyID, salesID } = req.params;
     const updatedSalesData = req.body;
-  
+
     try {
-      const object = await Sales.findById(companyID).exec();
-  
-      if (!object) {
-        return res.status(404).send("Object not found");
-      }
-  
-      const nestedSales = object.saless.find(
-        (nestedObj) => nestedObj.id === salesID
-      );
-  
-      if (!nestedSales) {
-        return res.status(404).send("Nested object not found");
-      }
-  
-      Object.assign(nestedSales, updatedSalesData);
-  
-      await object.save();
-  
-      res.send("Object updated successfully");
+        const company = await Sales.findById(companyID);
+
+        if (!company) {
+            return res.status(404).send("Company not found");
+        }
+
+        const nestedSales = company.saless.find(
+            (nestedObj) => nestedObj.id === salesID
+        );
+
+        if (!nestedSales) {
+            return res.status(404).send("Sales not found");
+        }
+
+        Object.assign(nestedSales, updatedSalesData);
+
+        await company.save();
+
+        res.send("Sales updated successfully");
     } catch (error) {
-      console.error("Error:", error.message);
-      res.status(500).send("Internal Server Error");
+        console.error("Error updating sales:", error.message);
+        res.status(500).send("Internal Server Error");
     }
-  },
+},
+
   
 
   getSales: async (req, res) => {

@@ -62,81 +62,61 @@ module.exports = {
 
     deleteInvoice: async (req, res) => {
         const { companyID, invoiceID } = req.params;
-
-        Invoice.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
+    
+        try {
+            const object = await Invoice.findById(companyID);
+    
             if (!object) {
                 return res.status(404).send('Object not found');
             }
-            else {
-                console.log(object);
-            }
-
+    
             const nestedIndex = object.invoices.findIndex(nestedObj => nestedObj.id === invoiceID);
+    
             if (nestedIndex === -1) {
                 return res.status(404).send('Nested object not found');
             }
-            else {
-                console.log(nestedIndex);
-            }
-
+    
             object.invoices.splice(nestedIndex, 1);
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
-
-                res.send('Object removed successfully');
-            });
-
-        })
+    
+            await object.save();
+    
+            res.send('Object removed successfully');
+        } catch (err) {
+            console.error('Error removing object:', err);
+            res.status(500).send('Internal Server Error');
+        }
     },
+    
 
     updateInvoice: async (req, res) => {
         const { companyID, invoiceID } = req.params;
         const updatedinvoiceData = req.body; // Assuming the updated data is sent in the request body
-
-        Invoice.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
+    
+        try {
+            const object = await Invoice.findById(companyID);
+    
             if (!object) {
                 return res.status(404).send('Object not found');
             }
-            else {
-                console.log("ok");
-            }
-
+    
             const nestedInvoice = object.invoices.find(nestedObj => nestedObj.id === invoiceID);
-            console.log(nestedInvoice)
-
+    
             if (!nestedInvoice) {
                 return res.status(404).send('Nested object not found');
             }
-            else {
-                console.log(nestedInvoice, "here");
-            }
-
-            // Update the invoice's data with the provided updatedCustomerData
+    
+            // Update the invoice's data with the provided updatedinvoiceData
             Object.assign(nestedInvoice, updatedinvoiceData);
-
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
-
-                res.send('Object updated successfully');
-            });
-        });
+    
+            await object.save();
+    
+            res.send('Object updated successfully');
+        } catch (err) {
+            console.error('Error updating object:', err);
+            res.status(500).send('Internal Server Error');
+        }
     },
+
 
 
     getInvoice: async (req, res) => {

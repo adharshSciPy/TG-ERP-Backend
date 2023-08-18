@@ -80,86 +80,69 @@ module.exports = {
   //   }
   // },
 
-  deleteProductDetails: async (req, res) => {
+deleteProductDetails: async (req, res) => {
     const { companyID, productID } = req.params;
 
-    Product.findById(companyID, (err, object) => {
-        if (err) {
-            console.error('Error finding object:', err);
-            return res.status(500).send('Internal Server Error');
-        }
+    try {
+        const object = await Product.findById(companyID);
 
         if (!object) {
             return res.status(404).send('Object not found');
         }
-        else {
-            console.log(object);
-        }
 
-        const nestedIndex = object.products.findIndex(nestedObj => nestedObj.id === productID);
+        const nestedIndex = object.products.findIndex(
+            nestedObj => nestedObj.id === productID
+        );
+
         if (nestedIndex === -1) {
             return res.status(404).send('Nested object not found');
         }
-        else {
-            console.log(nestedIndex);
-        }
 
         object.products.splice(nestedIndex, 1);
-        object.save((err) => {
-            if (err) {
-                console.error('Error saving object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+        await object.save();
 
-            res.send('Object removed successfully');
-        });
-
-    })
+        res.send('Object removed successfully');
+    } catch (error) {
+        console.error('Error deleting object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
 },
+
 
 
   //put
 
-  editProductDetails: async (req, res) => {
+editProductDetails: async (req, res) => {
     const { companyID, productID } = req.params;
-    const updatedproductData = req.body; // Assuming the updated data is sent in the request body
+    const updatedProductData = req.body;
 
-    Product.findById(companyID, (err, object) => {
-      if (err) {
-        console.error('Error finding object:', err);
-        return res.status(500).send('Internal Server Error');
-      }
+    try {
+        const object = await Product.findById(companyID);
 
-      if (!object) {
-        return res.status(404).send('Object not found');
-      }
-      else {
-        console.log("ok");
-      }
-
-      const nestedProduct = object.products.find(nestedObj => nestedObj.id === productID);
-      console.log(nestedProduct)
-
-      if (!nestedProduct) {
-        return res.status(404).send('Nested object not found');
-      }
-      else {
-        console.log(nestedProduct, "here");
-      }
-
-      // Update the product's data with the provided updatedCustomerData
-      Object.assign(nestedProduct, updatedproductData);
-
-      object.save((err) => {
-        if (err) {
-          console.error('Error saving object:', err);
-          return res.status(500).send('Internal Server Error');
+        if (!object) {
+            return res.status(404).send('Object not found');
         }
 
+        const nestedProduct = object.products.find(
+            nestedObj => nestedObj.id === productID
+        );
+
+        if (!nestedProduct) {
+            return res.status(404).send('Nested object not found');
+        }
+
+        // Update the product's data with the provided updatedProductData
+        Object.assign(nestedProduct, updatedProductData);
+
+        await object.save();
+
         res.send('Object updated successfully');
-      });
-    });
-  },
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
+
   // get by id
 
   getidProductDetails: async (req, res) => {

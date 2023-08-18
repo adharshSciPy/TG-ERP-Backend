@@ -99,83 +99,69 @@ module.exports = {
   //   }
   // },
 
+
   deleteEmployee: async (req, res) => {
-    const { companyID, employeeID } = req.params;
-    Employee.findById(companyID, (err, object) => {
-      if (err) {
-        console.error('Error finding object:', err);
-        return res.status(500).send('Internal Server Error');
-      }
-
-      if (!object) {
-        return res.status(404).send('Object not found');
-      }
-
-      else {
-        console.log(object);
-      }
-
-      const nestedIndex = object.employees.findIndex(nestedObj => nestedObj.id === employeeID);
-      if (nestedIndex === -1) {
-        return res.status(404).send('Nested object not found')
-      }
-      else {
-        console.log(nestedIndex);
-      }
-      object.employees.splice(nestedIndex, 1);
-      object.save((err) => {
-        if (err) {
-          console.error('Error saving object:', err);
+      const { companyID, employeeID } = req.params;
+  
+      try {
+          const object = await Employee.findById(companyID);
+  
+          if (!object) {
+              return res.status(404).send('Object not found');
+          }
+  
+          const nestedIndex = object.employees.findIndex(
+              nestedObj => nestedObj.id === employeeID
+          );
+  
+          if (nestedIndex === -1) {
+              return res.status(404).send('Nested object not found');
+          }
+  
+          object.employees.splice(nestedIndex, 1);
+          await object.save();
+  
+          res.send('Object removed successfully');
+      } catch (error) {
+          console.error('Error deleting object:', error.message);
           return res.status(500).send('Internal Server Error');
-        }
-        res.send('Object removed successfully');
-      });
-    })
+      }
   },
+  
 
   //put
 
   editEmployee: async (req, res) => {
-    const { companyID, employeeID } = req.params;
-    const updatedEmployeeData = req.body; // Assuming the updated data is sent in the request body
-
-    Employee.findById(companyID, (err, object) => {
-      if (err) {
-        console.error('Error finding object:', err);
-        return res.status(500).send('Internal Server Error');
-      }
-
-      if (!object) {
-        return res.status(404).send('Object not found');
-      }
-      else {
-        console.log("ok");
-      }
-
-      const nestedEmployee = object.employees.find(nestedObj => nestedObj.id === employeeID);
-      console.log(nestedEmployee)
-
-      if (!nestedEmployee) {
-        return res.status(404).send('Nested object not found');
-      }
-      else {
-        console.log(nestedEmployee,"here");
-      }
-
-      // Update the employee's data with the provided updatedCustomerData
-      Object.assign(nestedEmployee,updatedEmployeeData);
-
-      object.save((err) => {
-        if (err) {
-          console.error('Error saving object:', err);
+      const { companyID, employeeID } = req.params;
+      const updatedEmployeeData = req.body;
+  
+      try {
+          const object = await Employee.findById(companyID);
+  
+          if (!object) {
+              return res.status(404).send('Object not found');
+          }
+  
+          const nestedEmployee = object.employees.find(
+              nestedObj => nestedObj.id === employeeID
+          );
+  
+          if (!nestedEmployee) {
+              return res.status(404).send('Nested object not found');
+          }
+  
+          // Update the employee's data with the provided updatedEmployeeData
+          Object.assign(nestedEmployee, updatedEmployeeData);
+  
+          await object.save();
+  
+          res.send('Object updated successfully');
+      } catch (error) {
+          console.error('Error updating object:', error.message);
           return res.status(500).send('Internal Server Error');
-        }
-
-        res.send('Object updated successfully');
-      });
-    });
+      }
   },
-
+  
   // get by id
 
   getEmployee: async (req, res) => {

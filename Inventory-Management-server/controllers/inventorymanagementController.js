@@ -56,65 +56,72 @@ module.exports = {
     }
   },
 
-
   deleteInventorymanagementDetails: async (req, res) => {
-    const { companyID, inventorymanagementID } = req.params;
+      const { companyID, inventorymanagementID } = req.params;
   
-    try {
-      const object = await Inventorymanagement.findById(companyID).exec();
-      
-      if (!object) {
-        return res.status(404).send('Object not found');
+      try {
+          const object = await Inventorymanagement.findById(companyID);
+  
+          if (!object) {
+              return res.status(404).send('Object not found');
+          }
+  
+          const nestedIndex = object.inventorymanagements.findIndex(
+              nestedObj => nestedObj.id === inventorymanagementID
+          );
+  
+          if (nestedIndex === -1) {
+              return res.status(404).send('Nested object not found');
+          }
+  
+          // Remove the nested object from the inventorymanagements array
+          object.inventorymanagements.splice(nestedIndex, 1);
+  
+          await object.save();
+  
+          res.send('Object removed successfully');
+      } catch (error) {
+          console.error('Error deleting object:', error.message);
+          return res.status(500).send('Internal Server Error');
       }
-  
-      const nestedIndex = object.inventorymanagements.findIndex(nestedObj => nestedObj.id === inventorymanagementID);
-      if (nestedIndex === -1) {
-        return res.status(404).send('Nested object not found');
-      }
-  
-      // Remove the nested object from the inventorymanagements array
-      object.inventorymanagements.splice(nestedIndex, 1);
-  
-      await object.save();
-  
-      res.send('Object removed successfully');
-    } catch (err) {
-      console.error('Error deleting object:', err);
-      return res.status(500).send('Internal Server Error');
-    }
   },
+  
 
 
   //put
 
-  editInventorymanagementDetails: async (req, res) => {
+   
+
+editInventorymanagementDetails: async (req, res) => {
     const { companyID, inventorymanagementID } = req.params;
-    const updatedinventorymanagementData = req.body; // Assuming the updated data is sent in the request body
-  
+    const updatedInventorymanagementData = req.body;
+
     try {
-      const object = await Inventorymanagement.findById(companyID).exec();
-      
-      if (!object) {
-        return res.status(404).send('Object not found');
-      }
-  
-      const nestedInventory = object.inventorymanagements.find(nestedObj => nestedObj.id === inventorymanagementID);
-  
-      if (!nestedInventory) {
-        return res.status(404).send('Nested object not found');
-      }
-  
-      // Update the inventory's data with the provided updatedCustomerData
-      Object.assign(nestedInventory, updatedinventorymanagementData);
-  
-      await object.save();
-  
-      res.send('Object updated successfully');
-    } catch (err) {
-      console.error('Error updating object:', err);
-      return res.status(500).send('Internal Server Error');
+        const object = await Inventorymanagement.findById(companyID);
+
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
+
+        const nestedInventory = object.inventorymanagements.find(
+            nestedObj => nestedObj.id === inventorymanagementID
+        );
+
+        if (!nestedInventory) {
+            return res.status(404).send('Nested object not found');
+        }
+
+        // Update the inventory's data with the provided updatedInventorymanagementData
+        Object.assign(nestedInventory, updatedInventorymanagementData);
+
+        await object.save();
+
+        res.send('Object updated successfully');
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        return res.status(500).send('Internal Server Error');
     }
-  },
+},
 
   // get by id
 

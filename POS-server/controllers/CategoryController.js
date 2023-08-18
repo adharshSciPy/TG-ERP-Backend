@@ -51,83 +51,63 @@ module.exports = {
     //     }
     // },
 
-    deletecategory: async (req, res) => {
-        const { companyID, salesID } = req.params;
+deleteCategory: async (req, res) => {
+    const { companyID, categoryID } = req.params;
 
-        Category.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+    try {
+        const object = await Category.findById(companyID);
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log(object);
-            }
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            const nestedIndex = object.categories.findIndex(nestedObj => nestedObj.id === salesID);
-            if (nestedIndex === -1) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedIndex);
-            }
+        const nestedIndex = object.categories.findIndex(
+            nestedObj => nestedObj.id === categoryID
+        );
 
-            object.categories.splice(nestedIndex, 1);
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        if (nestedIndex === -1) {
+            return res.status(404).send('Nested object not found');
+        }
 
-                res.send('Object removed successfully');
-            });
+        object.categories.splice(nestedIndex, 1);
+        await object.save();
 
-        })
-    },
+        res.send('Object removed successfully');
+    } catch (error) {
+        console.error('Error deleting object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
 
-    updatecategory: async (req, res) => {
-        const { companyID, salesID } = req.params;
-        const updatedcategoryData = req.body; // Assuming the updated data is sent in the request body
+updateCategory: async (req, res) => {
+    const { companyID, categoryID } = req.params;
+    const updatedCategoryData = req.body;
+    try {
+        const object = await Category.findById(companyID);
+        
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
+        const nestedCategory = object.categories.find(
+            nestedObj => nestedObj.id === categoryID
+        );
 
-        Category.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+        if (!nestedCategory) {
+            return res.status(404).send('Nested object not found');
+        }
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log("ok");
-            }
+        // Update the category's data with the provided updatedCategoryData
+        Object.assign(nestedCategory, updatedCategoryData);
 
-            const nestedCategory = object.categories.find(nestedObj => nestedObj.id === salesID);
-            console.log(nestedCategory)
+        await object.save();
 
-            if (!nestedCategory) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedCategory, "here");
-            }
+        res.send('Object updated successfully');
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
 
-            // Update the category's data with the provided updatedCustomerData
-            Object.assign(nestedCategory, updatedcategoryData);
-
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
-
-                res.send('Object updated successfully');
-            });
-        });
-    },
 
 
     getcategory: async (req, res) => {

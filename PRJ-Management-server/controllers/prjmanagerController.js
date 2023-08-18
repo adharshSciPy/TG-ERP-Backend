@@ -71,83 +71,64 @@ module.exports = {
   //   }
   // },
 
-  deletePrjmanagerDetails: async (req, res) => {
+
+deletePrjmanagerDetails: async (req, res) => {
     const { companyID, prjmanagerID } = req.params;
-    Prjmanager.findById(companyID, (err, object) => {
-      if (err) {
-        console.error('Error finding object:', err);
-        return res.status(500).send('Internal Server Error');
-      }
 
-      if (!object) {
-        return res.status(404).send('Object not found');
-      }
-      else {
-        console.log(object);
-      }
+    try {
+        const object = await Prjmanager.findById(companyID);
 
-      const nestedIndex = object.prjmanagers.findIndex(nestedObj => nestedObj.id === prjmanagerID);
-      if (nestedIndex === -1) {
-        return res.status(404).send('Nested object not found');
-      }
-      else {
-        console.log(nestedIndex);
-      }
-
-      object.prjmanagers.splice(nestedIndex, 1);
-      object.save((err) => {
-        if (err) {
-          console.error('Error saving object:', err);
-          return res.status(500).send('Internal Server Error');
+        if (!object) {
+            return res.status(404).send('Object not found');
         }
-        res.send('Object removed successfully');
-      });
-    })
 
-  },
+        const nestedIndex = object.prjmanagers.findIndex(nestedObj => nestedObj.id === prjmanagerID);
+
+        if (nestedIndex === -1) {
+            return res.status(404).send('Nested object not found');
+        }
+
+        object.prjmanagers.splice(nestedIndex, 1);
+        await object.save();
+
+        res.send('Object removed successfully');
+    } catch (error) {
+        console.error('Error removing object:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+},
+
   //put
 
-  editPrjmanagerDetails: async (req, res) => {
+
+
+editPrjmanagerDetails: async (req, res) => {
     const { companyID, prjmanagerID } = req.params;
-    const updatedprjmanagerData = req.body; // Assuming the updated data is sent in the request body
+    const updatedPrjmanagerData = req.body;
 
-    Prjmanager.findById(companyID, (err, object) => {
-      if (err) {
-        console.error('Error finding object:', err);
-        return res.status(500).send('Internal Server Error');
-      }
+    try {
+        const object = await Prjmanager.findById(companyID);
 
-      if (!object) {
-        return res.status(404).send('Object not found');
-      }
-      else {
-        console.log("ok");
-      }
-
-      const nestedPrjmanager = object.prjmanagers.find(nestedObj => nestedObj.id === prjmanagerID);
-      console.log(nestedPrjmanager)
-
-      if (!nestedPrjmanager) {
-        return res.status(404).send('Nested object not found');
-      }
-      else {
-        console.log(nestedPrjmanager, "here");
-      }
-
-      // Update the prjmanager's data with the provided updatedCustomerData
-      Object.assign(nestedPrjmanager, updatedprjmanagerData);
-
-      object.save((err) => {
-        if (err) {
-          console.error('Error saving object:', err);
-          return res.status(500).send('Internal Server Error');
+        if (!object) {
+            return res.status(404).send('Object not found');
         }
 
-        res.send('Object updated successfully');
-      });
-    });
-  },
+        const nestedPrjmanager = object.prjmanagers.find(nestedObj => nestedObj.id === prjmanagerID);
 
+        if (!nestedPrjmanager) {
+            return res.status(404).send('Nested object not found');
+        }
+
+        Object.assign(nestedPrjmanager, updatedPrjmanagerData);
+
+        await object.save();
+
+        res.send('Object updated successfully');
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+},
 
   // get by id
 

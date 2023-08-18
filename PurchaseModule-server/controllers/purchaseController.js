@@ -56,85 +56,65 @@ module.exports = {
     //     }
     // },
 
-    deletePurchase: async (req, res) => {
-        const { companyID, salesID } = req.params;
+// Assuming you're using an async function
+deletePurchase : async (req, res) => {
+    const { companyID, salesID } = req.params;
 
-        Purchase.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+    try {
+        const object = await Purchase.findById(companyID);
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log(object);
-            }
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            const nestedIndex = object.purchases.findIndex(nestedObj => nestedObj.id === salesID);
-            if (nestedIndex === -1) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedIndex);
-            }
+        const nestedIndex = object.purchases.findIndex(nestedObj => nestedObj.id === salesID);
+        if (nestedIndex === -1) {
+            return res.status(404).send('Nested object not found');
+        }
 
-            object.purchases.splice(nestedIndex, 1);
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        object.purchases.splice(nestedIndex, 1);
+        await object.save();
 
-                res.send('Object removed successfully');
-            });
-
-        })
-    },
+        res.send('Object removed successfully');
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Internal Server Error');
+    }
+},
 
     //put
 
-    updatePurchase: async (req, res) => {
-        const { companyID, salesID } = req.params;
-        const updatedpurchaseData = req.body; // Assuming the updated data is sent in the request body
 
-        Purchase.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+updatePurchase: async (req, res) => {
+    const { companyID, salesID } = req.params;
+    const updatedPurchaseData = req.body;
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log("ok");
-            }
+    try {
+        const object = await Purchase.findById(companyID);
 
-            const nestedPurchase = object.purchases.find(nestedObj => nestedObj.id === salesID);
-            console.log(nestedPurchase)
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            if (!nestedPurchase) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedPurchase, "here");
-            }
+        const nestedPurchase = object.purchases.find(
+            nestedObj => nestedObj.id === salesID
+        );
 
-            // Update the purchase's data with the provided updatedCustomerData
-            Object.assign(nestedPurchase, updatedpurchaseData);
+        if (!nestedPurchase) {
+            return res.status(404).send('Nested object not found');
+        }
 
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        // Update the purchase's data with the provided updatedPurchaseData
+        Object.assign(nestedPurchase, updatedPurchaseData);
 
-                res.send('Object updated successfully');
-            });
-        });
-    },
+        await object.save();
+
+        res.send('Object updated successfully');
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
 
     //count
     getcount: async (req, res) => {

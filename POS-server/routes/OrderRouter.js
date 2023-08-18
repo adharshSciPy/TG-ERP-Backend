@@ -16,13 +16,13 @@ router.get("/orderdetails", OrderController.orderdetails);
 
 // router.delete("/deleteorder/:id", OrderController.deleteorder);
 
-router.delete("/deleteorder/:companyID/:salesID", OrderController.deleteorder);
+router.delete("/deleteorder/:companyID/:orderID", OrderController.deleteOrder);
 
 //put
 
 // router.put("/updateorder/:id", OrderController.updateorder);
 
-router.put("/updateorder/:companyID/:salesID", OrderController.updateorder);
+router.put("/updateorder/:companyID/:orderID", OrderController.updateOrder);
 
 // get by id
 

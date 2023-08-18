@@ -105,82 +105,64 @@ module.exports = {
   },
 
   deleteCustomer: async (req, res) => {
-    const { companyID, customerID } = req.params;
-    
-    Customer.findById(companyID, (err, object) => {
-      if (err) {
-        console.error('Error finding object:', err);
-        return res.status(500).send('Internal Server Error');
+      const { companyID, customerID } = req.params;
+  
+      try {
+          const object = await Customer.findById(companyID);
+  
+          if (!object) {
+              return res.status(404).send('Object not found');
+          }
+  
+          const nestedIndex = object.customers.findIndex(
+              nestedObj => nestedObj.id === customerID
+          );
+  
+          if (nestedIndex === -1) {
+              return res.status(404).send('Nested object not found');
+          }
+  
+          object.customers.splice(nestedIndex, 1);
+          await object.save();
+  
+          res.send('Object removed successfully');
+      } catch (error) {
+          console.error('Error deleting object:', error.message);
+          return res.status(500).send('Internal Server Error');
       }
+  },
 
+  updateCustomer: async (req, res) => {
+    const { companyID, customerID } = req.params;
+    const updatedCustomerData = req.body;
+  
+    try {
+      const object = await Customer.findById(companyID);
+  
       if (!object) {
         return res.status(404).send('Object not found');
       }
-      else{
-        console.log(object);
-      }
-
-      const nestedIndex = object.customers.findIndex(nestedObj => nestedObj.id === customerID);
-      if (nestedIndex === -1) {
+  
+      const nestedCustomer = object.customers.find(
+        nestedObj => nestedObj.id === customerID
+      );
+  
+      if (!nestedCustomer) {
         return res.status(404).send('Nested object not found');
       }
-      else{
-        console.log(nestedIndex);
-      }
-
-      object.customers.splice(nestedIndex, 1);
-      object.save((err) => {
-        if (err) {
-          console.error('Error saving object:', err);
-          return res.status(500).send('Internal Server Error');
-        }
   
-        res.send('Object removed successfully');
-      });
-    
-    })
-     
-
-
-},
-updateCustomer: async (req, res) => {
-  const { companyID, customerID } = req.params;
-  const updatedCustomerData = req.body; // Assuming the updated data is sent in the request body
-   console.log(updatedCustomerData);
-  Customer.findById(companyID, (err, object) => {
-    if (err) {
-      console.error('Error finding object:', err);
+      // Update the customer's data with the provided updatedCustomerData
+      Object.assign(nestedCustomer, updatedCustomerData);
+  
+      await object.save();
+  
+      res.send('Object updated successfully');
+    } catch (error) {
+      console.error('Error updating object:', error.message);
       return res.status(500).send('Internal Server Error');
     }
-
-    if (!object) {
-      return res.status(404).send('Object not found');
-    }
-    else {
-      console.log(object);
-    }
-
-    const nestedCustomer = object.customers.find(nestedObj => nestedObj.id === customerID);
-    if (!nestedCustomer) {
-      return res.status(404).send('Nested object not found');
-    }
-    else {
-      console.log(nestedCustomer);
-    }
-
-    // Update the customer's data with the provided updatedCustomerData
-    Object.assign(nestedCustomer, updatedCustomerData);
-
-    object.save((err) => {
-      if (err) {
-        console.error('Error saving object:', err);
-        return res.status(500).send('Internal Server Error');
-      }
-
-      res.send('Object updated successfully');
-    });
-  });
-},
+  },
+  
   // updateCustomer: async (req, res) => {
   //   try {
   //     await Customer.findByIdAndUpdate(req.params.id, {

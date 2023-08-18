@@ -54,83 +54,64 @@ module.exports = {
     //     }
     // },
 
-    deletePurchaseitem: async (req, res) => {
-        const { companyID, salesID } = req.params;
+deletePurchaseitem: async (req, res) => {
+    const { companyID, salesID } = req.params;
 
-        Purchaseitem.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+    try {
+        const object = await Purchaseitem.findById(companyID);
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log(object);
-            }
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            const nestedIndex = object.purchaseitems.findIndex(nestedObj => nestedObj.id === salesID);
-            if (nestedIndex === -1) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedIndex);
-            }
+        const nestedIndex = object.purchaseitems.findIndex(
+            nestedObj => nestedObj.id === salesID
+        );
 
-            object.purchaseitems.splice(nestedIndex, 1);
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        if (nestedIndex === -1) {
+            return res.status(404).send('Nested object not found');
+        }
 
-                res.send('Object removed successfully');
-            });
+        object.purchaseitems.splice(nestedIndex, 1);
+        await object.save();
 
-        })
-    },
+        res.send('Object removed successfully');
+    } catch (error) {
+        console.error('Error deleting object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
 
-    updatePurchaseitem: async (req, res) => {
-        const { companyID, salesID } = req.params;
-        const updatedpurchaseitemData = req.body; // Assuming the updated data is sent in the request body
+updatePurchaseitem: async (req, res) => {
+    const { companyID, salesID } = req.params;
+    const updatedpurchaseitemData = req.body;
 
-        Purchaseitem.findById(companyID, (err, object) => {
-            if (err) {
-                console.error('Error finding object:', err);
-                return res.status(500).send('Internal Server Error');
-            }
+    try {
+        const object = await Purchaseitem.findById(companyID);
 
-            if (!object) {
-                return res.status(404).send('Object not found');
-            }
-            else {
-                console.log("ok");
-            }
+        if (!object) {
+            return res.status(404).send('Object not found');
+        }
 
-            const nestedPurchaseitem = object.purchaseitems.find(nestedObj => nestedObj.id === salesID);
-            console.log(nestedPurchaseitem)
+        const nestedPurchaseitem = object.purchaseitems.find(
+            nestedObj => nestedObj.id === salesID
+        );
 
-            if (!nestedPurchaseitem) {
-                return res.status(404).send('Nested object not found');
-            }
-            else {
-                console.log(nestedPurchaseitem, "here");
-            }
+        if (!nestedPurchaseitem) {
+            return res.status(404).send('Nested object not found');
+        }
 
-            // Update the purchaseitem's data with the provided updatedCustomerData
-            Object.assign(nestedPurchaseitem, updatedpurchaseitemData);
+        // Update the purchaseitem's data with the provided updatedpurchaseitemData
+        Object.assign(nestedPurchaseitem, updatedpurchaseitemData);
 
-            object.save((err) => {
-                if (err) {
-                    console.error('Error saving object:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
+        await object.save();
 
-                res.send('Object updated successfully');
-            });
-        });
-    },
+        res.send('Object updated successfully');
+    } catch (error) {
+        console.error('Error updating object:', error.message);
+        return res.status(500).send('Internal Server Error');
+    }
+},
 
     getPurchaseitem: async (req, res) => {
         const purchase = req.params;

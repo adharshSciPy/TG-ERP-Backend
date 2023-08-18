@@ -50,6 +50,27 @@ const SalesSchema = new mongoose.Schema(
         OrderNumber:{
             type:Number
         },
+        SubTotal:{
+            type:Number
+        },
+        DiscountPercentage:{
+            type:Number
+        },
+        DiscountValue:{
+            type:Number
+        },
+        GST:{
+            type:Number
+        },
+        SGST:{
+            type:Number
+        },
+        GrandTotal:{
+            type:Number
+        },
+        Roundoff:{
+            type:Number
+        },
         SalesItems:[salesDetailsSchema],
         createdAt:{
             type:Date,

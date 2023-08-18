@@ -16,18 +16,18 @@ router.get("/categorydetails", CategoryController.categorydetails);
 
 // router.delete("/deletecategory/:id", CategoryController.deletecategory);
 
-router.delete("/deletecategory/:companyID/:salesID", CategoryController.deletecategory)
+router.delete("/deletecategory/:companyID/:categoryID", CategoryController.deleteCategory)
 
 //put
 
 // router.put("/updatecategory/:id", CategoryController.updatecategory);
 
-router.put("/updatecategory/:companyID/:salesID", CategoryController.updatecategory);
+router.put("/updatecategory/:companyID/:categoryID", CategoryController.updateCategory);
 
 // get by id
 
 router.get("/getcategory/:id", CategoryController.getcategory);
-router.get("/getcategoryById/:id/:CategoryID",CategoryController.getcategoryById)
+router.get("/getcategoryById/:id/:categoryID",CategoryController.getcategoryById)
 //count
 router.get("/getcount/:id", CategoryController.getcount);
 
