@@ -5,16 +5,16 @@ const salesDetailsSchema = new mongoose.Schema({
         type: String
     },
     ItemName: {
-        type: Number
+        type: String
     },
     Quantity: {
         type: Number
     },
     Price: {
-        type: String
+        type: Number
     },
     TotalPrice: {
-        type: String
+        type: Number
     }
 },
 { timestamps: true });
@@ -56,7 +56,7 @@ const SalesSchema = new mongoose.Schema(
         DiscountPercentage:{
             type:Number
         },
-        DiscountValue:{
+        DiscountAmount:{
             type:Number
         },
         GST:{

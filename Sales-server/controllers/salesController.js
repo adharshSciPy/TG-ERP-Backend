@@ -13,7 +13,7 @@ module.exports = {
     }
   },
   sales: async (req, res) => {
-    console.log(req.body.SalesDate);
+    console.log(req.body);
     const data = new Sales({
       saless: {
         CustomerName: req.body.CustomerName,
@@ -25,9 +25,9 @@ module.exports = {
         EmpId: req.body.EmpId,
         SalesDate: req.body.SalesDate,
         OrderNumber: req.body.OrderNumber,
-        SubTotalr: req.body.SubTotal,
-        DiscountPercentage: req.body.DiscountPercentage,
-        DiscountValue: req.body.DiscountValue,
+        SubTotal: req.body.SubTotal,
+        DiscountPercentage: req.body.discountPercentage,
+        DiscountAmount: req.body.discountAmount,
         GST: req.body.GST,
         SGST: req.body.SGST,
         GrandTotal: req.body.GrandTotal,

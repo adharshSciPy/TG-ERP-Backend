@@ -10,6 +10,7 @@ router.post("/signup", UserController.signup);
 router.post("/signin", UserController.signin);
 router.post('/auth', UserController.verifyToken)
 router.get(`/getuser/:id`,UserController.getUser)
+router.get('/getusers',UserController.users)
 router.put(`/initializeCompany/:id`,UserController.InitializeCompany)
 
 // POST request to handle the Google Login response.
